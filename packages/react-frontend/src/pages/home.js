@@ -1,25 +1,26 @@
 // pages/about.js
 
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 	return (
 		<div
-			style={{
+			/*style={{
 				display: "flex",
 				justifyContent: "centre",
 				alignItems: "centre",
 				height: "100vh",
                 background: "#dce3e6",
-                textAlign: "center"
+                textAlign: "center",
+			
                 
-			}}
+			}}*/
 		>
-			<center>
-                <h1>
-				    Home page
-			    </h1>
-            </center>
+			<div class="header">
+    <h1>NoteWorthy</h1>
+	<Link to="/sign-in" style={{color:'white'}}> Lets Get Started  </Link>
+    </div> 
 
 		</div>
 	);
