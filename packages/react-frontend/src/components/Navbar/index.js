@@ -14,7 +14,7 @@ const Navbar = () => {
 		<>
 			<Nav>
 				<NavMenu>
-					<NavLink to="/Home" >
+					<NavLink to="/" >
 						Home
 					</NavLink>
 					
