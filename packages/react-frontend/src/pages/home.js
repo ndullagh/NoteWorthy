@@ -17,9 +17,10 @@ const Home = () => {
                 
 			}}*/
 		>
-			<div class="header">
-    <h1>NoteWorthy</h1>
-	<Link to="/sign-in" style={{color:'white'}}> Lets Get Started  </Link>
+			<div class="homeTitle">
+    <h1>Welcome To <br></br> 
+		NoteWorthy</h1>
+	<Link to="/sign-in" className="signInLink" style={{color:'white'}}> Start Writing  </Link>
     </div> 
 
 		</div>
