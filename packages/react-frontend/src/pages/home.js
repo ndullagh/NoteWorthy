@@ -4,9 +4,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-	return (
-		<div
-			/*style={{
+  return (
+    <div
+    /*style={{
 				display: "flex",
 				justifyContent: "centre",
 				alignItems: "centre",
@@ -16,14 +16,16 @@ const Home = () => {
 			
                 
 			}}*/
-		>
-			<div class="header">
-    <h1>NoteWorthy</h1>
-	<Link to="/sign-in" style={{color:'white'}}> Lets Get Started  </Link>
-    </div> 
-
-		</div>
-	);
+    >
+      <div className="header">
+        <h1>NoteWorthy</h1>
+        <Link to="/sign-in" style={{ color: "white" }}>
+          {" "}
+          Lets Get Started{" "}
+        </Link>
+      </div>
+    </div>
+  );
 };
 
 export default Home;
