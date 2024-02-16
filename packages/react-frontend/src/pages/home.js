@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div
+    <div>
     /*style={{
 				display: "flex",
 				justifyContent: "centre",
@@ -16,16 +16,16 @@ const Home = () => {
 			
                 
 			}}*/
-    >
-      <div className="header">
-        <h1>NoteWorthy</h1>
-        <Link to="/sign-in" style={{ color: "white" }}>
-          {" "}
-          Lets Get Started{" "}
-        </Link>
-      </div>
-    </div>
-  );
+    
+			<div class="homeTitle">
+    <h1>Welcome To <br></br> 
+		NoteWorthy</h1>
+	<Link to="/sign-in" className="signInLink" style={{color:'white'}}> Start Writing  </Link>
+    </div> 
+
+		</div>
+	);
+
 };
 
 export default Home;
