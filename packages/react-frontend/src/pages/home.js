@@ -4,9 +4,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-	return (
-		<div
-			/*style={{
+  return (
+    <div>
+    /*style={{
 				display: "flex",
 				justifyContent: "centre",
 				alignItems: "centre",
@@ -16,7 +16,7 @@ const Home = () => {
 			
                 
 			}}*/
-		>
+    
 			<div class="homeTitle">
     <h1>Welcome To <br></br> 
 		NoteWorthy</h1>
@@ -25,6 +25,7 @@ const Home = () => {
 
 		</div>
 	);
+
 };
 
 export default Home;
