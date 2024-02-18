@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import Navbar from "./components/Navbar";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,16 +8,26 @@ import {
 } from "react-router-dom";
 import SignIn from "./pages/sign-in";
 import Home from "./pages/home";
+import Notebooks from "./pages/notebooks";
+import NoPage from "./pages/errorpage";
+import Layout from "./pages/layout";
+
 
 function App() {
   return (
+    <>
     <Router>
-      <Navbar />
       <Routes>
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/" element={<Home />} />
+        <Route path = "/" element={<Layout></Layout>}>
+          <Route path="/signin" element={<SignIn />} />
+          <Route index element={<Home />} />
+          <Route path="/notebook" element={<Notebooks/>}/>
+          <Route path="*" element={<NoPage />} />
+        </Route>
       </Routes>
     </Router>
+    </>
+    
   );
 }
 
