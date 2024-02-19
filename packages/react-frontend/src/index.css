@@ -13,7 +13,7 @@ code {
     "Courier New", monospace;
 }
 
-footer {
+/* footer {
   position: fixed;
   left: 0;
   bottom: 0;
@@ -21,4 +21,4 @@ footer {
   background-color: #323949;
   color: white;
   text-align: center;
-}
+} */

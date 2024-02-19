@@ -11,7 +11,6 @@ export default function Layout() {
       <body>
       <Outlet />
       </body>
-      <footer>hello</footer>
     </html>
   )
 }

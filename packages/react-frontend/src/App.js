@@ -11,11 +11,12 @@ import Home from "./pages/home";
 import Notebooks from "./pages/notebooks";
 import NoPage from "./pages/errorpage";
 import Layout from "./pages/layout";
-
+import Footer from "./components/footer"
 
 function App() {
   return (
-    <>
+    <div className="page-container">
+    <div className="content-wrap">
     <Router>
       <Routes>
         <Route path = "/" element={<Layout></Layout>}>
@@ -26,7 +27,10 @@ function App() {
         </Route>
       </Routes>
     </Router>
-    </>
+    </div>
+    
+    <Footer />
+    </div>
     
   );
 }
