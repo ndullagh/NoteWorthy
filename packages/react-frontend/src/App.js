@@ -15,7 +15,8 @@ import Layout from "./pages/layout";
 
 function App() {
   return (
-    <>
+    <div className="page-container">
+    <div className="content-wrap">
     <Router>
       <Routes>
         <Route path = "/" element={<Layout></Layout>}>
@@ -26,7 +27,8 @@ function App() {
         </Route>
       </Routes>
     </Router>
-    </>
+    </div>
+    </div>
     
   );
 }
