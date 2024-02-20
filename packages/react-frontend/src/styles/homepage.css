@@ -1,25 +1,22 @@
-.homeText{
-    font-size: 100px;
-    color: #323949;
-    margin-bottom: 50px;
-
+.homeText {
+  font-size: 100px;
+  color: #323949;
+  margin-bottom: 50px;
 }
-.homeBody{
-    display:block;
-    padding: 14%;
-    text-align: center;
-    background: whitesmoke;
-    color: lightgray;
-    font-size: 35px;
+.homeBody {
+  display: block;
+  padding: 11.5%;
+  text-align: center;
+  background: whitesmoke;
+  color: lightgray;
+  font-size: 35px;
+}
 
-  }
-  
-  .signInLink{
-   background: #4c5265;
-   padding: 15px;
-   border-radius: 5px;
-   text-decoration: none;
-   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  }
-  
-  
+.signInLink {
+  background: #4c5265;
+  padding: 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri,
+    "Trebuchet MS", sans-serif;
+}
