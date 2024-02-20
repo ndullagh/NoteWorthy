@@ -11,7 +11,7 @@ import Home from "./pages/home";
 import Notebooks from "./pages/notebooks";
 import NoPage from "./pages/errorpage";
 import Layout from "./pages/layout";
-import Footer from "./components/footer"
+
 
 function App() {
   return (
@@ -28,8 +28,6 @@ function App() {
       </Routes>
     </Router>
     </div>
-    
-    <Footer />
     </div>
     
   );
