@@ -44,6 +44,7 @@ export const NoteModal = () => {
             bg="#323949"
             fontWeight="bold"
             position="relative"
+            textAlign={"center"}
           >
             Create New Notebook
           </ModalHeader>
