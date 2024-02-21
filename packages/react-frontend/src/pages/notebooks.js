@@ -2,7 +2,7 @@ import React from "react";
 import Notebook from "../components/Notebook/notebook";
 import { SearchBar } from "../components/Searchbar/searchbar";
 import { Stack, Button } from "@chakra-ui/react";
-import "../styles/notepage.css"
+
 
 export default function Notebooks () {
     return (
