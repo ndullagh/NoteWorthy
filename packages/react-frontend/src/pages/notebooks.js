@@ -1,6 +1,6 @@
 import React from "react";
-import Notebook from "../components/Notebook/notebook";
-import { SearchBar } from "../components/Searchbar/searchbar";
+import Notebook from "../components/notebook";
+import { SearchBar } from "../components/searchbar";
 import { Stack, Button } from "@chakra-ui/react";
 
 
@@ -15,9 +15,6 @@ export default function Notebooks () {
           <SearchBar />
           <Button variant="solid" color={"white"} backgroundColor={"#0ba6ff"}>New Notebook</Button>
         </Stack>
-
-
-
       </div>
     );
   }
