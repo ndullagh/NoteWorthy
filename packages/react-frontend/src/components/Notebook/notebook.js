@@ -10,7 +10,7 @@ import "../../styles/notebook.css"
 export default function Notebook(props) {
   return (
       <div>
-        <Link className="notebook" to={`/${props.slug}`}>{props.title}</Link>
+        <Link style={{backgroundColor: props.color}} className="notebook" to={`/${props.slug}`}>{props.title}</Link>
       </div>
   );
 }
