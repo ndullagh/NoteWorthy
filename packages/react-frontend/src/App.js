@@ -1,6 +1,5 @@
-import React from "react";
+import React from 'react';
 import "./App.css";
-
 import {
   BrowserRouter as Router,
   Routes,
@@ -14,6 +13,17 @@ import Layout from "./pages/layout";
 
 
 function App() {
+
+  /*function getUser() {
+    const promise = fetch("Http://localhost:3000/users?name=Zaf", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return promise;
+  }*/
+
   return (
     <div className="page-container">
     <div className="content-wrap">
@@ -32,5 +42,7 @@ function App() {
     
   );
 }
+
+
 
 export default App;
