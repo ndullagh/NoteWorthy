@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 
 import ReactQuill from "react-quill";
 
-
 import "../styles/quill.css";
 
 export default function NoteEdit() {
@@ -33,7 +32,7 @@ export default function NoteEdit() {
         { indent: "+1" }
       ],
       ["link", "image"],
-      ["clean"],
+      ["clean"]
     ]
   };
 
@@ -76,10 +75,17 @@ export default function NoteEdit() {
         ></Input>
       </InputGroup>
       <InputGroup>
-        <Box w="90%" ml={5} mb={10} maxH={450} border="1px solid #949494" borderRadius={6}>
+        <Box
+          w="90%"
+          ml={5}
+          mb={10}
+          maxH={350}
+          border="1px solid #949494"
+          borderRadius={6}
+        >
           <ReactQuill
             style={{
-              height: "450px",
+              height: "350px",
               maxHeight: "450px",
               overflow: "auto"
             }}
@@ -97,11 +103,10 @@ export default function NoteEdit() {
         <Button ml={5} colorScheme="blue">
           Submit
         </Button>
-        <Button ml={5}  variant={"ghost"} onClick={handleCancel}>
+        <Button ml={5} variant={"ghost"} onClick={handleCancel}>
           Cancel
         </Button>
       </InputGroup>
-
     </div>
   );
 }
