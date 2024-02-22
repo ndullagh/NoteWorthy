@@ -28,7 +28,7 @@ function App() {
           <Route path="/notebook" element={<Notebooks/>}/>
           <Route path="/notebook/pages" element={<Pages/>}/>
           <Route path="/notebook/pages/view" element={<ViewNote/>}/>
-          <Route path="/notebook/pages/view" element={<NoteEdit/>}/>
+          <Route path="/notebook/pages/edit" element={<NoteEdit/>}/>
           <Route path="/notebook/results" element={<SearchResults/>}/>
           <Route path="*" element={<NoPage />} />
         </Route>
