@@ -13,9 +13,9 @@ app.use(express.json());
 
 //test endpoint
 app.get("/users", (req, res) => {
-    const name = req.query.name;
+    const username = req.query.username;
    
-    User.findUserByUserName(name).then((result) => {
+    User.findUserByUserName(username).then((result) => {
         const response = result === undefined ? []:result;
         res.send(response);
     })
