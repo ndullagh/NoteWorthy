@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import User from "./User-Services.js";
 import Notebook from "./Notebook-Services.js";
+import Note from "./Note-Services.js";
 
 
 
@@ -121,6 +122,98 @@ app.post("/notebooks", (req, res) => {
 });
 
 //Note endpoints
+app.get("/notes/by_user/:user_id", (req, res) => {
+    const user_id = req.params.user_id;
+    const key = req.query.key;
+    
+    if(key != undefined)
+    {
+        Note.findNotesByUserAndKey(user_id, key).then((result) => {
+            const response = result === undefined ? []:result;
+            res.send(response);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send('Internal Server Error')
+        });
+    }
+    else
+    {
+        Note.findNotesByUser(user_id).then((result) => {
+            const response = result === undefined ? []:result;
+            res.send(response);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send('Internal Server Error')
+        });
+    }
+    
+    
+});
+
+app.get("/notes/by_notebook/:notebook_id", (req, res) => {
+    const notebook_id = req.params.notebook_id;
+    const key = req.query.key;
+    
+    if(key != undefined)
+    {
+        Note.findNotesByNotebookAndKey(notebook_id, key).then((result) => {
+            const response = result === undefined ? []:result;
+            res.send(response);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send('Internal Server Error')
+        });
+    }
+    else
+    {
+        Note.findNotesByNotebook(notebook_id).then((result) => {
+            const response = result === undefined ? []:result;
+            res.send(response);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).send('Internal Server Error')
+        });
+    }
+    
+    
+});
+
+
+app.post("/notes", (req, res) => {
+    const noteToAdd = req.body;
+
+    Note.addNote(noteToAdd).then((addedNote) => {
+        res.status(201).send(addedNote); // 201 status code for successful resource creation
+      })
+      .catch((error) => {
+        /*console.log(error);*/
+        if (error.code === 11000 && error.keyPattern && error.keyValue) {
+            // Duplicate key error occurred
+            const field = Object.keys(error.keyPattern)[0];
+            const value = error.keyValue[field];
+            res.status(400).json({ message: `Duplicate key error: ${field} '${value}' already exists.` });
+        } else if (error.errors) {
+            // Mongoose validation error occurred
+            const validationErrors = Object.keys(error.errors).map((key) => {
+                return {
+                    field: key,
+                    message: error.errors[key].message
+                };
+            });
+            res.status(400).json({ errors: validationErrors });
+        } else {
+            // Other error occurred
+            console.log(error);
+            res.status(500).send('Internal Server Error');
+        }
+      });
+});
+
+
 
 app.listen(port, () => {
   console.log(
