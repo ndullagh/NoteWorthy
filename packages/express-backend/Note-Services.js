@@ -3,6 +3,9 @@ import notebookModel from "./Notebook.js"
 import mongoose from "./db.js"
 
 function findNotesByNotebookAndKey(notebook_id, key) {
+    if (!mongoose.Types.ObjectId.isValid(notebook_id)) {
+        return Promise.reject({ statusCode: 400, message: 'Bad request.' });
+    }
     return noteModel.find({ 
         $and: 
         [
@@ -18,8 +21,20 @@ function findNotesByNotebookAndKey(notebook_id, key) {
   }
 
 function findNotesByNotebook(notebookId) {
-    // Find all notebooks belonging to the user
-    return noteModel.find({notebook: notebookId});
+     // Check if the notebookId is valid
+     if (!mongoose.Types.ObjectId.isValid(notebookId)) {
+        return Promise.reject({ statusCode: 400, message: 'Bad request.' });
+    }
+
+    // Find the notebook by ID
+    return notebookModel.findById(notebookId)
+        .then(notebook => {
+            if (!notebook) {
+                return Promise.reject({ statusCode: 404, message: 'Resource Not Found.' });
+            }
+            // Notebook found, find notes by notebookId
+            return noteModel.find({ notebook: notebookId });
+        });
 }
 
 function addNote(note) {
@@ -31,10 +46,7 @@ function addNote(note) {
 function findNotesByUser(userId) {
     // Find all notebooks belonging to the user
     if (!mongoose.Types.ObjectId.isValid(userId)) {
-        const customError = new Error('Bad request.');
-        customError.code = '400';
-        throw customError;
-        
+        return Promise.reject({ statusCode: 400, message: 'Bad request.' });
     }
 
     return notebookModel.find({ user: userId })
@@ -48,16 +60,20 @@ function findNotesByUser(userId) {
             // Find all notes where the notebook field matches one of the notebook IDs
             return noteModel.find({ notebook: { $in: notebookIds } });
         })
-        .catch(error => {
+        /*.catch(error => {
             // Handle any errors that occur during the query
             console.error('Error finding notes by user:', error);
             // Rethrow the error to propagate it
             throw error;
-        });
+        });*/
 }
 
 function findNotesByUserAndKey(userId, key) {
     // Find all notebooks belonging to the user
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return Promise.reject({ statusCode: 400, message: 'Bad request.' });
+    }
+
     return notebookModel.find({ user: userId })
         .then(notebooks => {
             // Extract notebook IDs

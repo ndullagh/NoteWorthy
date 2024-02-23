@@ -108,12 +108,7 @@ app.post("/notebooks", (req, res) => {
       })
       .catch((error) => {
         /*console.log(error);*/
-        if (error.code === 11000 && error.keyPattern && error.keyValue) {
-            // Duplicate key error occurred
-            const field = Object.keys(error.keyPattern)[0];
-            const value = error.keyValue[field];
-            res.status(400).json({ message: `Duplicate key error: ${field} '${value}' already exists.` });
-        } else if (error.errors) {
+        if (error.errors) { // check on these errors
             // Mongoose validation error occurred
             const validationErrors = Object.keys(error.errors).map((key) => {
                 return {
@@ -187,11 +182,15 @@ app.get("/notes/by_user/:user_id", async (req, res) => {
         res.send(result || []); // Send result or empty array if result is undefined
     } catch (error) {
         console.error(error);
-        if (error.code === '400') {
-            res.status(400).send('Bad request'); // Handle 400 error
-        } else {
-            res.status(500).send('Internal server error'); // Handle other errors
-        }
+            if (error.statusCode === 400) {
+                res.status(400).send('Bad request.'); // Handle 400 error
+            } 
+            else if(error.statusCode === 404) {
+                res.status(404).send('Resource Not Found.'); // Handle 400 error
+            } 
+            else {
+                res.status(500).send('Internal server error'); // Handle other errors
+            }
     }
 });
 
@@ -206,7 +205,12 @@ app.get("/notes/by_notebook/:notebook_id", (req, res) => {
             res.send(response);
         })
         .catch((error) => {
-            console.log(error);
+            console.error(error);
+            if (error.statusCode === 400) {
+                res.status(400).send('Bad request.'); // Handle 400 error
+            } else {
+                res.status(500).send('Internal server error'); // Handle other errors
+            }
         });
     }
     else
@@ -216,7 +220,17 @@ app.get("/notes/by_notebook/:notebook_id", (req, res) => {
             res.send(response);
         })
         .catch((error) => {
-            console.log(error);
+            console.error(error);
+            if (error.statusCode === 400) {
+                res.status(400).send('Bad request.'); // Handle 400 error
+            } 
+            else if (error.statusCode === 404)
+            {
+                res.status(404).send('Resource Not Found.'); // Handle 400 error
+            }
+            else {
+                res.status(500).send('Internal server error'); // Handle other errors
+            }
         });
     }
     
@@ -230,14 +244,9 @@ app.post("/notes", (req, res) => {
     Note.addNote(noteToAdd).then((addedNote) => {
         res.status(201).send(addedNote); // 201 status code for successful resource creation
       })
-      .catch((error) => {
+      .catch((error) => { //check on these errors
         /*console.log(error);*/
-        if (error.code === 11000 && error.keyPattern && error.keyValue) {
-            // Duplicate key error occurred
-            const field = Object.keys(error.keyPattern)[0];
-            const value = error.keyValue[field];
-            res.status(400).json({ message: `Duplicate key error: ${field} '${value}' already exists.` });
-        } else if (error.errors) {
+        if (error.errors) {
             // Mongoose validation error occurred
             const validationErrors = Object.keys(error.errors).map((key) => {
                 return {
