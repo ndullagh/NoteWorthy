@@ -38,7 +38,7 @@ app.post("/users", (req, res) => {
         res.status(201).send(addedUser); // 201 status code for successful resource creation
       })
       .catch((error) => {
-        /*console.log(error);*/
+        console.log(error);
         if (error.code === 11000 && error.keyPattern && error.keyValue) {
             // Duplicate key error occurred
             const field = Object.keys(error.keyPattern)[0];
@@ -113,11 +113,12 @@ app.post("/notebooks", (req, res) => {
                 };
             });
             res.status(400).json({ errors: validationErrors });
+
         } else {
             // Other error occurred
             console.log(error);
-            res.status(500).send('Internal Server Error');
         }
+        console.log(error);
       });
 });
 
@@ -134,7 +135,6 @@ app.get("/notes/by_user/:user_id", (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send('Internal Server Error')
         });
     }
     else
@@ -145,7 +145,6 @@ app.get("/notes/by_user/:user_id", (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send('Internal Server Error')
         });
     }
     
@@ -164,7 +163,6 @@ app.get("/notes/by_notebook/:notebook_id", (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send('Internal Server Error')
         });
     }
     else
@@ -175,7 +173,6 @@ app.get("/notes/by_notebook/:notebook_id", (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send('Internal Server Error')
         });
     }
     
