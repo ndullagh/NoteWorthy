@@ -27,12 +27,14 @@ const NotebookSchema = new mongoose.Schema(
     }], 
     created: {
         type: Date,
+        required: true,
         default: Date.now // Set default value to current date and time when a new document is created
-      },
-      modified: {
+    },
+    modified: {
         type: Date,
+        required: true,
         default: Date.now // Set default value to current date and time when a new document is created
-      }
+    }
   },
   { collection: "nw_notebooks" }
 );

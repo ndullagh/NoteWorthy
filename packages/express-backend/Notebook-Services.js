@@ -1,8 +1,12 @@
 import notebookModel from "./Notebook.js";
 
-function findNotebookByUserIdAndName(user_id, name) {
-    return notebookModel.find({ user: user_id, name: name });
-  }
+function findNotebookByUserIdAndKey(user_id, key) {
+    return notebookModel.find({ user: user_id, name: {$regex: key, $options: 'i' }});
+}
+
+function findNotebookByUserId(user_id) {
+    return notebookModel.find({ user: user_id});
+}
 
 function addNotebook(nb) {
     const nbToAdd = new notebookModel(nb);
@@ -11,6 +15,7 @@ function addNotebook(nb) {
 }
 
 export default {
-    findNotebookByUserIdAndName,
+    findNotebookByUserIdAndKey,
+    findNotebookByUserId,
     addNotebook
 }
