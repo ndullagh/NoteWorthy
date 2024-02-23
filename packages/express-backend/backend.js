@@ -74,7 +74,11 @@ app.get("/notebooks/:user_id", (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send('Int')
+            if (error.code === '400') {
+                res.status(400).send('Bad request'); // Handle 400 error
+            } else {
+                res.status(500).send('Internal server error'); // Handle other errors
+            }
         });
     }
     else
@@ -85,6 +89,11 @@ app.get("/notebooks/:user_id", (req, res) => {
         })
         .catch((error) => {
             console.log(error);
+            if (error.code === '400') {
+                res.status(400).send('Bad request'); // Handle 400 error
+            } else {
+                res.status(500).send('Internal server error'); // Handle other errors
+            }
         });
     }
     
@@ -123,7 +132,7 @@ app.post("/notebooks", (req, res) => {
 });
 
 //Note endpoints
-app.get("/notes/by_user/:user_id", (req, res) => {
+/*app.get("/notes/by_user/:user_id", (req, res) => {
     const user_id = req.params.user_id;
     const key = req.query.key;
     
@@ -135,6 +144,11 @@ app.get("/notes/by_user/:user_id", (req, res) => {
         })
         .catch((error) => {
             console.log(error);
+            if (error.code === '400') {
+                res.status(400).send('Bad request'); // Handle 400 error
+            } else {
+                res.status(500).send('Internal server error'); // Handle other errors
+            }
         });
     }
     else
@@ -145,10 +159,38 @@ app.get("/notes/by_user/:user_id", (req, res) => {
         })
         .catch((error) => {
             console.log(error);
+            if (error.code === '400') {
+                res.status(400).send('Bad request'); // Handle 400 error
+            } else {
+                res.status(500).send('Internal server error'); // Handle other errors
+            }
         });
     }
     
     
+});*/
+
+//pieced together from the internet, not sure how the async/await stuff works yet
+app.get("/notes/by_user/:user_id", async (req, res) => {
+    const user_id = req.params.user_id;
+    const key = req.query.key;
+    
+    try {
+        let result;
+        if (key !== undefined) {
+            result = await Note.findNotesByUserAndKey(user_id, key);
+        } else {
+            result = await Note.findNotesByUser(user_id);
+        }
+        res.send(result || []); // Send result or empty array if result is undefined
+    } catch (error) {
+        console.error(error);
+        if (error.code === '400') {
+            res.status(400).send('Bad request'); // Handle 400 error
+        } else {
+            res.status(500).send('Internal server error'); // Handle other errors
+        }
+    }
 });
 
 app.get("/notes/by_notebook/:notebook_id", (req, res) => {
