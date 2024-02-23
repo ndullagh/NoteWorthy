@@ -122,6 +122,8 @@ app.post("/notebooks", (req, res) => {
                 };
             });
             res.status(400).json({ errors: validationErrors });
+        } else if (error.message === 'User does not exist') {
+            res.status(400).json({ message: 'User does not exist' });
 
         } else {
             // Other error occurred

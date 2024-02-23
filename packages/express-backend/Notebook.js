@@ -39,6 +39,20 @@ const NotebookSchema = new mongoose.Schema(
   { collection: "nw_notebooks" }
 );
 
+// Define a pre-save hook to check if the provided user ID exists in the User collection
+NotebookSchema.pre('save', async function(next) {
+    try {
+      const UserModel = mongoose.model('User');
+      const userExists = await UserModel.exists({ _id: this.user });
+      if (!userExists) {
+        throw new Error('User does not exist');
+      }
+      next();
+    } catch (error) {
+      next(error);
+    }
+  });
+
 const Notebook = mongoose.model("Notebook", NotebookSchema);
 
 export default Notebook;
