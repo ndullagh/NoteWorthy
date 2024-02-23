@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from "./db.js";
 
 
 
@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema(
     username: {
       type: String,
       required: true,
+      unique: true,
       trim: true,
     },
     password: {
@@ -14,12 +15,12 @@ const UserSchema = new mongoose.Schema(
       required: true,
       trim: true,
       /*validate(value) {
-        
       }, //use to enforce password requirements. passwords must be hashed before being entered. */
     },
     email: {
         type: String,
         required: true,
+        unique: true,
         trim: true,
       },
   },
