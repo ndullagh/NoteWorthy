@@ -22,10 +22,6 @@ const UserSchema = new mongoose.Schema(
         required: true,
         trim: true,
       },
-    notebooks: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Notebook'
-      }]
   },
   { collection: "nw_users" }
 );
