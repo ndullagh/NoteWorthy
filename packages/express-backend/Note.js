@@ -35,6 +35,20 @@ const NoteSchema = new mongoose.Schema(
   { collection: "nw_notes" }
 );
 
+NoteSchema.pre('save', async function(next) {
+  try {
+    const NotebookModel = mongoose.model('Notebook');
+    const notebookExists = await NotebookModel.exists({ _id: this.notebook });
+    if (!notebookExists) {
+      throw new Error('Notebook does not exist');
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 const Note = mongoose.model("Note", NoteSchema);
 
 export default Note;

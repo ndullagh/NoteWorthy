@@ -111,6 +111,7 @@ app.post("/notebooks", (req, res) => {
         if (error.errors) { // check on these errors
             // Mongoose validation error occurred
             const validationErrors = Object.keys(error.errors).map((key) => {
+                res.status(400).send(error.errors[key].message)
                 return {
                     field: key,
                     message: error.errors[key].message
@@ -118,7 +119,7 @@ app.post("/notebooks", (req, res) => {
             });
             res.status(400).json({ errors: validationErrors });
         } else if (error.message === 'User does not exist') {
-            res.status(400).json({ message: 'User does not exist' });
+            res.status(404).json({ message: 'User does not exist' });
 
         } else {
             // Other error occurred
@@ -246,20 +247,24 @@ app.post("/notes", (req, res) => {
       })
       .catch((error) => { //check on these errors
         /*console.log(error);*/
-        if (error.errors) {
+        if (error.errors) { // check on these errors
             // Mongoose validation error occurred
             const validationErrors = Object.keys(error.errors).map((key) => {
+                res.status(400).send(error.errors[key].message)
                 return {
                     field: key,
                     message: error.errors[key].message
                 };
             });
             res.status(400).json({ errors: validationErrors });
+        } else if (error.message === 'Notebook does not exist') {
+            res.status(404).json({ message: 'Notebook does not exist' });
+
         } else {
             // Other error occurred
             console.log(error);
-            res.status(500).send('Internal Server Error');
         }
+        console.log(error);
       });
 });
 
