@@ -6,15 +6,11 @@ import Notebook from "./Notebook-Services.js";
 import Note from "./Note-Services.js";
 
 
-
 const app = express();
 const port = 8000;
 app.use(cors());
 app.use(express.json());
-/*app.use((error, req, res, next) => {
-    console.error(error); // Log the error
-    res.status(400).send('Bad Request'); // Send an error response
-});*/
+
 
 //user endpoints
 //get user by username or id
@@ -59,10 +55,7 @@ app.get("/users", (req, res) => {
             }
         });
     }
-    /*else
-    {
-        User.findAllUsers
-    }*/
+    
     
     
   });

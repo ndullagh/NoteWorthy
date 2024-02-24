@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function NoPage() {
+export default function ViewNote() {
   return (
     <div>
       <center>
-        <h1>404: Page Note Found</h1>
+        <h1>View Note</h1>
       </center>
     </div>
   );
