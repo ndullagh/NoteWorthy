@@ -29,4 +29,7 @@ const UserSchema = new mongoose.Schema(
 
 const User = mongoose.model("User", UserSchema);
 
+//note: it's in the mongodb database rather than encoded in here (it shouldn't be but i'm tired),
+//but users may not have duplicate usernames or emails
+
 export default User;

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv"
 
-//dotenv stuff should prob be in a separate file but it wasn't working so I stuck it here for now
+//dotenv stuff for everything else to use, import from here instead of from mongoose
 dotenv.config();
 mongoose.set("debug", true);
 

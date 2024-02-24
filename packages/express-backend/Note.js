@@ -34,7 +34,7 @@ const NoteSchema = new mongoose.Schema(
   },
   { collection: "nw_notes" }
 );
-
+//notebook containing the note must exist
 NoteSchema.pre('save', async function(next) {
   try {
     const NotebookModel = mongoose.model('Notebook');

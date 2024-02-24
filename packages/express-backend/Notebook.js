@@ -40,6 +40,7 @@ const NotebookSchema = new mongoose.Schema(
 );
 
 // Define a pre-save hook to check if the provided user ID exists in the User collection
+//user owner MUST exist in user collection
 NotebookSchema.pre('save', async function(next) {
     try {
       const UserModel = mongoose.model('User');

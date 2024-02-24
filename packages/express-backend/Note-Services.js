@@ -163,11 +163,29 @@ function findNotesByUserAndKey(userId, key) {
         });
 }
 
+function noteDelete(id)
+{
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return Promise.reject({ statusCode: 400, message: 'Bad Request' });
+    }
+    return noteModel.findByIdAndDelete(id).then(note => {
+        if(!note)
+        {
+            return Promise.reject({ statusCode: 404, message: 'Resource Not Found' });
+        }
+        else
+        {
+            return note;
+        }
+    });
+}
+
 export default {
     findNoteById,
     findNotesByNotebookAndKey,
     findNotesByNotebook,
     findNotesByUser,
     findNotesByUserAndKey,
-    addNote
+    addNote,
+    noteDelete
 }
