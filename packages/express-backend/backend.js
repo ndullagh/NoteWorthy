@@ -11,23 +11,59 @@ const app = express();
 const port = 8000;
 app.use(cors());
 app.use(express.json());
-app.use((error, req, res, next) => {
+/*app.use((error, req, res, next) => {
     console.error(error); // Log the error
     res.status(400).send('Bad Request'); // Send an error response
-});
+});*/
 
 //user endpoints
 //test endpoint
-app.get("/users?username=<name>", (req, res) => {
+app.get("/users", (req, res) => {
     const username = req.query.username;
-   
-    User.findUserByUserName(username).then((result) => {
-        const response = result === undefined ? []:result;
-        res.send(response);
-    })
-    .catch((error) => {
-        console.log(error);
-    });
+    const _id = req.query._id;
+
+    if(username != undefined)
+    {
+        User.findUserByUserName(username).then((result) => {
+            if(result.length === 0)
+            {
+                res.status(404).send('Resource Not Found.');
+            }
+            else{
+                res.status(200).send(result);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+    else if (_id != undefined)
+    {
+        User.findUserById(_id).then((result => {
+            if(!result)
+            {
+                res.status(404).send('Resource Not Found.');
+            }
+            else
+            {
+                res.status(200).send(result);
+            }
+        }))
+        .catch((error) => {
+            console.log(error);
+            console.log("Error status code:", error.statusCode);
+            if (error.statusCode === 400) {
+                res.status(400).send('Bad Request'); // Handle 400 error
+            } else {
+                res.status(500).send('Internal Server Error'); // Handle other errors
+            }
+        });
+    }
+    /*else
+    {
+        User.findAllUsers
+    }*/
+    
     
   });
 
@@ -63,19 +99,44 @@ app.post("/users", (req, res) => {
 
 //Notebook endpoints
 
-app.get("/notebooks/:user_id", (req, res) => {
-    const user_id = req.params.user_id;
+
+app.get("/notebooks", (req, res) => {
+    const user_id = req.query.user_id;
     const key = req.query.key;
-    if(key != undefined)
+    const _id = req.query._id;
+
+    if(_id != undefined)
+    {
+        Notebook.findNotebookById(_id).then((result => {
+            if(!result)
+            {
+                res.status(404).send('Resource Not Found.');
+            }
+            else
+            {
+                res.status(200).send(result);
+            }
+        }))
+        .catch((error) => {
+            console.log(error);
+            console.log("Error status code:", error.statusCode);
+            if (error.statusCode === 400) {
+                res.status(400).send('Bad Request'); // Handle 400 error
+            } else {
+                res.status(500).send('Internal Server Error'); // Handle other errors
+            }
+        });
+    }
+    else if(key != undefined)
     {
         Notebook.findNotebookByUserIdAndKey(user_id, key).then((result) => {
             const response = result === undefined ? []:result;
-            res.send(response);
+            res.status(200).send(response);
         })
         .catch((error) => {
             console.log(error);
             if (error.code === '400') {
-                res.status(400).send('Bad request'); // Handle 400 error
+                res.status(400).send('Bad Request'); // Handle 400 error
             } else {
                 res.status(500).send('Internal server error'); // Handle other errors
             }
@@ -90,7 +151,7 @@ app.get("/notebooks/:user_id", (req, res) => {
         .catch((error) => {
             console.log(error);
             if (error.code === '400') {
-                res.status(400).send('Bad request'); // Handle 400 error
+                res.status(400).send('Bad Request'); // Handle 400 error
             } else {
                 res.status(500).send('Internal server error'); // Handle other errors
             }
@@ -130,100 +191,25 @@ app.post("/notebooks", (req, res) => {
 });
 
 //Note endpoints
-/*app.get("/notes/by_user/:user_id", (req, res) => {
-    const user_id = req.params.user_id;
-    const key = req.query.key;
-    
-    if(key != undefined)
-    {
-        Note.findNotesByUserAndKey(user_id, key).then((result) => {
-            const response = result === undefined ? []:result;
-            res.send(response);
-        })
-        .catch((error) => {
-            console.log(error);
-            if (error.code === '400') {
-                res.status(400).send('Bad request'); // Handle 400 error
-            } else {
-                res.status(500).send('Internal server error'); // Handle other errors
-            }
-        });
-    }
-    else
-    {
-        Note.findNotesByUser(user_id).then((result) => {
-            const response = result === undefined ? []:result;
-            res.send(response);
-        })
-        .catch((error) => {
-            console.log(error);
-            if (error.code === '400') {
-                res.status(400).send('Bad request'); // Handle 400 error
-            } else {
-                res.status(500).send('Internal server error'); // Handle other errors
-            }
-        });
-    }
-    
-    
-});*/
 
-//pieced together from the internet, not sure how the async/await stuff works yet
-app.get("/notes/by_user/:user_id", async (req, res) => {
-    const user_id = req.params.user_id;
+app.get("/notes", (req, res) => {
+    const user_id = req.query.user_id;
+    const notebook_id = req.query.notebook_id;
     const key = req.query.key;
-    
-    try {
-        let result;
-        if (key !== undefined) {
-            result = await Note.findNotesByUserAndKey(user_id, key);
-        } else {
-            result = await Note.findNotesByUser(user_id);
-        }
-        res.send(result || []); // Send result or empty array if result is undefined
-    } catch (error) {
-        console.error(error);
-            if (error.statusCode === 400) {
-                res.status(400).send('Bad request.'); // Handle 400 error
-            } 
-            else if(error.statusCode === 404) {
-                res.status(404).send('Resource Not Found.'); // Handle 400 error
-            } 
-            else {
-                res.status(500).send('Internal server error'); // Handle other errors
-            }
-    }
-});
-
-app.get("/notes/by_notebook/:notebook_id", (req, res) => {
-    const notebook_id = req.params.notebook_id;
-    const key = req.query.key;
-    
-    if(key != undefined)
+    const _id = req.query._id;
+    if(_id != undefined)
     {
-        Note.findNotesByNotebookAndKey(notebook_id, key).then((result) => {
-            const response = result === undefined ? []:result;
-            res.send(response);
+        Note.findNoteById(_id).then((result) => {
+            if(!result)
+            {
+                res.status(404).send('Resource Not Found')
+            }
+            res.status(200).send(result);
         })
         .catch((error) => {
             console.error(error);
             if (error.statusCode === 400) {
-                res.status(400).send('Bad request.'); // Handle 400 error
-            } else {
-                res.status(500).send('Internal server error'); // Handle other errors
-            }
-        });
-    }
-    else
-    {
-        Note.findNotesByNotebook(notebook_id).then((result) => {
-            const response = result === undefined ? []:result;
-            res.send(response);
-        })
-        .catch((error) => {
-            console.error(error);
-            if (error.statusCode === 400) {
-                res.status(400).send('Bad request.'); // Handle 400 error
+                res.status(400).send('Bad Request'); // Handle 400 error
             } 
             else if (error.statusCode === 404)
             {
@@ -234,9 +220,95 @@ app.get("/notes/by_notebook/:notebook_id", (req, res) => {
             }
         });
     }
-    
+    else if(user_id != undefined)
+    {
+        if(key != undefined)
+        {
+            Note.findNotesByUserAndKey(user_id, key).then((result) => {
+                const response = result === undefined ? []:result;
+                res.send(response);
+            })
+            .catch((error) => {
+                console.error(error);
+                if (error.statusCode === 400) {
+                    res.status(400).send('Bad Request'); // Handle 400 error
+                } 
+                else if (error.statusCode === 404) {
+                    res.status(404).send('Resource Not Found'); // Handle 400 error
+                } 
+                else {
+                    res.status(500).send('Internal server error'); // Handle other errors
+                }
+            });
+        }
+        else
+        {
+            Note.findNotesByUser(user_id).then((result) => {
+                const response = result === undefined ? []:result;
+                res.send(response);
+            })
+            .catch((error) => {
+                console.error(error);
+                if (error.statusCode === 400) {
+                    res.status(400).send('Bad Request'); // Handle 400 error
+                } 
+                else if (error.statusCode === 404)
+                {
+                    res.status(404).send('Resource Not Found.'); // Handle 400 error
+                }
+                else {
+                    res.status(500).send('Internal server error'); // Handle other errors
+                }
+            });
+        }
+    }
+    else if(notebook_id != undefined)
+    {
+        if(key != undefined)
+        {
+            Note.findNotesByNotebookAndKey(notebook_id, key).then((result) => {
+                const response = result === undefined ? []:result;
+                res.send(response);
+            })
+            .catch((error) => {
+                console.error(error);
+                if (error.statusCode === 400) {
+                    res.status(400).send('Bad Request'); // Handle 400 error
+                }
+                else if (error.statusCode === 404)
+                {
+                    res.status(404).send('Resource Not Found.'); // Handle 400 error
+                } 
+                else {
+                    res.status(500).send('Internal server error'); // Handle other errors
+                }
+            });
+        }
+        else
+        {
+            Note.findNotesByNotebook(notebook_id).then((result) => {
+                const response = result === undefined ? []:result;
+                res.send(response);
+            })
+            .catch((error) => {
+                console.error(error);
+                if (error.statusCode === 400) {
+                    res.status(400).send('Bad Request'); // Handle 400 error
+                } 
+                else if (error.statusCode === 404)
+                {
+                    res.status(404).send('Resource Not Found.'); // Handle 400 error
+                }
+                else {
+                    res.status(500).send('Internal server error'); // Handle other errors
+                }
+            });
+        }
+    }
     
 });
+
+
 
 
 app.post("/notes", (req, res) => {
