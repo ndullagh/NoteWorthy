@@ -54,6 +54,10 @@ app.get("/users", (req, res) => {
                 res.status(500).send('Internal Server Error'); // Handle other errors
             }
         });
+
+    }
+    else{
+        res.status(400).send('Bad Request'); // Handle 400 error
     }
     
     
