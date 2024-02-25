@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Button, InputGroup } from "@chakra-ui/react";
 
 export default function ViewNote() {
   const noteval = { _id: "65dad0b16dcd1b5c6f2653d5" };
@@ -26,7 +26,7 @@ export default function ViewNote() {
 
   return (
     <div>
-      <Box pl={"5%"} textAlign={"left"} pb={12} mt={5}>
+      <Box pl={"5%"} textAlign={"left"} pb={6} mt={3}>
         <h1 style={{ textAlign: "left", paddingBottom: 10 }}>
           {note.title}
         </h1>
@@ -48,6 +48,9 @@ export default function ViewNote() {
           />
         </Box>
       </center>
+      <InputGroup ml={"5%"} mt={2}>
+        <Button colorScheme="blue">Edit Note</Button>
+      </InputGroup>
     </div>
   );
 }
