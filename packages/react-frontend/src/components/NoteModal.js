@@ -57,7 +57,6 @@ export const NoteModal = (props) => {
       name: title,
       color: color
     };
-    console.log(newBook);
     updateNotebooks(newBook);
   }
   return (
