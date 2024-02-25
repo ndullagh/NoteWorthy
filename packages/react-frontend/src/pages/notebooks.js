@@ -32,7 +32,7 @@ export default function Notebooks() {
           <Notebook
             title={book.name}
             color={book.color}
-            slug={"/notebooks/pages"}
+            slug={"notebook/pages"}
           />
         </div>
       ))}
