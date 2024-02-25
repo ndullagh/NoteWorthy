@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box } from "@chakra-ui/react";
 
 export default function ViewNote() {
-  const noteval = { _id: "65dac6256dcd1b5c6f26531b" };
+  const noteval = { _id: "65dad0b16dcd1b5c6f2653d5" };
 
   const [note, setNote] = useState([]);
 
@@ -16,7 +16,9 @@ export default function ViewNote() {
   useEffect(() => {
     fetchNote(noteval._id)
       .then((res) => res.json())
-      .then((json) => setNote(json))
+      .then((json) => {
+        setNote(json);
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -24,11 +26,28 @@ export default function ViewNote() {
 
   return (
     <div>
-      <Box pl={5}>
-        <div
-          dangerouslySetInnerHTML={{ __html: note.contents }}
-        />
+      <Box pl={"5%"} textAlign={"left"} pb={12} mt={5}>
+        <h1 style={{ textAlign: "left", paddingBottom: 10 }}>
+          {note.title}
+        </h1>
+        <h5>
+          Last Modified:{" "}
+          {new Date(note.modified).toDateString()}
+        </h5>
       </Box>
+      <center>
+        <Box
+          border={"1px solid #949494"}
+          width={"90%"}
+          height={"350px"}
+          overflow={"scroll"}
+          backgroundColor={"#d3d3d3"}
+        >
+          <div
+            dangerouslySetInnerHTML={{ __html: note.contents }}
+          />
+        </Box>
+      </center>
     </div>
   );
 }
