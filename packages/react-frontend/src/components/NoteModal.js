@@ -37,28 +37,28 @@ export const NoteModal = (props) => {
     return promise;
   }
 
-
   function updateNotebooks(notebook) {
     postBook(notebook)
       .then((res) => {
         if (res.status !== 201) throw new Error("Not Added!");
         return res.json();
       })
-      .then((json) => props.setNotebooks([...props.notebooks, json]))
+      .then((json) =>
+        props.setNotebooks([...props.notebooks, json])
+      )
       .catch((error) => {
         console.log(error);
       });
   }
 
-
   function onSubmit() {
     const newBook = {
-      user:props.user._id,
-      name:title,
-      color:color
-    }
-    console.log(newBook)
-    updateNotebooks(newBook)
+      user: props.user._id,
+      name: title,
+      color: color
+    };
+    console.log(newBook);
+    updateNotebooks(newBook);
   }
   return (
     <>
@@ -92,7 +92,12 @@ export const NoteModal = (props) => {
           <ModalBody>
             <FormControl>
               <FormLabel>Notebook Name</FormLabel>
-              <Input variant={"outline"} onChange={(name) => setTitle(name.currentTarget.value)}/>
+              <Input
+                variant={"outline"}
+                onChange={(name) =>
+                  setTitle(name.currentTarget.value)
+                }
+              />
             </FormControl>
 
             <FormControl>
@@ -100,12 +105,14 @@ export const NoteModal = (props) => {
               <Select
                 icon={<ChevronDownIcon />}
                 placeholder="Choose Color"
-                onChange={(color) => setColor(color.currentTarget.value)}
+                onChange={(color) =>
+                  setColor(color.currentTarget.value)
+                }
               >
                 <option value="#FF6961">Red</option>
                 <option value="#FAC898">Orange</option>
                 <option value="#77DD77">Green</option>
-                <option value="#AEC6CF">Blue</option>
+                <option value="#A6D3F2">Blue</option>
                 <option value="#C3B1E1">Purple</option>
                 <option value="#FDFD96">Yellow</option>
               </Select>
@@ -116,7 +123,11 @@ export const NoteModal = (props) => {
             <Button variant="ghost" onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme="blue" mr={3} onClick={onSubmit}>
+            <Button
+              colorScheme="blue"
+              mr={3}
+              onClick={onSubmit}
+            >
               Create
             </Button>
           </ModalFooter>
