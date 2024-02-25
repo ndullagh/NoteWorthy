@@ -21,7 +21,8 @@ const NoteSchema = new mongoose.Schema(
     },
     tags: [{ // Array of string tags
         type: String, 
-        trim: true 
+        trim: true,
+        default:[]
     }], 
     created: {
         type: Date,
