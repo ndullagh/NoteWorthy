@@ -1,4 +1,4 @@
-import React, {useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Notebook from "../components/notebook";
 import { SearchBar } from "../components/searchbar";
 import { Stack, Button } from "@chakra-ui/react";
@@ -26,7 +26,7 @@ export default function Pages() {
         console.log(error);
       });
   }, []);
-  
+
   return (
     <div className="notePageBody">
       <h1>Notebook Pages</h1>
@@ -34,7 +34,7 @@ export default function Pages() {
         <div key={note._id}>
           <Notebook
             title={note.title}
-            color="#d3d3d3"
+            color="lightskyblue"
             slug={"notebook/pages/view"}
           />
         </div>
