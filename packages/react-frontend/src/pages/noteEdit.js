@@ -16,10 +16,35 @@ export default function NoteEdit() {
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
 
-  console.log(title);
+  const notebook = { _id: "65dabc38b6c049d9c15c5450" };
+
+  function postNote(note) {
+    const promise = fetch("Http://localhost:8000/notes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(note)
+    });
+
+    return promise;
+  }
+
+  const handleCancel = () => navigate("/notebook/pages");
+
+  function onSubmit() {
+    const newNote = {
+      notebook: notebook._id,
+      title: title,
+      contents:value
+    };
+    postNote(newNote);
+    handleCancel();
+  }
+
 
   const navigate = useNavigate();
-  const handleCancel = () => navigate("/notebook/pages");
+
 
   const modules = {
     toolbar: [
@@ -64,7 +89,7 @@ export default function NoteEdit() {
       >
         Title
       </FormLabel>
-      <InputGroup pl={5} pb={20}>
+      <InputGroup pl={5} pb={5}>
         <Input
           borderColor={"#949494"}
           variant="outline"
@@ -100,7 +125,7 @@ export default function NoteEdit() {
         </Box>
       </InputGroup>
       <InputGroup>
-        <Button ml={5} colorScheme="blue">
+        <Button ml={5} colorScheme="blue" onClick={onSubmit}>
           Submit
         </Button>
         <Button ml={5} variant={"ghost"} onClick={handleCancel}>
