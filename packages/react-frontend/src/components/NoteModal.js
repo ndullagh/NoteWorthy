@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Modal,
@@ -18,8 +18,48 @@ import {
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
-export const NoteModal = () => {
+export const NoteModal = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  //states of inputs
+  const [title, setTitle] = useState("");
+  const [color, setColor] = useState("");
+
+  function postBook(notebook) {
+    const promise = fetch("Http://localhost:8000/notebooks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(notebook)
+    });
+
+    return promise;
+  }
+
+
+  function updateNotebooks(notebook) {
+    postBook(notebook)
+      .then((res) => {
+        if (res.status !== 201) throw new Error("Not Added!");
+        return res.json();
+      })
+      .then((json) => props.setNotebooks([...props.notebooks, json]))
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+
+  function onSubmit() {
+    const newBook = {
+      user:props.user._id,
+      name:title,
+      color:color
+    }
+    console.log(newBook)
+    updateNotebooks(newBook)
+  }
   return (
     <>
       <Button
@@ -52,7 +92,7 @@ export const NoteModal = () => {
           <ModalBody>
             <FormControl>
               <FormLabel>Notebook Name</FormLabel>
-              <Input variant={"outline"} />
+              <Input variant={"outline"} onChange={(name) => setTitle(name.currentTarget.value)}/>
             </FormControl>
 
             <FormControl>
@@ -60,13 +100,14 @@ export const NoteModal = () => {
               <Select
                 icon={<ChevronDownIcon />}
                 placeholder="Choose Color"
+                onChange={(color) => setColor(color.currentTarget.value)}
               >
-                <option value="option1">Red</option>
-                <option value="option2">Orange</option>
-                <option value="option3">Green</option>
-                <option value="option1">Blue</option>
-                <option value="option2">Purple</option>
-                <option value="option3">Yellow</option>
+                <option value="#FF6961">Red</option>
+                <option value="#FAC898">Orange</option>
+                <option value="#77DD77">Green</option>
+                <option value="#AEC6CF">Blue</option>
+                <option value="#C3B1E1">Purple</option>
+                <option value="#FDFD96">Yellow</option>
               </Select>
             </FormControl>
           </ModalBody>
@@ -75,7 +116,7 @@ export const NoteModal = () => {
             <Button variant="ghost" onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button colorScheme="blue" mr={3} onClick={onSubmit}>
               Create
             </Button>
           </ModalFooter>
