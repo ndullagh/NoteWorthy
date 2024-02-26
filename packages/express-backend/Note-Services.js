@@ -15,18 +15,6 @@ function findNotesByNotebookAndKey(notebookId, key) {
     if (!mongoose.Types.ObjectId.isValid(notebookId)) {
         return Promise.reject({ statusCode: 400, message: 'Bad Request' });
     }
-    /*return noteModel.find({ 
-        $and: 
-        [
-            { notebook: notebook_id }, // Condition for filtering notes by notebookId
-            {
-                $or: [
-                    { title: { $regex: key, $options: 'i' } }, // Case-insensitive regex search for keyword in title
-                    { contents: { $regex: key, $options: 'i' } } // Case-insensitive regex search for keyword in contents
-                ]
-            }
-        ]
-    });*/
     return notebookModel.findById(notebookId)
         .then(notebook => {
             if (!notebook) {
@@ -102,29 +90,6 @@ function findNotesByUser(userId) {
 
 function findNotesByUserAndKey(userId, key) {
     // Find all notebooks belonging to the user
-    /*if (!mongoose.Types.ObjectId.isValid(userId)) {
-        return Promise.reject({ statusCode: 400, message: 'Bad Request' });
-    }
-
-    return notebookModel.find({ user: userId })
-        .then(notebooks => {
-            // Extract notebook IDs
-            const notebookIds = notebooks.map(notebook => notebook._id);
-            // Find all notes where the notebook field matches one of the notebook IDs
-            return noteModel.find({
-                $and:
-                [
-                    { notebook: { $in: notebookIds }},
-                    {
-                        $or:
-                        [
-                            { title: { $regex: key, $options: 'i' } }, // Case-insensitive regex search for keyword in title
-                            { contents: { $regex: key, $options: 'i' } } // Case-insensitive regex search for keyword in contents
-                        ]
-                    }
-                ]
-        });
-    });*/
     // Check if the user ID is valid
     if (!mongoose.Types.ObjectId.isValid(userId)) {
         return Promise.reject({ statusCode: 400, message: 'Bad Request' });
@@ -180,6 +145,26 @@ function noteDelete(id)
     });
 }
 
+function noteUpdate(id, updates)
+{
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return Promise.reject({ statusCode: 400, message: 'Bad Request' });
+    }
+    return noteModel.findByIdAndUpdate(id, updates, { new: true }).then(note => {
+        if(!note)
+        {
+            return Promise.reject({ statusCode: 404, message: 'Resource Not Found' });
+        }
+        else
+        {
+            return note;
+        }
+    })
+    .catch((error) => {
+        throw(error);
+    });
+}
+
 export default {
     findNoteById,
     findNotesByNotebookAndKey,
@@ -187,5 +172,6 @@ export default {
     findNotesByUser,
     findNotesByUserAndKey,
     addNote,
-    noteDelete
+    noteDelete,
+    noteUpdate
 }
