@@ -55,9 +55,30 @@ function userDelete(id) {
     });
 }
 
+function userUpdate(id, updates)
+{
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return Promise.reject({ statusCode: 400, message: 'Bad Request' });
+    }
+    return userModel.findByIdAndUpdate(id, updates, { new: true }).then(user => {
+        if(!user)
+        {
+            return Promise.reject({ statusCode: 404, message: 'Resource Not Found' });
+        }
+        else
+        {
+            return user;
+        }
+    })
+    .catch((error) => {
+        throw(error);
+    });
+}
+
 export default {
     findUserById,
     findUserByUserName,
     addUser,
-    userDelete
+    userDelete,
+    userUpdate
 }

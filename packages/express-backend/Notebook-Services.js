@@ -66,10 +66,39 @@ function notebookDelete(id) {
     });
 }
 
+function notebookUpdate(id, updates)
+{
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return Promise.reject({ statusCode: 400, message: 'Bad Request' });
+    }
+
+    // Validate user field
+    if (updates.hasOwnProperty('user')) {
+        if (!mongoose.Types.ObjectId.isValid(updates.user)) {
+            return Promise.reject({ statusCode: 400, message: 'Bad Request' });
+        }
+    }
+
+    return notebookModel.findByIdAndUpdate(id, updates, { new: true }).then(notebook => {
+        if(!notebook)
+        {
+            return Promise.reject({ statusCode: 404, message: 'Resource Not Found' });
+        }
+        else
+        {
+            return notebook;
+        }
+    })
+    .catch((error) => {
+        throw(error);
+    });
+}
+
 export default {
     findNotebookById,
     findNotebookByUserIdAndKey,
     findNotebookByUserId,
     addNotebook,
-    notebookDelete
+    notebookDelete,
+    notebookUpdate
 }
