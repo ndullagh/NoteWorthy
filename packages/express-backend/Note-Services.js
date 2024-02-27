@@ -150,6 +150,14 @@ function noteUpdate(id, updates)
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return Promise.reject({ statusCode: 400, message: 'Bad Request' });
     }
+
+    // Validate notebook field
+    if (updates.hasOwnProperty('notebook')) {
+        if (!mongoose.Types.ObjectId.isValid(updates.notebook)) {
+            return Promise.reject({ statusCode: 400, message: 'Bad Request' });
+        }
+    }
+
     return noteModel.findByIdAndUpdate(id, updates, { new: true }).then(note => {
         if(!note)
         {
