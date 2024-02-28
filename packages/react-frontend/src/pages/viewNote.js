@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, InputGroup } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 export default function ViewNote() {
+  const navigate = useNavigate();
   const noteval = { _id: "65dad0b16dcd1b5c6f2653d5" };
 
   const [note, setNote] = useState([]);
@@ -11,6 +13,29 @@ export default function ViewNote() {
       `http://localhost:8000/notes?_id=${note_id}`
     );
     return promise;
+  }
+
+  function deleteNotebook(note_id) {
+    const promise = fetch(`Http://localhost:8000/notes/${note_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return promise;
+  }
+
+  function handleDelete() {
+    deleteNotebook(noteval._id)
+      .then((res) => {
+        if (res.status !== 204) throw new Error("Not Removed!");
+        navigate("/notebook/pages");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
   }
 
   useEffect(() => {
@@ -23,6 +48,8 @@ export default function ViewNote() {
         console.log(error);
       });
   }, []);
+
+  
 
   return (
     <div>
@@ -50,6 +77,7 @@ export default function ViewNote() {
       </center>
       <InputGroup ml={"5%"} mt={2}>
         <Button colorScheme="blue">Edit Note</Button>
+        <Button colorScheme="red" ml={3} onClick={handleDelete}>Delete Note</Button>
       </InputGroup>
     </div>
   );
