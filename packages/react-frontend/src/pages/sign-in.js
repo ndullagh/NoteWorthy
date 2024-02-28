@@ -1,47 +1,81 @@
 // pages/about.js
 
 import React, { useState } from "react";
-import '../styles/login.css'
+import { Box } from "@chakra-ui/layout";
+import { 
+  Button, 
+  Input, 
+  FormControl, 
+  FormLabel, 
+  Checkbox,
+  VStack, 
+  Heading,  
+  HStack,
+  Text,
+  Link
+} from "@chakra-ui/react";
 
 export default function SignIn() {
 
-  const [action,setAction] = useState("Login");
+  const [FormData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+
+  const onChangeHandler = (event) => {
+    setFormData(() => ({
+      ... FormData,
+      [event.target.name]: event.target.value
+    }))
+  }
 
   return (
-    <center>
-      <div className="wrapper">
-        <form action="">
-          <div className="header">
-            <div className="text">{action}</div>
-            <div className="underline"></div>
-          </div>
+    <Box
+      w = {['full', 'md']}
+      p = {[8, 10]}
+      mt = {[20, '10vh']}
+      mx = 'auto'
+      border = {['none', '1px']}
+      borderColor = {['', 'gray.300']}
+      borderRadius = {10}
+    >
+      <VStack spacing={4} align='flext-start' w='full'>
+        <VStack spacing={1} align={['flex-start', 'center']} w='full'>
+          <Heading color ='blue.800'>Sign in to NoteWorthy</Heading>
+        </VStack>
 
-          <div className="inputs">
-            {action==="Login"?<div></div>:<div className="input"><input type="text" placeholder="Name" required /></div>}
-            <div className="input">
-              <input type="text" placeholder="Email" required />
-            </div>
-            <div className="input">
-              <input type="password" placeholder="Password" required />
-            </div>
-          </div>
+        <FormControl>
+          <FormLabel>E-mail Address</FormLabel>
+          <Input rounded='none' variant='filled' name="email" onChange={onChangeHandler} />
+        </FormControl>
 
-          {action==="Sign Up"?<div></div>:<div className="remember-forgot">
-            <label><input type="checkbox" />Remember me</label>
-            <a href="#">Forgot password?</a>
-          </div>}
+        <FormControl>
+          <FormLabel>Password</FormLabel>
+          <Input rounded='none' variant='filled' name="password" type='password' onChange={onChangeHandler} />
+        </FormControl>
 
-          <div className="submit-container">
-            <div className={action==="Login"?"submit gray":"submit"} onClick={()=>{setAction("Sign Up")}}>Sign Up</div>
-            <div className={action==="Sign Up"?"submit gray":"submit"} onClick={()=>{setAction("Login")}}>Login</div>
-          </div>
+        <HStack w='full' justify='space-between'>
+          <Checkbox>Remember me</Checkbox>
+          <Button variant='link' colorScheme='blue' >
+            Forgot Password?
+          </Button>
+        </HStack>
 
-          {action==="Sign Up"?<div></div>:<div className="register-link">
-            <p>Do not have an account? <a href="#">Register</a></p>
-          </div>}
-        </form>
+        <Button rounded='none' colorScheme='blue' w='full' >
+          <Link href='#' onClick={() => console.log(FormData)}>
+            Sign in
+          </Link>
+        </Button>
+      </VStack>
 
-      </div>
-    </center>
+      <Box p = {[2, 6]}>
+        <Text align='center'>New to NoteWorthy?{" "}
+          <Link color='blue.500' href='/signup'>
+            Create an account
+          </Link>
+        </Text>
+      </Box>
+    </Box>
   );
+
 }
