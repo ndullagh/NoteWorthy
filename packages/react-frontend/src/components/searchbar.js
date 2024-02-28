@@ -13,7 +13,7 @@ export const SearchBar = () => {
   const [searchVal, setSearchVal] = useState("");
   console.log(searchVal)
 
-  const onSubmit = {
+  function onSubmit() {
 
   }
 
