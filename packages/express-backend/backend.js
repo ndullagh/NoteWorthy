@@ -126,7 +126,7 @@ app.patch("/users/:_id", (req, res) => {
     const updates = req.body;
 
     //NOT allowed to change _id
-    if (updates.hasOwnProperty('_id')) {
+    if ('_id' in updates) {
         delete updates._id;
     }
 
@@ -296,7 +296,7 @@ app.patch("/notebooks/:_id", (req, res) => {
     const updates = req.body;
 
     //NOT allowed to change _id
-    if (updates.hasOwnProperty('_id')) {
+    if ('_id' in updates) {
         delete updates._id;
     }
 
@@ -518,7 +518,7 @@ app.patch("/notes/:_id", (req, res) => {
     const updates = req.body;
 
     //NOT allowed to change _id
-    if (updates.hasOwnProperty('_id')) {
+    if ('_id' in updates) {
         delete updates._id;
     }
 
