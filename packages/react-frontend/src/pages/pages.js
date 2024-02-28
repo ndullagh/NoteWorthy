@@ -18,6 +18,29 @@ export default function Pages() {
     return promise;
   }
 
+  function deleteNotebook(notebook_id) {
+    const promise = fetch(`Http://localhost:8000/notebooks/${notebook_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return promise;
+  }
+
+  function handleDelete() {
+    deleteNotebook(notebook._id)
+      .then((res) => {
+        if (res.status !== 204) throw new Error("Not Removed!");
+        navigate("/notebook");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  }
+
   useEffect(() => {
     fetchNotes(notebook._id)
       .then((res) => res.json())
@@ -64,7 +87,7 @@ export default function Pages() {
           variant="solid"
           color={"white"}
           colorScheme="red"
-          onClick={handleOnClick}
+          onClick={handleDelete}
         >
           Delete Notebook
         </Button>
