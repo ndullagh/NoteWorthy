@@ -114,10 +114,40 @@ app.delete("/users/:_id", (req, res) => {
         } 
         else
         {
-            console.log("AAA");
+            //console.log("AAA");
             res.status(500).send('Internal Server Error');
         }
     })
+});
+
+// PATCH endpoint to update a notebook by ID
+app.patch("/users/:_id", (req, res) => {
+    const  _id  = req.params["_id"];
+    const updates = req.body;
+
+    //NOT allowed to change _id
+    if (updates.hasOwnProperty('_id')) {
+        delete updates._id;
+    }
+
+    User.userUpdate(_id, updates).then((response) => {
+        res.status(200).send(response);
+    })
+    .catch((error) => {
+        console.log(error);
+        if(error.statusCode === 400)
+        {
+            res.status(400).send('Bad Request');
+        }  
+        else if(error.statusCode === 404)
+        {
+            res.status(404).send('Resource Not Found');
+        } 
+        else
+        {
+            res.status(500).send('Internal Server Error');
+        }
+    });
 });
 
 //Notebook endpoints
@@ -258,6 +288,36 @@ app.delete("/notebooks/:_id", (req, res) => {
             res.status(500).send('Internal Server Error');
         }
     })
+});
+
+// PATCH endpoint to update a notebook by ID
+app.patch("/notebooks/:_id", (req, res) => {
+    const  _id  = req.params["_id"];
+    const updates = req.body;
+
+    //NOT allowed to change _id
+    if (updates.hasOwnProperty('_id')) {
+        delete updates._id;
+    }
+
+    Notebook.notebookUpdate(_id, updates).then((response) => {
+        res.status(200).send(response);
+    })
+    .catch((error) => {
+        console.log(error);
+        if(error.statusCode === 400)
+        {
+            res.status(400).send('Bad Request');
+        }  
+        else if(error.statusCode === 404)
+        {
+            res.status(404).send('Resource Not Found');
+        } 
+        else
+        {
+            res.status(500).send('Internal Server Error');
+        }
+    });
 });
 
 //Note endpoints
@@ -449,8 +509,39 @@ app.delete("/notes/:_id", (req, res) => {
         {
             res.status(500).send('Internal Server Error');
         }
-    })
+    });
 });
+
+// PATCH endpoint to update a note by ID
+app.patch("/notes/:_id", (req, res) => {
+    const  _id  = req.params["_id"];
+    const updates = req.body;
+
+    //NOT allowed to change _id
+    if (updates.hasOwnProperty('_id')) {
+        delete updates._id;
+    }
+
+    Note.noteUpdate(_id, updates).then((response) => {
+        res.status(200).send(response);
+    })
+    .catch((error) => {
+        console.log(error);
+        if(error.statusCode === 400)
+        {
+            res.status(400).send('Bad Request');
+        }  
+        else if(error.statusCode === 404)
+        {
+            res.status(404).send('Resource Not Found');
+        } 
+        else
+        {
+            res.status(500).send('Internal Server Error');
+        }
+    });
+});
+
 
 
 
