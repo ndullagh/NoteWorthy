@@ -18,7 +18,31 @@ function findUserByUserName(name) {
 
 function addUser(user) {
     const userToAdd = new userModel(user);
-    const promise = userToAdd.save();
+    const promise = userToAdd.save().then( (result) => {
+        return result;
+    }).catch((error) => {
+        console.log(error);
+        if (error.code === 11000 && error.keyPattern && error.keyValue) {
+            // Duplicate key error occurred
+            const field = Object.keys(error.keyPattern)[0];
+            const value = error.keyValue[field];
+            res.status(400).json({ message: `Duplicate key error: ${field} '${value}' already exists.` });
+        } else if (error.errors) {
+            // Mongoose validation error occurred
+            const validationErrors = Object.keys(error.errors).map((key) => {
+                return {
+                    field: key,
+                    message: error.errors[key].message
+                };
+            });
+            res.status(400).json({ errors: validationErrors });
+        } else {
+            // Other error occurred
+            console.log(error);
+            res.status(500).send('Internal Server Error');
+        }
+
+    });
     return promise;
 }
 
