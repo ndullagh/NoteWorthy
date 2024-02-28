@@ -58,6 +58,16 @@ export default function Pages() {
         >
           Add Page
         </Button>
+        <Button
+          pl={6}
+          pr={6}
+          variant="solid"
+          color={"white"}
+          colorScheme="red"
+          onClick={handleOnClick}
+        >
+          Delete Notebook
+        </Button>
       </Stack>
     </div>
   );
