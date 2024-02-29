@@ -4,7 +4,7 @@ import cors from "cors";
 import User from "./User-Services.js";
 import Notebook from "./Notebook-Services.js";
 import Note from "./Note-Services.js";
-import { registerUser } from "./auth.js";
+import { registerUser , authenticateUser} from "./auth.js";
 
 
 const app = express();
