@@ -56,9 +56,6 @@ app.get("/users", (req, res) => {
         });
 
     }
-    else{
-        res.status(400).send('Bad Request'); // Handle 400 error
-    }
     else
     {
         res.status(400).send('Bad Request'); // Handle 400 error
