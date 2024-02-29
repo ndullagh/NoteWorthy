@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Flex,
   Input,
@@ -10,7 +11,6 @@ import {
   InputRightElement,
   VStack,
   Heading,
-  Link
 } from "@chakra-ui/react";
 
 export default function SignUp() {
@@ -97,7 +97,7 @@ export default function SignUp() {
                     variant="solid"
                     colorScheme="blue"
                 >
-                    <Link href='#' onClick={() => console.log(FormData)}>
+                    <Link to="#" onClick={() => console.log(FormData)}>
                         Sign up
                     </Link>
                 </Button>

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Box } from "@chakra-ui/layout";
+import { Link } from "react-router-dom";
 import { 
   Button, 
   Input, 
@@ -12,7 +13,6 @@ import {
   Heading,  
   HStack,
   Text,
-  Link
 } from "@chakra-ui/react";
 
 export default function SignIn() {
@@ -62,7 +62,7 @@ export default function SignIn() {
         </HStack>
 
         <Button rounded='none' colorScheme='blue' w='full' >
-          <Link href='#' onClick={() => console.log(FormData)}>
+          <Link to="#" onClick={() => console.log(FormData)}>
             Sign in
           </Link>
         </Button>
@@ -70,7 +70,7 @@ export default function SignIn() {
 
       <Box p = {[2, 6]}>
         <Text align='center'>New to NoteWorthy?{" "}
-          <Link color='blue.500' href='/signup'>
+          <Link to="/signup" style={{ color: "blue" }} >
             Create an account
           </Link>
         </Text>

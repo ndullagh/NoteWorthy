@@ -8,7 +8,6 @@ import {
 import SignIn from "./pages/sign-in";
 import SignUp from "./pages/sign-up";
 import Home from "./pages/home";
-import Home2 from "./pages/home2";
 import Notebooks from "./pages/notebooks";
 import Pages from "./pages/pages";
 import ViewNote from "./pages/viewNote";
@@ -24,7 +23,6 @@ function App() {
         <Route path="/" element={<Layout></Layout>}>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/home" element={<Home2 />} />
           <Route index element={<Home />} />
           <Route path="/notebook" element={<Notebooks />} />
           <Route path="/notebook/pages" element={<Pages />} />
