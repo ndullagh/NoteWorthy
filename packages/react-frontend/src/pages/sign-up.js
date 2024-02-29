@@ -60,7 +60,7 @@ export default function SignUp() {
                     borderRadius = {10}
                 >
                     <VStack spacing={1} align={['flex-start', 'center']} w='full'>
-                        <Heading color ='blue.800'>Sign up to NoteWorthy</Heading>
+                        <Heading color ='blue.800'>Sign up for NoteWorthy</Heading>
                     </VStack>
                     <FormControl>
                         <FormLabel>Name</FormLabel>
