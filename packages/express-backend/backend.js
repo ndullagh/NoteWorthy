@@ -4,7 +4,7 @@ import cors from "cors";
 import User from "./User-Services.js";
 import Notebook from "./Notebook-Services.js";
 import Note from "./Note-Services.js";
-import { registerUser , authenticateUser} from "./auth.js";
+import { registerUser , authenticateUser, loginUser} from "./auth.js";
 
 
 const app = express();
@@ -68,6 +68,8 @@ app.get("/users", (req, res) => {
 
 //theoretically use registeruser from auth.js
 app.post("/signup", registerUser);
+
+app.post("/login", loginUser);
 
 //post new user
 //usernames and emails MUST be unique

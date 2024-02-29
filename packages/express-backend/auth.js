@@ -81,3 +81,35 @@ export function registerUser(req, res) {
       );
     }
   }
+
+  export function loginUser(req, res) {
+    const { username, password } = req.body; // from form
+
+    User.findUserByUserName(username).then((result) => {
+      if(result.length === 0)
+      {
+          res.status(401).send('User Not Found');
+      }
+      else{
+        bcrypt
+        .compare(password, result[0].password)
+        .then((matched) => {
+          if (matched) {
+            generateAccessToken(username).then((token) => {
+              res.status(200).send({ token: token });
+            });
+          } else {
+            // invalid password
+            res.status(401).send("Invalid Password");
+          }
+        })
+        .catch(() => {
+          res.status(401).send("Unauthorized");
+        });
+      }
+  })
+  .catch((error) => {
+      console.log(error);
+  });
+
+  }
