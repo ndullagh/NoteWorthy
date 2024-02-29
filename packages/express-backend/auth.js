@@ -1,28 +1,43 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import User from "./User-Services";
+import User from "./User-Services.js";
 
 export function registerUser(req, res) {
-    const { username, pwd, email } = req.body; // from form
+    const { username, password, email } = req.body; // from form
   
-    if (!username || !pwd || !email) {
+    if (!username || !password || !email) {
       res.status(400).send("Bad request: Invalid input data.");
-    } else if (User.findUserByUserName(username)) {
+    } 
+    /*else if ((User.findUserByUserName(username))) {
       res.status(409).send("Username already taken");
-    } else {
-      bcrypt
-        .genSalt(10)
-        .then((salt) => bcrypt.hash(pwd, salt))
-        .then((hashedPassword) => {
-          generateAccessToken(username).then((token) => {
-            console.log("Token:", token);
-            res.status(201).send({ token: token });
+    } */
+    else {
 
-            User.addUser(JSON.stringify({username: username,password: hashedPassword, email: email } ));
-
-            
+      User.findUserByUserName(username).then((result) => {
+        if(!(result.length === 0))
+        {
+            res.status(409).send('Username already taken');
+        }
+        else{
+          bcrypt
+          .genSalt(10)
+          .then((salt) => bcrypt.hash(password, salt))
+          .then((hashedPassword) => {
+            generateAccessToken(username).then((token) => {
+              console.log("Token:", token);
+              res.status(201).send({ token: token });
+  
+              User.addUser(JSON.parse(JSON.stringify({username: username,password: hashedPassword, email: email } )));
+  
+              
+            });
           });
-        });
+        }
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+      
     }
   }
 

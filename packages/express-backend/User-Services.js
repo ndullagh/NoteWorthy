@@ -18,7 +18,7 @@ function findUserByUserName(name) {
 
 function addUser(user) {
     const userToAdd = new userModel(user);
-    const promise = userToAdd.save().then( (result) => {
+    const promise = userToAdd.save()/*.then( (result) => {
         return result;
     }).catch((error) => {
         console.log(error);
@@ -42,7 +42,7 @@ function addUser(user) {
             res.status(500).send('Internal Server Error');
         }
 
-    });
+    });*/
     return promise;
 }
 
