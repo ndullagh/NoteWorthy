@@ -73,7 +73,7 @@ function notebookUpdate(id, updates)
     }
 
     // Validate user field
-    if (updates.hasOwnProperty('user')) {
+    if ('user' in updates) {
         if (!mongoose.Types.ObjectId.isValid(updates.user)) {
             return Promise.reject({ statusCode: 400, message: 'Bad Request' });
         }
