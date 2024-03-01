@@ -25,7 +25,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route index element={<Home />} />
           <Route path="/notebook" element={<Notebooks />} />
-          <Route path="/notebook/pages" element={<Pages />} />
+          <Route path="/notebook/:book_id" element={<Pages />} />
           <Route
             path="/notebook/pages/view"
             element={<ViewNote />}

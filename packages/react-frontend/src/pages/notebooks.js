@@ -32,7 +32,7 @@ export default function Notebooks() {
           <Notebook
             title={book.name}
             color={book.color}
-            slug={"notebook/pages"}
+            book_id={book._id}
           />
         </div>
       ))}
