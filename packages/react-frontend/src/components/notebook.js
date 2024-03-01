@@ -6,7 +6,10 @@ export default function Notebook(props) {
   return (
     <div>
       <Link
-        style={{ backgroundColor: props.color }}
+        style={{
+          backgroundColor: props.color,
+          color: "#3A3B3C"
+        }}
         className="notebook"
         to={`${props.to_id}`}
       >
