@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ViewNote() {
   const navigate = useNavigate();
-  const noteval = { _id: "65dad0b16dcd1b5c6f2653d5" };
+  const noteval = { _id: "65dac6256dcd1b5c6f26531b"};
 
   const [note, setNote] = useState([]);
 
