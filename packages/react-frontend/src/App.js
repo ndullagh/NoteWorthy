@@ -31,7 +31,7 @@ function App() {
             element={<ViewNote />}
           />
           <Route
-            path="/notebook/:book_id/add"
+            path="/notebook/:book_id/add/:note_id?"
             element={<NoteEdit />}
           />
           <Route

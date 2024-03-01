@@ -17,7 +17,7 @@ export default function NoteEdit() {
   const [title, setTitle] = useState("");
   let params = useParams();
 
-
+  
 
   function postNote(note) {
     const promise = fetch("Http://localhost:8000/notes", {

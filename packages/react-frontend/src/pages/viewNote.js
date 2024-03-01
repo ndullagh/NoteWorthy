@@ -39,6 +39,10 @@ export default function ViewNote() {
 
   }
 
+  function handleEdit(){
+    navigate(`/notebook/${params.book_id}/add/${params.note_id}`)
+  }
+
   useEffect(() => {
     fetchNote(params.note_id)
       .then((res) => res.json())
@@ -77,7 +81,7 @@ export default function ViewNote() {
         </Box>
       </center>
       <InputGroup ml={"5%"} mt={2}>
-        <Button colorScheme="blue">Edit Note</Button>
+        <Button colorScheme="blue" onClick={handleEdit}>Edit Note</Button>
         <Button colorScheme="red" ml={3} onClick={handleDelete}>Delete Note</Button>
       </InputGroup>
     </div>
