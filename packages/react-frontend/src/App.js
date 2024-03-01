@@ -35,7 +35,7 @@ function App() {
             element={<NoteEdit />}
           />
           <Route
-            path="/notebook/results"
+            path="/notebook/results/:key/:book_id?"
             element={<SearchResults />}
           />
           <Route path="*" element={<NoPage />} />
