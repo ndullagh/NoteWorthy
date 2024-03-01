@@ -27,11 +27,11 @@ function App() {
           <Route path="/notebook" element={<Notebooks />} />
           <Route path="/notebook/:book_id" element={<Pages />} />
           <Route
-            path="/notebook/pages/view"
+            path="/notebook/:book_id/:note_id"
             element={<ViewNote />}
           />
           <Route
-            path="/notebook/pages/edit"
+            path="/notebook/:book_id/add"
             element={<NoteEdit />}
           />
           <Route

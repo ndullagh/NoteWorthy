@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, InputGroup } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function ViewNote() {
   const navigate = useNavigate();
-  const noteval = { _id: "65dac6256dcd1b5c6f26531b"};
+  let params = useParams();
+
 
   const [note, setNote] = useState([]);
 
@@ -27,10 +28,10 @@ export default function ViewNote() {
   }
 
   function handleDelete() {
-    deleteNotebook(noteval._id)
+    deleteNotebook(params.note_id)
       .then((res) => {
         if (res.status !== 204) throw new Error("Not Removed!");
-        navigate("/notebook/pages");
+        navigate(`/notebook/${params.book_id}`);
       })
       .catch((error) => {
         console.log(error);
@@ -39,7 +40,7 @@ export default function ViewNote() {
   }
 
   useEffect(() => {
-    fetchNote(noteval._id)
+    fetchNote(params.note_id)
       .then((res) => res.json())
       .then((json) => {
         setNote(json);

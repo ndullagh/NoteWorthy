@@ -6,7 +6,7 @@ import {
   Box,
   Button
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import ReactQuill from "react-quill";
 
@@ -15,8 +15,9 @@ import "../styles/quill.css";
 export default function NoteEdit() {
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
+  let params = useParams();
 
-  const notebook = { _id: "65dabc38b6c049d9c15c5450" };
+
 
   function postNote(note) {
     const promise = fetch("Http://localhost:8000/notes", {
@@ -30,11 +31,11 @@ export default function NoteEdit() {
     return promise;
   }
 
-  const handleCancel = () => navigate("/notebook/pages");
+  const handleCancel = () => navigate(`/notebook/${params.book_id}`);
 
   function onSubmit() {
     const newNote = {
-      notebook: notebook._id,
+      notebook: params.book_id,
       title: title,
       contents:value
     };

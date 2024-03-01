@@ -8,7 +8,7 @@ export default function Notebook(props) {
       <Link
         style={{ backgroundColor: props.color }}
         className="notebook"
-        to={`${props.book_id}`}
+        to={`${props.to_id}`}
       >
         {props.title}
       </Link>

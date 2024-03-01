@@ -7,7 +7,7 @@ import { useNavigate,useParams } from "react-router-dom";
 export default function Pages() {
   const navigate = useNavigate();
   let params = useParams();
-  const handleOnClick = () => navigate("/notebook/pages/edit");
+  const handleOnClick = () => navigate(`add`);
   const [notes, setNotes] = useState([]);
 
 
@@ -58,7 +58,7 @@ export default function Pages() {
           <Notebook
             title={note.title}
             color="lightskyblue"
-            slug={"notebook/pages/view"}
+            to_id={note._id}
           />
         </div>
       ))}
