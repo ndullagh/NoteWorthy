@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1709368759540" clover="3.2.0">
+  <project timestamp="1709368759541" name="All files">
+    <metrics statements="16" coveredstatements="15" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="1" elements="20" coveredelements="18" complexity="0" loc="16" ncloc="16" packages="1" files="3" classes="3"/>
+    <file name="Notebook.js" path="C:\Users\Noelle\Desktop\307\Noteworthy\sprint 1\attempt-4\NoteWorthy\packages\express-backend\Notebook.js">
+      <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <line num="5" count="1" type="stmt"/>
+      <line num="45" count="1" type="stmt"/>
+      <line num="46" count="2" type="stmt"/>
+      <line num="47" count="2" type="stmt"/>
+      <line num="48" count="2" type="stmt"/>
+      <line num="49" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="50" count="1" type="stmt"/>
+      <line num="52" count="1" type="stmt"/>
+      <line num="54" count="1" type="stmt"/>
+      <line num="58" count="1" type="stmt"/>
+    </file>
+    <file name="User.js" path="C:\Users\Noelle\Desktop\307\Noteworthy\sprint 1\attempt-4\NoteWorthy\packages\express-backend\User.js">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="28" count="1" type="stmt"/>
+    </file>
+    <file name="db.js" path="C:\Users\Noelle\Desktop\307\Noteworthy\sprint 1\attempt-4\NoteWorthy\packages\express-backend\db.js">
+      <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <line num="5" count="1" type="stmt"/>
+      <line num="6" count="1" type="stmt"/>
+      <line num="8" count="1" type="stmt"/>
+      <line num="13" count="0" type="stmt"/>
+    </file>
+  </project>
+</coverage>
