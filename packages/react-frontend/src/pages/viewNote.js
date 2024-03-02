@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, InputGroup } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function ViewNote() {
   const navigate = useNavigate();
-  const noteval = { _id: "65dad0b16dcd1b5c6f2653d5" };
+  let params = useParams();
+
 
   const [note, setNote] = useState([]);
 
@@ -27,10 +28,10 @@ export default function ViewNote() {
   }
 
   function handleDelete() {
-    deleteNotebook(noteval._id)
+    deleteNotebook(params.note_id)
       .then((res) => {
         if (res.status !== 204) throw new Error("Not Removed!");
-        navigate("/notebook/pages");
+        navigate(`/notebook/${params.book_id}`);
       })
       .catch((error) => {
         console.log(error);
@@ -38,8 +39,12 @@ export default function ViewNote() {
 
   }
 
+  function handleEdit(){
+    navigate(`/notebook/${params.book_id}/add/${params.note_id}`)
+  }
+
   useEffect(() => {
-    fetchNote(noteval._id)
+    fetchNote(params.note_id)
       .then((res) => res.json())
       .then((json) => {
         setNote(json);
@@ -76,7 +81,7 @@ export default function ViewNote() {
         </Box>
       </center>
       <InputGroup ml={"5%"} mt={2}>
-        <Button colorScheme="blue">Edit Note</Button>
+        <Button colorScheme="blue" onClick={handleEdit}>Edit Note</Button>
         <Button colorScheme="red" ml={3} onClick={handleDelete}>Delete Note</Button>
       </InputGroup>
     </div>
