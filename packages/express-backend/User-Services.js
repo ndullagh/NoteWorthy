@@ -30,7 +30,6 @@ function userDelete(id) {
     // Find the user
     return userModel.findById(id).then(result => {
         if (!result) {
-            console.log("Hello");
             return Promise.reject({ statusCode: 404, message: 'Resource Not Found' });
         } else {
             // Find all notebooks owned by the user

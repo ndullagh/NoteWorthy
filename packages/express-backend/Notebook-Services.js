@@ -55,11 +55,8 @@ function notebookDelete(id) {
             return noteModel.deleteMany({ notebook: id }).then(() => {
                 // After deleting the associated notes, delete the notebook itself
                 return notebookModel.findByIdAndDelete(id).then(notebook => {
-                    if (!notebook) {
-                        return Promise.reject({ statusCode: 404, message: 'Resource Not Found' });
-                    } else {
-                        return notebook;
-                    }
+                    return notebook; //removed unreachable second 404 condition
+                    
                 });
             });
         }
