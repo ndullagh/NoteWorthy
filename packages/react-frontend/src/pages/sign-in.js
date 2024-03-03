@@ -14,11 +14,13 @@ import {
   HStack,
   Text,
 } from "@chakra-ui/react";
+//import { loginUser } from "../auth.js";
 
-export default function SignIn() {
+export default function SignIn(props) {
+  const {handleLogin} = props
 
   const [FormData, setFormData] = useState({
-    email: '',
+    username: '',
     password: ''
   });
 
@@ -28,6 +30,8 @@ export default function SignIn() {
       [event.target.name]: event.target.value
     }))
   }
+
+ 
 
   return (
     <Box
@@ -45,8 +49,8 @@ export default function SignIn() {
         </VStack>
 
         <FormControl>
-          <FormLabel>E-mail Address</FormLabel>
-          <Input rounded='none' variant='filled' name="email" onChange={onChangeHandler} />
+          <FormLabel>Username</FormLabel>
+          <Input rounded='none' variant='filled' name="username" onChange={onChangeHandler} />
         </FormControl>
 
         <FormControl>
@@ -62,7 +66,7 @@ export default function SignIn() {
         </HStack>
 
         <Button rounded='none' colorScheme='blue' w='full' >
-          <Link to="#" onClick={() => console.log(FormData)}>
+          <Link to="#" onClick={()=> handleLogin(FormData)}>
             Sign in
           </Link>
         </Button>

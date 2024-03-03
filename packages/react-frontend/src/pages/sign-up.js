@@ -12,6 +12,7 @@ import {
   VStack,
   Heading,
 } from "@chakra-ui/react";
+//import { signupUser } from "../auth.js";
 
 export default function SignUp() {
 
@@ -20,10 +21,12 @@ export default function SignUp() {
     const handleShowClick = () => setShowPassword(!showPassword);
 
     const [FormData, setFormData] = useState({
-        name: '',
+        username: '',
         email: '',
         password: ''
       });
+
+
     
     const onChangeHandler = (event) => {
         setFormData(() => ({
@@ -32,6 +35,7 @@ export default function SignUp() {
         }))
     }
 
+    
     return (
         <Flex
             flexDirection="column"
@@ -63,7 +67,7 @@ export default function SignUp() {
                         <Heading color ='blue.800'>Sign up for NoteWorthy</Heading>
                     </VStack>
                     <FormControl>
-                        <FormLabel>Name</FormLabel>
+                        <FormLabel>Username</FormLabel>
                         <Input rounded='none' variant='filled' name="name" onChange={onChangeHandler} />
                     </FormControl>
                     <FormControl>
@@ -97,7 +101,7 @@ export default function SignUp() {
                     variant="solid"
                     colorScheme="blue"
                 >
-                    <Link to="#" onClick={() => console.log(FormData)}>
+                    <Link to="#" onClick={console.log("hello")/*signupUser(FormData)*/}>
                         Sign up
                     </Link>
                 </Button>

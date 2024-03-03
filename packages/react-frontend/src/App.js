@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -15,13 +15,24 @@ import NoteEdit from "./pages/noteEdit";
 import SearchResults from "./pages/searchresults";
 import NoPage from "./pages/errorpage";
 import Layout from "./pages/layout";
+import { loginUser } from "./auth";
+
+
 
 function App() {
+  const INVALID_TOKEN = "INVALID_TOKEN";
+  const [token, setToken] = useState(INVALID_TOKEN);
+  //const [message, setMessage] = useState("");
+
+  function login (formData){
+    loginUser(formData,setToken)
+    console.log(token);
+  }
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Layout></Layout>}>
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signin" element={<SignIn handleLogin={login} />} />
           <Route path="/signup" element={<SignUp />} />
           <Route index element={<Home />} />
           <Route path="/notebook" element={<Notebooks />} />
