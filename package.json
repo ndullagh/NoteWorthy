@@ -4,12 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\"",
     "start": "cd packages/react-frontend && npm start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "format": "npx prettier . --write",
-    "lint": "npx eslint ."
+    "lint": "npx eslint . && npx prettier --check ."
   },
   "repository": {
     "type": "git",
