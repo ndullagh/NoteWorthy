@@ -69,6 +69,7 @@ export default function SignIn() {
       </VStack>
 
       <Box p = {[2, 6]}>
+        <Text align='center'>Testing for ci</Text>
         <Text align='center'>New to NoteWorthy?{" "}
           <Link to="/signup" style={{ color: "blue" }} >
             Create an account
