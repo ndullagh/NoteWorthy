@@ -7,14 +7,20 @@ import {
   InputRightAddon
 } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
-export const SearchBar = () => {
-
+export const SearchBar = (props) => {
+  const navigate = useNavigate();
   const [searchVal, setSearchVal] = useState("");
   console.log(searchVal)
 
   function onSubmit() {
-
+    if(props.book_id){
+      navigate(`/notebook/results/${searchVal}/${props.book_id}`)
+    }
+    else{
+      navigate(`/notebook/results/${searchVal}`)
+    }
   }
 
   return (

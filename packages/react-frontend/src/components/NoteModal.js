@@ -111,7 +111,7 @@ export const NoteModal = (props) => {
                 <option value="#FF6961">Red</option>
                 <option value="#FAC898">Orange</option>
                 <option value="#77DD77">Green</option>
-                <option value="#A6D3F2">Blue</option>
+                <option value="#BFF4FF">Blue</option>
                 <option value="#C3B1E1">Purple</option>
                 <option value="#FDFD96">Yellow</option>
               </Select>
