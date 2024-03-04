@@ -18,6 +18,10 @@ function findUserByUserName(name) {
   return userModel.find({ username: name });
 }
 
+function findAll() {
+  return userModel.find();
+}
+
 function addUser(user) {
   const userToAdd = new userModel(user);
   const promise = userToAdd.save();
@@ -103,5 +107,6 @@ export default {
   findUserByUserName,
   addUser,
   userDelete,
-  userUpdate
+  userUpdate,
+  findAll
 };
