@@ -14,7 +14,9 @@ import {
 } from "@chakra-ui/react";
 //import { signupUser } from "../auth.js";
 
-export default function SignUp() {
+export default function SignUp(props) {
+    const {handleSignup} = props
+
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -68,7 +70,7 @@ export default function SignUp() {
                     </VStack>
                     <FormControl>
                         <FormLabel>Username</FormLabel>
-                        <Input rounded='none' variant='filled' name="name" onChange={onChangeHandler} />
+                        <Input rounded='none' variant='filled' name="username" onChange={onChangeHandler} />
                     </FormControl>
                     <FormControl>
                         <FormLabel>E-mail Address</FormLabel>
@@ -101,7 +103,7 @@ export default function SignUp() {
                     variant="solid"
                     colorScheme="blue"
                 >
-                    <Link to="#" onClick={console.log("hello")/*signupUser(FormData)*/}>
+                    <Link to="#" onClick={()=> handleSignup(FormData)}>
                         Sign up
                     </Link>
                 </Button>

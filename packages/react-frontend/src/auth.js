@@ -22,6 +22,7 @@
             });
           //setMessage(`Login successful; auth token saved`);
         } else {
+          `Login Error ${response.status}: ${response.data}`
           /*setMessage(
             `Login Error ${response.status}: ${response.data}`
           );*/
@@ -37,7 +38,7 @@
     return promise;
   }
 
-  /*export function signupUser(creds) {
+  export function signupUser(creds, setToken) {
     const promise = fetch(`http://localhost:8000/signup`, {
       method: "POST",
       headers: {
@@ -50,20 +51,35 @@
           response
             .json()
             .then((payload) => setToken(payload.token));
-          setMessage(
+          /*setMessage(
             `Signup successful for user: ${creds.username}; auth token saved`
-          );
+          );*/
         } else {
-          setMessage(
+          console.log(`Signup Error ${response.status}: ${response.data}`)
+          /*setMessage(
             `Signup Error ${response.status}: ${response.data}`
-          );
+          );*/
         }
       })
       .catch((error) => {
-        setMessage(`Signup Error: ${error}`);
+        console.log(error);
+        console.log("Error status code:", error.statusCode);
+        //setMessage(`Signup Error: ${error}`);
       });
   
     return promise;
-  }*/
+  }
+
+
+  export function addAuthHeader(otherHeaders = {}, token) {
+    if (token === INVALID_TOKEN) {
+      return otherHeaders;
+    } else {
+      return {
+        ...otherHeaders,
+        Authorization: `Bearer ${token}`
+      };
+    }
+  }
 
  

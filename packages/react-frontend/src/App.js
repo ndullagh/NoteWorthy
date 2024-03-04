@@ -15,7 +15,7 @@ import NoteEdit from "./pages/noteEdit";
 import SearchResults from "./pages/searchresults";
 import NoPage from "./pages/errorpage";
 import Layout from "./pages/layout";
-import { loginUser } from "./auth";
+import { loginUser, signupUser/*, addAuthHeader*/ } from "./auth";
 
 
 
@@ -28,12 +28,20 @@ function App() {
     loginUser(formData,setToken)
     console.log(token);
   }
+  function signup (formData){
+    signupUser(formData,setToken)
+    console.log(token);
+  }
+  /*function authorize(headers){
+    addAuthHeader(headers,token)
+  }*/
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Layout></Layout>}>
           <Route path="/signin" element={<SignIn handleLogin={login} />} />
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signup" element={<SignUp handleSignup={signup}/>} />
           <Route index element={<Home />} />
           <Route path="/notebook" element={<Notebooks />} />
           <Route path="/notebook/pages" element={<Pages />} />
