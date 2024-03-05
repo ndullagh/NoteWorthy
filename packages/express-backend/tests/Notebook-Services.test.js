@@ -1,48 +1,3 @@
-/*import Notebook from '../Notebook.js'; 
-import NotebookServices from '../Notebook-Services.js';
-import UserServices from "../User-Services.js";
-import User from "../User.js";
-
-let addedUser;
-let addedNotebook;
-
-// Add a new notebook and user before each test
-beforeEach(async () => {
-    const newUser = {
-        "username": "testuser",
-        "email": "test@exampleee.com",
-        "password": "pw123"
-    };
-
-    // Add the user
-    const user_1 = await UserServices.addUser(newUser);
-    addedUser = user_1;
-    const sampleNotebook = {
-        "user": addedUser._id,
-        "name": "Sample Notebook",
-        "color": "blue",
-        "tags": ["tag1", "tag2"],
-        "created": new Date(),
-        "modified": new Date()
-    };
-    const notebook = await NotebookServices.addNotebook(sampleNotebook);
-    addedNotebook = notebook;
-});
-
-// Test case
-test('add new notebook --success', () => {
-    expect(addedNotebook).toBeDefined();
-});
-
-// Remove added user and notebook after each test
-afterEach(async () => {
-    // Remove the notebook
-    await Notebook.deleteOne({ _id: addedNotebook._id });
-    return await User.deleteOne({ _id: addedUser._id });
-});*/
-
-
-import Notebook from '../Notebook.js'; 
 import NotebookServices from '../Notebook-Services.js'
 import UserServices from "../User-Services.js"
 
@@ -72,7 +27,6 @@ test('add and delete new notebook and user --success', () => {
             });
 
             return UserServices.userDelete(addedUser._id).then((deletedUser) => {
-                console.log("AAAAA");
                 return expect(deletedUser).toBeDefined();
                 
             }).catch((error) => {
@@ -100,9 +54,9 @@ test('add new notebook with user that does not exist --fail', () => {
         "modified": new Date()
     };
 
-    return NotebookServices.addNotebook(sampleNotebook).then(() => {
+    return NotebookServices.addNotebook(sampleNotebook).then((addedNotebook) => {
         // If the promise resolves without error, the test should fail
-        NotebookServices.notebookDelete()
+        NotebookServices.notebookDelete(addedNotebook);
         throw new Error('Expected addNotebook to fail but it succeeded');
     })
     .catch(error => {
@@ -111,104 +65,6 @@ test('add new notebook with user that does not exist --fail', () => {
     });
 });
 
-
-/*test('find notebook by _id --success', () => {
-    const newUser = {
-        "username": "testuser",
-        "email": "test@exampleee.com",
-        "password": "pw123"
-    }
-    return UserServices.addUser(newUser).then((addedUser) => {
-        expect(addedUser).toBeDefined();
-        const sampleNotebook = {
-            "user": addedUser._id,
-            "name": "Sample Notebook",
-            "color": "blue",
-            "tags": ["tag1", "tag2"],
-            "created": new Date(),
-            "modified": new Date()
-        };
-        return NotebookServices.addNotebook(sampleNotebook).then((addedNotebook) => {
-            expect(addedNotebook).toBeDefined();
-            return NotebookServices.findNotebookById(addedNotebook._id).then((result) => {
-                expect(result).toBeDefined();
-                NotebookServices.notebookDelete(addedNotebook._id).then((deletedNotebook) => {
-                    expect(deletedNotebook).toBeDefined();
-                    
-                }).catch((error) => {
-                    console.log(error);
-                });
-    
-                return UserServices.userDelete(addedUser._id).then((deletedUser) => {
-                    return expect(deletedUser).toBeDefined();
-                }).catch((error) => {
-                    console.log(addedUser._id);
-                    console.log(error);
-                });
-                
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-            
-        }).catch((error) => {
-            console.log(error);
-        });
-    }).catch((error) => {
-        console.log(error);
-    });
-    
-   
-});*/
-
-/*test('find notebook by _id #2 --success', () => {
-    const newUser = {
-        "username": "testuser",
-        "email": "test@exampleee.com",
-        "password": "pw123"
-    }
-    return UserServices.addUser(newUser).then((addedUser) => {
-        expect(addedUser).toBeDefined();
-        const sampleNotebook = {
-            "user": addedUser._id,
-            "name": "Sample Notebook",
-            "color": "blue",
-            "tags": ["tag1", "tag2"],
-            "created": new Date(),
-            "modified": new Date()
-        };
-        return NotebookServices.addNotebook(sampleNotebook).then((addedNotebook) => {
-            expect(addedNotebook).toBeDefined();
-            NotebookServices.findNotebookById(addedNotebook._id).then((result) => {
-                expect(result).toBeDefined();
-            }).catch((error) => {
-                console.log(error);
-            });
-
-            NotebookServices.notebookDelete(addedNotebook._id).then((deletedNotebook) => {
-                return expect(deletedNotebook).toBeDefined();
-                
-            }).catch((error) => {
-                console.log(error);
-            });
-
-            return UserServices.userDelete(addedUser._id).then((deletedUser) => {
-                console.log("AAAAA");
-                return expect(deletedUser).toBeDefined();
-                
-            }).catch((error) => {
-                console.log(error);
-            });
-        }).catch((error) => {
-            console.log(error);
-        });
-    }).catch((error) => {
-        console.log(error);
-    });
-    
-   
-});*/
 
 test('find notebook by _id #3 --success', async () => {
     try {
@@ -272,50 +128,6 @@ test('find notebook by user, invalid user --fail', () => {
     });
 });
 
-/*test('find notebook by user --success', () => {
-    const newUser = {
-        "username": "testuser",
-        "email": "test@exampleee.com",
-        "password": "pw123"
-    }
-    return UserServices.addUser(newUser).then((addedUser) => {
-        expect(addedUser).toBeDefined();
-        const sampleNotebook = {
-            "user": addedUser._id,
-            "name": "Sample Notebook",
-            "color": "blue",
-            "tags": ["tag1", "tag2"],
-            "created": new Date(),
-            "modified": new Date()
-        };
-        return NotebookServices.addNotebook(sampleNotebook).then((addedNotebook) => {
-            expect(addedNotebook).toBeDefined();
-            return NotebookServices.findNotebookByUserId(addedNotebook.user).then((result) => {
-                NotebookServices.notebookDelete(addedNotebook.user).then((deletedNotebook) => {
-                    expect(deletedNotebook).toBeDefined();
-                    
-                }).catch((error) => {
-                    console.log(error);
-                });
-    
-                UserServices.userDelete(addedUser._id).then((deletedUser) => {
-                    expect(deletedUser).toBeDefined();
-                }).catch((error) => {
-                    console.log(error);
-                });
-                return expect(result).toBeDefined();
-            })
-
-            
-        }).catch((error) => {
-            console.log(error);
-        });
-    }).catch((error) => {
-        console.log(error);
-    });
-    
-   
-});*/
 
 test('find notebook by user #2 --success', async () => {
     try {
