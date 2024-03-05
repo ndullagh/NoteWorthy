@@ -68,19 +68,21 @@ export default function ViewNote() {
           {new Date(note.modified).toDateString()}
         </h5>
       </Box>
-      <center>
+
         <Box
           border={"1px solid #949494"}
           width={"90%"}
           height={"350px"}
           overflow={"scroll"}
           backgroundColor={"#d3d3d3"}
+          marginLeft={"5%"}
         >
-          <div
+          <Box 
+            paddingLeft={"2%"}
             dangerouslySetInnerHTML={{ __html: note.contents }}
           />
         </Box>
-      </center>
+
       <InputGroup ml={"5%"} mt={2}>
         <Button colorScheme="blue" onClick={handleEdit}>
           Edit Note
