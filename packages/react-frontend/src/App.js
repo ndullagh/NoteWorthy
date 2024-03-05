@@ -22,15 +22,13 @@ import { loginUser, signupUser/*, addAuthHeader*/ } from "./auth";
 function App() {
   const INVALID_TOKEN = "INVALID_TOKEN";
   const [token, setToken] = useState(INVALID_TOKEN);
-  //const [message, setMessage] = useState("");
 
   function login (formData){
-    loginUser(formData,setToken)
-    console.log(token);
+    loginUser(formData,setToken).then(() =>console.log(token));
+    
   }
   function signup (formData){
     signupUser(formData,setToken)
-    console.log(token);
   }
   /*function authorize(headers){
     addAuthHeader(headers,token)

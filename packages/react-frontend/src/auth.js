@@ -20,19 +20,13 @@
               setToken(payload.token);
               console.log(payload.token)
             });
-          //setMessage(`Login successful; auth token saved`);
         } else {
           `Login Error ${response.status}: ${response.data}`
-          /*setMessage(
-            `Login Error ${response.status}: ${response.data}`
-          );*/
         }
       })
       .catch((error) => {
         console.log(error);
         console.log("Error status code:", error.statusCode);
-
-        //setMessage(`Login Error: ${error}`);
       });
   
     return promise;
@@ -50,21 +44,17 @@
         if (response.status === 201) {
           response
             .json()
-            .then((payload) => setToken(payload.token));
-          /*setMessage(
-            `Signup successful for user: ${creds.username}; auth token saved`
-          );*/
+            .then((payload) => {
+              setToken(payload.token)
+              console.log(payload.token)
+            });
         } else {
           console.log(`Signup Error ${response.status}: ${response.data}`)
-          /*setMessage(
-            `Signup Error ${response.status}: ${response.data}`
-          );*/
         }
       })
       .catch((error) => {
         console.log(error);
         console.log("Error status code:", error.statusCode);
-        //setMessage(`Signup Error: ${error}`);
       });
   
     return promise;
