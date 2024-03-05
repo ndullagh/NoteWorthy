@@ -26,13 +26,16 @@ export const NoteModal = (props) => {
   const [color, setColor] = useState("");
 
   function postBook(notebook) {
-    const promise = fetch("Http://noteworthy-2.azurewebsites.net/notebooks/notebooks", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(notebook)
-    });
+    const promise = fetch(
+      "Http://noteworthy-2.azurewebsites.net/notebooks/notebooks",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(notebook)
+      }
+    );
 
     return promise;
   }
