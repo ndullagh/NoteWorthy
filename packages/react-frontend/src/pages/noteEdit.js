@@ -18,7 +18,7 @@ export default function NoteEdit() {
   let params = useParams();
 
   function postNote(note) {
-    const promise = fetch("Http://localhost:8000/notes", {
+    const promise = fetch("Http://noteworthy-2.azurewebsites.net/notes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

@@ -10,7 +10,7 @@ export default function Notebooks() {
 
   function fetchNotebooks(user_id) {
     const promise = fetch(
-      `http://localhost:8000/notebooks?user_id=${user_id}`
+      `http://noteworthy-2.azurewebsites.net/notebooks?user_id=${user_id}`
     );
     return promise;
   }
