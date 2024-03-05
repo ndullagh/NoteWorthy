@@ -36,20 +36,6 @@ function userDelete(id) {
     });
   }
 
-<<<<<<< HEAD
-    // Find the user
-    return userModel.findById(id).then(result => {
-        if (!result) {
-
-            return Promise.reject({ statusCode: 404, message: 'Resource Not Found' });
-        } else {
-            // Find all notebooks owned by the user
-            return notebookModel.find({ user: id }).then(notebooks => {
-                // Delete all notes associated with each notebook
-                const deleteNotebooksPromises = notebooks.map(notebook => {
-                    return Notebook.notebookDelete(notebook._id); // Utilize notebookDelete function
-                });
-=======
   // Find the user
   return userModel.findById(id).then((result) => {
     if (!result) {
@@ -69,7 +55,6 @@ function userDelete(id) {
               return Notebook.notebookDelete(notebook._id); // Utilize notebookDelete function
             }
           );
->>>>>>> master
 
           // After deleting notebooks and their associated notes, delete the user
           return Promise.all(deleteNotebooksPromises).then(
@@ -77,14 +62,7 @@ function userDelete(id) {
               return userModel
                 .findByIdAndDelete(id)
                 .then((user) => {
-                  if (!user) {
-                    return Promise.reject({
-                      statusCode: 404,
-                      message: "Resource Not Found"
-                    });
-                  } else {
                     return user;
-                  }
                 });
             }
           );

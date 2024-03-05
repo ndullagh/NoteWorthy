@@ -52,31 +52,10 @@ function addNotebook(nb) {
 }
 
 function notebookDelete(id) {
-<<<<<<< HEAD
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return Promise.reject({ statusCode: 400, message: 'Bad Request' });
-    }
-
-    // Find the notebook
-    return notebookModel.findById(id).then(result => {
-        if (!result) {
-            return Promise.reject({ statusCode: 404, message: 'Resource Not Found' });
-        } else {
-            // Find all notes associated with the notebook ID and delete them
-            return noteModel.deleteMany({ notebook: id }).then(() => {
-                // After deleting the associated notes, delete the notebook itself
-                return notebookModel.findByIdAndDelete(id).then(notebook => {
-                    return notebook; //removed unreachable second 404 condition
-                    
-                });
-            });
-        }
-=======
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return Promise.reject({
       statusCode: 400,
       message: "Bad Request"
->>>>>>> master
     });
   }
 
@@ -94,14 +73,15 @@ function notebookDelete(id) {
         return notebookModel
           .findByIdAndDelete(id)
           .then((notebook) => {
-            if (!notebook) {
+            /*if (!notebook) {
               return Promise.reject({
                 statusCode: 404,
                 message: "Resource Not Found"
               });
             } else {
               return notebook;
-            }
+            }*/
+            return notebook;
           });
       });
     }
