@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - ci/cd
+      - cd-2
 
 jobs:
   build:
