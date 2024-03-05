@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -15,21 +15,12 @@ import NoteEdit from "./pages/noteEdit";
 import SearchResults from "./pages/searchresults";
 import NoPage from "./pages/errorpage";
 import Layout from "./pages/layout";
-import { loginUser, signupUser/*, addAuthHeader*/ } from "./auth";
-
 
 
 function App() {
-  const INVALID_TOKEN = "INVALID_TOKEN";
-  const [token, setToken] = useState(INVALID_TOKEN);
 
-  function login (formData){
-    loginUser(formData,setToken).then(() =>console.log(token));
-    
-  }
-  function signup (formData){
-    signupUser(formData,setToken)
-  }
+
+
   /*function authorize(headers){
     addAuthHeader(headers,token)
   }*/
@@ -38,11 +29,23 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Layout></Layout>}>
-          <Route path="/signin" element={<SignIn handleLogin={login} />} />
-          <Route path="/signup" element={<SignUp handleSignup={signup}/>} />
+          <Route
+            path="/signin"
+            element={<SignIn/>}
+          />
+          <Route
+            path="/signup"
+            element={<SignUp />}
+          />
           <Route index element={<Home />} />
-          <Route path="/notebook" element={<Notebooks />} />
-          <Route path="/notebook/:book_id" element={<Pages />} />
+          <Route
+            path="/notebook"
+            element={<Notebooks />}
+          />
+          <Route
+            path="/notebook/:book_id"
+            element={<Pages />}
+          />
           <Route
             path="/notebook/:book_id/:note_id"
             element={<ViewNote />}

@@ -15,7 +15,7 @@ app.use(express.json());
 
 //user endpoints
 //get user by username or id
-app.get("/users", (req, res) => {
+app.get("/users",authenticateUser, (req, res) => {
     const username = req.query.username;
     const _id = req.query._id;
 
@@ -81,7 +81,7 @@ app.post("/login", loginUser);
 
 //post new user
 //usernames and emails MUST be unique
-app.post("/users", (req, res) => {
+app.post("/users",authenticateUser, (req, res) => {
     const userToAdd = req.body;
 
     User.addUser(userToAdd).then((addedUser) => {
@@ -112,7 +112,7 @@ app.post("/users", (req, res) => {
 });
 
 //delete user by id
-app.delete("/users/:_id", (req, res) => {
+app.delete("/users/:_id",authenticateUser, (req, res) => {
     const _id = req.params["_id"];
     User.userDelete(_id).then((response) => {
       res.status(204).send(response);
@@ -136,7 +136,7 @@ app.delete("/users/:_id", (req, res) => {
 });
 
 // PATCH endpoint to update a notebook by ID
-app.patch("/users/:_id", (req, res) => {
+app.patch("/users/:_id",authenticateUser, (req, res) => {
     const  _id  = req.params["_id"];
     const updates = req.body;
 
@@ -169,7 +169,7 @@ app.patch("/users/:_id", (req, res) => {
 
 //get notebooks by owner user_id or by notebook's _id. if searching by user_id, may also include keyword
 //may NOT search by key if searching by _id, will result in 400 error
-app.get("/notebooks", (req, res) => {
+app.get("/notebooks",authenticateUser, (req, res) => {
     const user_id = req.query.user_id;
     const key = req.query.key;
     const _id = req.query._id;
@@ -253,7 +253,7 @@ app.get("/notebooks", (req, res) => {
 
 //post new notebook
 //user owner's user_id MUST exist in the user collection
-app.post("/notebooks", (req, res) => {
+app.post("/notebooks",authenticateUser, (req, res) => {
     const notebookToAdd = req.body;
 
     Notebook.addNotebook(notebookToAdd).then((addedNotebook) => {
@@ -283,7 +283,7 @@ app.post("/notebooks", (req, res) => {
 });
 
 //delete notebook by id
-app.delete("/notebooks/:_id", (req, res) => {
+app.delete("/notebooks/:_id",authenticateUser, (req, res) => {
     const _id = req.params["_id"];
     Notebook.notebookDelete(_id).then((response) => {
       res.status(204).send(response);
@@ -306,7 +306,7 @@ app.delete("/notebooks/:_id", (req, res) => {
 });
 
 // PATCH endpoint to update a notebook by ID
-app.patch("/notebooks/:_id", (req, res) => {
+app.patch("/notebooks/:_id",authenticateUser, (req, res) => {
     const  _id  = req.params["_id"];
     const updates = req.body;
 
@@ -339,7 +339,7 @@ app.patch("/notebooks/:_id", (req, res) => {
 //get notes by user, notebook, or _id
 //if searching by user or notebook, may include key (searches title and contents for key)
 //may NOT include key if searching by _id - will result in 400 error
-app.get("/notes", (req, res) => {
+app.get("/notes",authenticateUser, (req, res) => {
     const user_id = req.query.user_id;
     const notebook_id = req.query.notebook_id;
     const key = req.query.key;
@@ -476,7 +476,7 @@ app.get("/notes", (req, res) => {
 
 
 //post new note, notebook containing it must exist
-app.post("/notes", (req, res) => {
+app.post("/notes",authenticateUser, (req, res) => {
     const noteToAdd = req.body;
 
     Note.addNote(noteToAdd).then((addedNote) => {
@@ -506,7 +506,7 @@ app.post("/notes", (req, res) => {
 });
 
 //delete note by _id
-app.delete("/notes/:_id", (req, res) => {
+app.delete("/notes/:_id",authenticateUser, (req, res) => {
     const _id = req.params["_id"];
     Note.noteDelete(_id).then((response) => {
       res.status(204).send(response);
@@ -529,7 +529,7 @@ app.delete("/notes/:_id", (req, res) => {
 });
 
 // PATCH endpoint to update a note by ID
-app.patch("/notes/:_id", (req, res) => {
+app.patch("/notes/:_id",authenticateUser, (req, res) => {
     const  _id  = req.params["_id"];
     const updates = req.body;
 

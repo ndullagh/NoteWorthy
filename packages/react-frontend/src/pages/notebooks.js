@@ -3,20 +3,37 @@ import Notebook from "../components/notebook";
 import { SearchBar } from "../components/searchbar";
 import { Stack } from "@chakra-ui/react";
 import { NoteModal } from "../components/NoteModal";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function Notebooks() {
   const [notebooks, setNotebooks] = useState([]);
-  const user = { _id: "65d7ef6ca18285827c150bd0" };
+  const [token, setToken] = useState(Cookies.get("token"));
+  const [user, setUser] = useState(null);
+  console.log(setToken)
 
-  function fetchNotebooks(user_id) {
+
+  if (!token) {
+    useNavigate("/signin")
+  }
+
+  if(!user){
+    setUser(jwtDecode(token))
+    console.log(user)
+    console.log(token)
+  }
+
+
+  function fetchNotebooks(username) {
     const promise = fetch(
-      `http://localhost:8000/notebooks?user_id=${user_id}`
+      `http://localhost:8000/notebooks?username=${username}`
     );
     return promise;
   }
 
   useEffect(() => {
-    fetchNotebooks(user._id)
+    fetchNotebooks(user.username)
       .then((res) => res.json())
       .then((json) => setNotebooks(json))
       .catch((error) => {

@@ -50,6 +50,7 @@ export function registerUser(req, res) {
         (error, token) => {
           if (error) {
             reject(error);
+            console.log("token error")
           } else {
             resolve(token);
           }

@@ -12,11 +12,12 @@ import {
   VStack,
   Heading,
 } from "@chakra-ui/react";
-//import { signupUser } from "../auth.js";
+import { signupUser } from "../auth.js";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
-export default function SignUp(props) {
-    const {handleSignup} = props
-
+export default function SignUp() {
+    const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -26,10 +27,13 @@ export default function SignUp(props) {
         username: '',
         email: '',
         password: ''
-      });
+    });
 
+    function handleSignup(formData){
+        signupUser(formData).then(console.log(Cookies.get("token")))
+        navigate("/")
+    }
 
-    
     const onChangeHandler = (event) => {
         setFormData(() => ({
             ... FormData,
