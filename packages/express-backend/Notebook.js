@@ -23,7 +23,8 @@ const NotebookSchema = new mongoose.Schema(
     },
     tags: [{ // Array of string tags
         type: String, 
-        trim: true 
+        trim: true, 
+        default:[] //set default to empty array (temporary)
     }], 
     created: {
         type: Date,
