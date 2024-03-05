@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ndullagh/NoteWorthy.git"
+    "url": "git+https://github.com/robintun/NoteWorthy.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ndullagh/NoteWorthy/issues"
+    "url": "https://github.com/robintun/NoteWorthy/issues"
   },
-  "homepage": "https://github.com/ndullagh/NoteWorthy#readme",
+  "homepage": "https://github.com/robintun/NoteWorthy#readme",
   "workspaces": [
     "packages/*"
   ],
