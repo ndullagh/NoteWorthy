@@ -26,7 +26,7 @@ export const NoteModal = (props) => {
   const [color, setColor] = useState("");
 
   function postBook(notebook) {
-    const promise = fetch("Http://localhost:8000/notebooks", {
+    const promise = fetch("Http://noteworthy-2.azurewebsites.net/notebooks/notebooks", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
