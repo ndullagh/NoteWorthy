@@ -481,5 +481,5 @@ app.patch("/notes/:_id", (req, res) => {
 });
 
 app.listen(process.env.PORT || port, () => {
-    console.log("REST API is listening.");
-  });
+  console.log("REST API is listening.");
+});
