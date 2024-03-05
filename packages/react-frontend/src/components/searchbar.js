@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   Button,
   Input,
@@ -7,8 +7,22 @@ import {
   InputRightAddon
 } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
-export const SearchBar = () => {
+export const SearchBar = (props) => {
+  const navigate = useNavigate();
+  const [searchVal, setSearchVal] = useState("");
+  console.log(searchVal)
+
+  function onSubmit() {
+    if(props.book_id){
+      navigate(`/notebook/results/${searchVal}/${props.book_id}`)
+    }
+    else{
+      navigate(`/notebook/results/${searchVal}`)
+    }
+  }
+
   return (
     <>
       <InputGroup borderRadius={5} size="sm">
@@ -20,6 +34,9 @@ export const SearchBar = () => {
           type="text"
           placeholder="Search Keywords..."
           border="1px solid #949494"
+          onChange={(value) =>
+            setSearchVal(value.currentTarget.value)
+          }
         />
         <InputRightAddon p={0} border="none">
           <Button
@@ -28,6 +45,7 @@ export const SearchBar = () => {
             borderLeftRadius={0}
             borderRightRadius={3.3}
             border="1px solid #949494"
+            onClick={onSubmit}
           >
             Search
           </Button>
