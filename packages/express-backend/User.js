@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      trim: true,
+      trim: true
     },
     password: {
       type: String,
@@ -16,17 +16,16 @@ const UserSchema = new mongoose.Schema(
       }, //use to enforce password requirements. passwords must be hashed before being entered. */
     },
     email: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-      },
+      type: String,
+      required: true,
+      unique: true,
+      trim: true
+    }
   },
   { collection: "nw_users" }
 );
 
 const User = mongoose.model("User", UserSchema);
-
 
 //note: it's in the mongodb database rather than encoded in here (it shouldn't be but i'm tired),
 //but users may not have duplicate usernames or emails

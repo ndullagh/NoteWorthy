@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import Notebook from "../components/notebook";
 import { SearchBar } from "../components/searchbar";
 import { Stack, Button } from "@chakra-ui/react";
-import { useNavigate,useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function Pages() {
   const navigate = useNavigate();
   let params = useParams();
   const handleOnClick = () => navigate(`add`);
   const [notes, setNotes] = useState([]);
-
 
   function fetchNotes(notebook_id) {
     const promise = fetch(
@@ -19,12 +18,15 @@ export default function Pages() {
   }
 
   function deleteNotebook(notebook_id) {
-    const promise = fetch(`Http://localhost:8000/notebooks/${notebook_id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const promise = fetch(
+      `Http://localhost:8000/notebooks/${notebook_id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
 
     return promise;
   }
@@ -38,7 +40,6 @@ export default function Pages() {
       .catch((error) => {
         console.log(error);
       });
-
   }
 
   useEffect(() => {

@@ -1,54 +1,56 @@
 import mongoose from "./db.js";
 
-
-
 const NoteSchema = new mongoose.Schema(
   {
     notebook: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Notebook', // Reference to the User model
-        required: true
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Notebook", // Reference to the User model
+      required: true
     },
     title: {
-        type: String,
-        required: true,
-        trim: true,
+      type: String,
+      required: true,
+      trim: true
     },
     contents: {
-        type: String,
-        required: true,
-        trim: true,
+      type: String,
+      required: true,
+      trim: true
     },
-    tags: [{ // Array of string tags
-        type: String, 
+    tags: [
+      {
+        // Array of string tags
+        type: String,
         trim: true,
-        default:[]
-    }], 
-    created: {
-        type: Date,
-        default: Date.now // Set default value to current date and time when a new document is created
-      },
-      modified: {
-        type: Date,
-        default: Date.now // Set default value to current date and time when a new document is created
+        default: []
       }
+    ],
+    created: {
+      type: Date,
+      default: Date.now // Set default value to current date and time when a new document is created
+    },
+    modified: {
+      type: Date,
+      default: Date.now // Set default value to current date and time when a new document is created
+    }
   },
   { collection: "nw_notes" }
 );
 //notebook containing the note must exist
-NoteSchema.pre('save', async function(next) {
+NoteSchema.pre("save", async function (next) {
   try {
-    const NotebookModel = mongoose.model('Notebook');
-    const notebookExists = await NotebookModel.exists({ _id: this.notebook });
+    const NotebookModel = mongoose.model("Notebook");
+    const notebookExists = await NotebookModel.exists({
+      _id: this.notebook
+    });
     if (!notebookExists) {
-      throw new Error('Notebook does not exist');
+      throw new Error("Notebook does not exist");
     }
     next();
   } catch (error) {
     next(error);
   }
 });
-
 
 const Note = mongoose.model("Note", NoteSchema);
 

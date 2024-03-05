@@ -17,8 +17,6 @@ export default function NoteEdit() {
   const [title, setTitle] = useState("");
   let params = useParams();
 
-  
-
   function postNote(note) {
     const promise = fetch("Http://localhost:8000/notes", {
       method: "POST",
@@ -31,21 +29,20 @@ export default function NoteEdit() {
     return promise;
   }
 
-  const handleCancel = () => navigate(`/notebook/${params.book_id}`);
+  const handleCancel = () =>
+    navigate(`/notebook/${params.book_id}`);
 
   function onSubmit() {
     const newNote = {
       notebook: params.book_id,
       title: title,
-      contents:value
+      contents: value
     };
     postNote(newNote);
     handleCancel();
   }
 
-
   const navigate = useNavigate();
-
 
   const modules = {
     toolbar: [
