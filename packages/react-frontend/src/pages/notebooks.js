@@ -6,39 +6,61 @@ import { NoteModal } from "../components/NoteModal";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { addAuthHeader } from "../auth";
 
 export default function Notebooks() {
   const [notebooks, setNotebooks] = useState([]);
   const [token, setToken] = useState(Cookies.get("token"));
+  console.log(setToken);
   const [user, setUser] = useState(null);
-  console.log(setToken)
+  const [userid, setUserId] = useState({});
 
 
   if (!token) {
-    useNavigate("/signin")
+    useNavigate("/signin");
   }
 
-  if(!user){
-    setUser(jwtDecode(token))
-    console.log(user)
-    console.log(token)
+  if (!user && token) {
+    setUser(jwtDecode(token));
   }
 
-
-  function fetchNotebooks(username) {
+  function fetchUser(username) {
     const promise = fetch(
-      `http://localhost:8000/notebooks?username=${username}`
+      `http://localhost:8000/users?username=${username}`,
+      {
+        method: "GET",
+        headers: addAuthHeader({
+          "Content-Type": "application/json"
+        },token),
+      }
+    );
+    return promise;
+  }
+
+  function fetchNotebooks(user_id) {
+    const promise = fetch(
+      `http://localhost:8000/notebooks?user_id=${user_id}`,
+      {
+        method: "GET",
+        headers: addAuthHeader({
+          "Content-Type": "application/json"
+        },token)
+      }
     );
     return promise;
   }
 
   useEffect(() => {
-    fetchNotebooks(user.username)
-      .then((res) => res.json())
-      .then((json) => setNotebooks(json))
-      .catch((error) => {
-        console.log(error);
-      });
+    fetchUser(user.username)
+    .then((res) => res.json())
+    .then((json) => {
+      setUserId({_id : json[0]._id})
+      fetchNotebooks(json[0]._id)})
+    .then((res) => res.json())
+    .then((json) => setNotebooks(json))
+    .catch((error) => {
+      console.log(error);
+    });
   }, []);
 
   return (
@@ -67,7 +89,7 @@ export default function Notebooks() {
         <NoteModal
           notebooks={notebooks}
           setNotebooks={setNotebooks}
-          user={user}
+          user={userid}
         />
       </Stack>
     </div>
