@@ -24,14 +24,32 @@ const Home = () => {
               Welcome To <br></br> Noteworthy
             </h1>
           }
+          <center>
           <Link
             to="/notebook"
-            className="signInLink"
+            className="button"
             style={{ color: "white" }}
           >
-
             Start Writing.
           </Link>
+          {
+            Cookies.get("token") ?
+            <Link
+              className="button"
+              style={{ color: "white" }}
+              onClick={() => 
+                {
+                  Cookies.remove("token")
+                  location.reload()
+
+                }}
+              >
+              Logout.
+            </Link>
+          :
+            <></>
+          }
+          </center>
         </div>
       </main>
     </div>
