@@ -1,8 +1,6 @@
 //import { useState } from "react";
 import Cookies from "js-cookie";
 
-const INVALID_TOKEN = "INVALID_TOKEN";
-
 export function loginUser(creds) {
   const promise = fetch(`http://localhost:8000/login`, {
     method: "POST",
@@ -59,7 +57,7 @@ export function signupUser(creds) {
 
 
 export function addAuthHeader(otherHeaders = {}, token) {
-  if (token === INVALID_TOKEN) {
+  if (!token) {
     return otherHeaders;
   } else {
     return {
