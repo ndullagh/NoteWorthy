@@ -15,6 +15,7 @@ import NoteEdit from "./pages/noteEdit";
 import SearchResults from "./pages/searchresults";
 import NoPage from "./pages/errorpage";
 import Layout from "./pages/layout";
+import PrivateRoutes from "./pages/privateroute";
 
 
 function App() {
@@ -38,27 +39,29 @@ function App() {
             element={<SignUp />}
           />
           <Route index element={<Home />} />
-          <Route
-            path="/notebook"
-            element={<Notebooks />}
-          />
-          <Route
-            path="/notebook/:book_id"
-            element={<Pages />}
-          />
-          <Route
-            path="/notebook/:book_id/:note_id"
-            element={<ViewNote />}
-          />
-          <Route
-            path="/notebook/:book_id/add/:note_id?"
-            element={<NoteEdit />}
-          />
-          <Route
-            path="/notebook/results/:key/:book_id?"
-            element={<SearchResults />}
-          />
-          <Route path="*" element={<NoPage />} />
+          <Route element={<PrivateRoutes/>}>
+            <Route
+              path="/notebook"
+              element={<Notebooks />}
+            />
+            <Route
+              path="/notebook/:book_id"
+              element={<Pages />}
+            />
+            <Route
+              path="/notebook/:book_id/:note_id"
+              element={<ViewNote />}
+            />
+            <Route
+              path="/notebook/:book_id/add/:note_id?"
+              element={<NoteEdit />}
+            />
+            <Route
+              path="/notebook/results/:key/:book_id?"
+              element={<SearchResults />}
+            />
+            <Route path="*" element={<NoPage />} />
+          </Route>
         </Route>
       </Routes>
     </Router>
