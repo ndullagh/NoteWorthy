@@ -13,7 +13,6 @@ import {
   Heading
 } from "@chakra-ui/react";
 import { signupUser } from "../auth.js";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
@@ -30,8 +29,13 @@ export default function SignUp() {
     });
 
     function handleSignup(formData){
-        signupUser(formData).then(console.log(Cookies.get("token")))
-        navigate("/")
+        signupUser(formData).then(
+          setTimeout(
+            () => {navigate("/")},
+            1000
+          )
+        )
+
     }
 
     const onChangeHandler = (event) => {
