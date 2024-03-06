@@ -27,7 +27,7 @@ export const NoteModal = (props) => {
 
   function postBook(notebook) {
     const promise = fetch(
-      "Http://noteworthy-2.azurewebsites.net/notebooks/notebooks",
+      "Https://noteworthy-2.azurewebsites.net/notebooks/notebooks",
       {
         method: "POST",
         headers: {
