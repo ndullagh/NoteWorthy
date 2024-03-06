@@ -10,7 +10,7 @@ import {
   FormLabel,
   InputRightElement,
   VStack,
-  Heading,
+  Heading
 } from "@chakra-ui/react";
 import { signupUser } from "../auth.js";
 import Cookies from "js-cookie";
@@ -21,7 +21,7 @@ export default function SignUp() {
 
     const [showPassword, setShowPassword] = useState(false);
 
-    const handleShowClick = () => setShowPassword(!showPassword);
+  const handleShowClick = () => setShowPassword(!showPassword);
 
     const [FormData, setFormData] = useState({
         username: '',
@@ -81,25 +81,29 @@ export default function SignUp() {
                         <Input rounded='none' variant='filled' name="email" onChange={onChangeHandler} />
                     </FormControl>
 
-                    <FormControl>
-                        <FormLabel>Password</FormLabel>
-                        <InputGroup>
-                            <Input
-                                rounded='none' 
-                                variant='filled'
-                                type={showPassword ? "text" : "password"}
-                                name="password"
-                                onChange={onChangeHandler}
-                            />
-                            <InputRightElement width="4.5rem">
-                                <Button h="1.75rem" size="sm" onClick={handleShowClick}>
-                                    {showPassword ? "Hide" : "Show"}
-                                </Button>
-                            </InputRightElement>
-                        </InputGroup>
-                    </FormControl>
-                </Stack>
-                </form>
+            <FormControl>
+              <FormLabel>Password</FormLabel>
+              <InputGroup>
+                <Input
+                  rounded="none"
+                  variant="filled"
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  onChange={onChangeHandler}
+                />
+                <InputRightElement width="4.5rem">
+                  <Button
+                    h="1.75rem"
+                    size="sm"
+                    onClick={handleShowClick}
+                  >
+                    {showPassword ? "Hide" : "Show"}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
+          </Stack>
+        </form>
 
                 <Button
                     borderRadius={0}
@@ -115,5 +119,4 @@ export default function SignUp() {
             </Stack>
         </Flex>
   );
-
 }

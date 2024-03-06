@@ -6,7 +6,6 @@ export default function ViewNote() {
   const navigate = useNavigate();
   let params = useParams();
 
-
   const [note, setNote] = useState([]);
 
   function fetchNote(note_id) {
@@ -17,12 +16,15 @@ export default function ViewNote() {
   }
 
   function deleteNotebook(note_id) {
-    const promise = fetch(`Http://localhost:8000/notes/${note_id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const promise = fetch(
+      `Http://localhost:8000/notes/${note_id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
 
     return promise;
   }
@@ -36,11 +38,12 @@ export default function ViewNote() {
       .catch((error) => {
         console.log(error);
       });
-
   }
 
-  function handleEdit(){
-    navigate(`/notebook/${params.book_id}/add/${params.note_id}`)
+  function handleEdit() {
+    navigate(
+      `/notebook/${params.book_id}/add/${params.note_id}`
+    );
   }
 
   useEffect(() => {
@@ -54,8 +57,6 @@ export default function ViewNote() {
       });
   }, []);
 
-  
-
   return (
     <div>
       <Box pl={"5%"} textAlign={"left"} pb={6} mt={3}>
@@ -67,22 +68,28 @@ export default function ViewNote() {
           {new Date(note.modified).toDateString()}
         </h5>
       </Box>
-      <center>
+
         <Box
           border={"1px solid #949494"}
           width={"90%"}
           height={"350px"}
           overflow={"scroll"}
           backgroundColor={"#d3d3d3"}
+          marginLeft={"5%"}
         >
-          <div
+          <Box 
+            paddingLeft={"2%"}
             dangerouslySetInnerHTML={{ __html: note.contents }}
           />
         </Box>
-      </center>
+
       <InputGroup ml={"5%"} mt={2}>
-        <Button colorScheme="blue" onClick={handleEdit}>Edit Note</Button>
-        <Button colorScheme="red" ml={3} onClick={handleDelete}>Delete Note</Button>
+        <Button colorScheme="blue" onClick={handleEdit}>
+          Edit Note
+        </Button>
+        <Button colorScheme="red" ml={3} onClick={handleDelete}>
+          Delete Note
+        </Button>
       </InputGroup>
     </div>
   );
