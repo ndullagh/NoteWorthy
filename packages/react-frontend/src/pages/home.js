@@ -25,12 +25,12 @@ const Home = () => {
             </h1>
           }
           <Link
-            to="/signin"
+            to="/notebook"
             className="signInLink"
             style={{ color: "white" }}
           >
-            {" "}
-            Start Writing.{" "}
+
+            Start Writing.
           </Link>
         </div>
       </main>
