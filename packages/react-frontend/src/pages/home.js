@@ -5,11 +5,10 @@ import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 
 const Home = () => {
-  //Cookies.remove("token")
   const [decoded, setDecoded] = useState(null);
+
   if (Cookies.get("token") && !decoded) {
     setDecoded(jwtDecode(Cookies.get("token")));
-    console.log(decoded);
   }
   return (
     <div className="homePage">
