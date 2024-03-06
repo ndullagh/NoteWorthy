@@ -51,18 +51,22 @@ export default function Notebooks() {
 
 
   useEffect(() => {
-    fetchUser(user.username)
+    fetchUser(user.username) //fetch user from username
       .then((res) => res.json())
       .then((json) => {
-        setUserId({ _id: json[0]._id });
-        fetchNotebooks(json[0]._id);
+        setUserId({ _id: json[0]._id }); //set userid state var for reuse
+        fetchNotebooks(json[0]._id) //fetch notebooks from user using user_id
+          .then((result) => result.json())
+          .then((jso) =>{
+            if(jso)        //jso is  undefined here
+            setNotebooks(jso)
+          })
       })
-      .then((res) => res.json())
-      .then((json) => setNotebooks(json))
       .catch((error) => {
         console.log(error);
       });
   }, []);
+
   
 
 
