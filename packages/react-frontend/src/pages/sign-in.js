@@ -15,8 +15,8 @@ import {
   Text
 } from "@chakra-ui/react";
 import { loginUser } from "../auth.js";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -26,12 +26,16 @@ export default function SignIn() {
     password: ""
   });
 
+
+
   function handleLogin() {
-    console.log("here")
+    console.log("here");
     loginUser(FormData)
-      .then(console.log(Cookies.get("token")))
-      .then(navigate("/"))
-  }
+      .then(
+        setTimeout(
+          () => {navigate("/")},
+          1000
+        ))}
 
   const onChangeHandler = (event) => {
     setFormData(() => ({
@@ -89,10 +93,13 @@ export default function SignIn() {
           </Button>
         </HStack>
 
-        <Button rounded="none" colorScheme="blue" w="full" onClick={() => handleLogin()}>
-          <Link >
-            Sign in
-          </Link>
+        <Button
+          rounded="none"
+          colorScheme="blue"
+          w="full"
+          onClick={() => handleLogin()}
+        >
+          <Link>Sign in</Link>
         </Button>
       </VStack>
 
