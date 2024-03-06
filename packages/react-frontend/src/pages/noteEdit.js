@@ -7,10 +7,11 @@ import {
   Button
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import ReactQuill from "react-quill";
-
 import "../styles/quill.css";
+import Cookies from "js-cookie";
+import { addAuthHeader } from "../auth";
+
 
 export default function NoteEdit() {
   const [value, setValue] = useState("");
@@ -20,9 +21,12 @@ export default function NoteEdit() {
   function postNote(note) {
     const promise = fetch("Http://localhost:8000/notes", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: addAuthHeader(
+        {
+          "Content-Type": "application/json"
+        },
+        Cookies.get("token")
+      ),
       body: JSON.stringify(note)
     });
 

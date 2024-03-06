@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, InputGroup } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
+import Cookies from "js-cookie";
+import { addAuthHeader } from "../auth";
 
 export default function ViewNote() {
   const navigate = useNavigate();
@@ -10,19 +12,31 @@ export default function ViewNote() {
 
   function fetchNote(note_id) {
     const promise = fetch(
-      `http://localhost:8000/notes?_id=${note_id}`
+      `http://localhost:8000/notes?_id=${note_id}`,
+      {
+        method: "GET",
+        headers: addAuthHeader(
+          {
+            "Content-Type": "application/json"
+          },
+          Cookies.get("token")
+        )
+      }
     );
     return promise;
   }
 
-  function deleteNotebook(note_id) {
+  function deleteNote(note_id) {
     const promise = fetch(
       `Http://localhost:8000/notes/${note_id}`,
       {
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json"
-        }
+        headers: addAuthHeader(
+          {
+            "Content-Type": "application/json"
+          },
+          Cookies.get("token")
+        )
       }
     );
 
@@ -30,7 +44,7 @@ export default function ViewNote() {
   }
 
   function handleDelete() {
-    deleteNotebook(params.note_id)
+    deleteNote(params.note_id)
       .then((res) => {
         if (res.status !== 204) throw new Error("Not Removed!");
         navigate(`/notebook/${params.book_id}`);
