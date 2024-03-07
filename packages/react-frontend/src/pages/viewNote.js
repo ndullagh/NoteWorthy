@@ -83,22 +83,26 @@ export default function ViewNote() {
         </h5>
       </Box>
 
+      <Box
+        border={"1px solid #949494"}
+        width={"90%"}
+        height={"350px"}
+        overflow={"scroll"}
+        backgroundColor={"#d3d3d3"}
+        marginLeft={"5%"}
+      >
         <Box
-          border={"1px solid #949494"}
-          width={"90%"}
-          height={"350px"}
-          overflow={"scroll"}
-          backgroundColor={"#d3d3d3"}
-          marginLeft={"5%"}
-        >
-          <Box 
-            paddingLeft={"2%"}
-            dangerouslySetInnerHTML={{ __html: note.contents }}
-          />
-        </Box>
+          paddingLeft={"2%"}
+          dangerouslySetInnerHTML={{ __html: note.contents }}
+        />
+      </Box>
 
       <InputGroup ml={"5%"} mt={2}>
-        <Button colorScheme="blue" onClick={handleEdit}>
+        <Button
+          colorScheme="blue"
+          onClick={handleEdit}
+          mb={"100px"}
+        >
           Edit Note
         </Button>
         <Button colorScheme="red" ml={3} onClick={handleDelete}>
