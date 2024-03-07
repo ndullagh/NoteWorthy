@@ -6,7 +6,7 @@ import { NoteModal } from "../components/NoteModal";
 
 export default function Notebooks() {
   const [notebooks, setNotebooks] = useState([]);
-  const user = { _id: "65d7ef6ca18285827c150bd0" };
+  const user = { _id: "65e6b0e56c16628969cbb24b" };
 
   function fetchNotebooks(user_id) {
     const promise = fetch(
