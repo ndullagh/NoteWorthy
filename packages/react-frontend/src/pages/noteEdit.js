@@ -19,7 +19,7 @@ export default function NoteEdit() {
 
   function postNote(note) {
     const promise = fetch(
-      `https://noteworthy-2.azurewebsites.net/notes`,
+      `${process.env.REACT_APP_BACKEND_URL}/notes`,
       {
         method: "POST",
         headers: {

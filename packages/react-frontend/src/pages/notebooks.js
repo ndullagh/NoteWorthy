@@ -10,7 +10,7 @@ export default function Notebooks() {
 
   function fetchNotebooks(user_id) {
     const promise = fetch(
-      `https://noteworthy-2.azurewebsites.net/notebooks?user_id=${user_id}`
+      `${process.env.REACT_APP_BACKEND_URL}/notebooks?user_id=${user_id}`
     );
     return promise;
   }

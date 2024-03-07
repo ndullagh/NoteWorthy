@@ -27,7 +27,7 @@ export const NoteModal = (props) => {
 
   function postBook(notebook) {
     const promise = fetch(
-      "https://noteworthy-2.azurewebsites.net/notebooks",
+      `${process.env.REACT_APP_BACKEND_URL}/notebooks`,
       {
         method: "POST",
         headers: {
@@ -43,6 +43,7 @@ export const NoteModal = (props) => {
   function updateNotebooks(notebook) {
     postBook(notebook)
       .then((res) => {
+        console.log("API Response:", res)
         if (res.status !== 201) throw new Error("Not Added!");
         return res.json();
       })
