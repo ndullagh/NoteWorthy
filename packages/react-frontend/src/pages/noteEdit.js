@@ -12,7 +12,6 @@ import "../styles/quill.css";
 import Cookies from "js-cookie";
 import { addAuthHeader } from "../auth";
 
-
 export default function NoteEdit() {
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
@@ -83,7 +82,7 @@ export default function NoteEdit() {
         <h1>Create Note.</h1>
       </center>
       <FormLabel
-        pt={10}
+        pt={3}
         pl={5}
         borderColor={"blue"}
         fontSize={"xl"}
@@ -106,14 +105,14 @@ export default function NoteEdit() {
           w="90%"
           ml={5}
           mb={10}
-          maxH={350}
+          maxH={"25rem"}
           border="1px solid #949494"
           borderRadius={6}
         >
           <ReactQuill
             style={{
-              height: "350px",
-              maxHeight: "450px",
+              height: "25rem",
+              maxHeight: "25rem",
               overflow: "auto"
             }}
             theme="snow"
