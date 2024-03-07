@@ -14,7 +14,7 @@ export default function Pages() {
 
   function fetchNotes(notebook_id) {
     const promise = fetch(
-      `http://localhost:8000/notes?notebook_id=${notebook_id}`,
+      `${process.env.REACT_APP_BACKEND_URL}/notes?notebook_id=${notebook_id}`,
       {
         method: "GET",
         headers: addAuthHeader(
@@ -30,7 +30,7 @@ export default function Pages() {
 
   function deleteNotebook(notebook_id) {
     const promise = fetch(
-      `Http://localhost:8000/notebooks/${notebook_id}`,
+      `${process.env.REACT_APP_BACKEND_URL}/notebooks/${notebook_id}`,
       {
         method: "DELETE",
         headers: addAuthHeader(

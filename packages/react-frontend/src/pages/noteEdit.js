@@ -18,7 +18,7 @@ export default function NoteEdit() {
   let params = useParams();
 
   function postNote(note) {
-    const promise = fetch("Http://localhost:8000/notes", {
+    const promise = fetch(`${process.env.REACT_APP_BACKEND_URL}/notes`, {
       method: "POST",
       headers: addAuthHeader(
         {

@@ -16,10 +16,10 @@ export default function Notebooks() {
   if (!user) {
     setUser(jwtDecode(token));
   }
-
+  
   function fetchUser(username) {
     const promise = fetch(
-      `http://localhost:8000/users?username=${username}`,
+      `${process.env.REACT_APP_BACKEND_URL}/users?username=${username}`,
       {
         method: "GET",
         headers: addAuthHeader(
@@ -35,7 +35,7 @@ export default function Notebooks() {
 
   function fetchNotebooks(user_id) {
     const promise = fetch(
-      `http://localhost:8000/notebooks?user_id=${user_id}`,
+      `${process.env.REACT_APP_BACKEND_URL}/notebooks?user_id=${user_id}`,
       {
         method: "GET",
         headers: addAuthHeader(

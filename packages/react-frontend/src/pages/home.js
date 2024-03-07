@@ -14,7 +14,7 @@ const Home = () => {
 
   function fetchUser(username) {
     const promise = fetch(
-      `http://localhost:8000/users?username=${username}`,
+      `${process.env.REACT_APP_BACKEND_URL}/users?username=${username}`,
       {
         method: "GET",
         headers: addAuthHeader(
@@ -30,7 +30,7 @@ const Home = () => {
 
   function deleteUser(user_id) {
     const promise = fetch(
-      `Http://localhost:8000/users/${user_id}`,
+      `${process.env.REACT_APP_BACKEND_URL}/users/${user_id}`,
       {
         method: "DELETE",
         headers: addAuthHeader(

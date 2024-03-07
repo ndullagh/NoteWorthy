@@ -27,7 +27,7 @@ export const NoteModal = (props) => {
   const [color, setColor] = useState("");
 
   function postBook(notebook) {
-    const promise = fetch("Http://localhost:8000/notebooks", {
+    const promise = fetch(`${process.env.REACT_APP_BACKEND_URL}/notebooks`, {
       method: "POST",
       headers: addAuthHeader(
         {

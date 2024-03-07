@@ -12,7 +12,7 @@ export default function ViewNote() {
 
   function fetchNote(note_id) {
     const promise = fetch(
-      `http://localhost:8000/notes?_id=${note_id}`,
+      `${process.env.REACT_APP_BACKEND_URL}/notes?_id=${note_id}`,
       {
         method: "GET",
         headers: addAuthHeader(
@@ -28,7 +28,7 @@ export default function ViewNote() {
 
   function deleteNote(note_id) {
     const promise = fetch(
-      `Http://localhost:8000/notes/${note_id}`,
+      `${process.env.REACT_APP_BACKEND_URL}/notes/${note_id}`,
       {
         method: "DELETE",
         headers: addAuthHeader(
