@@ -31,19 +31,10 @@ export default function SignIn() {
   function handleLogin() {
     loginUser(FormData)
       .then(
-        (res) =>
-        {
-
-          if(res){
             setTimeout(
               () => {navigate("/")},
               1000)
-          }
-          else{
-            alert("Invalid Username or Password")
-          }
-
-        })}
+        )}
 
   const onChangeHandler = (event) => {
     setFormData(() => ({
