@@ -19,7 +19,7 @@ export default function NoteEdit() {
 
   function postNote(note) {
     const promise = fetch(
-      "Http://noteworthy-2.azurewebsites.net/notes",
+      `https://noteworthy-2.azurewebsites.net/notes`,
       {
         method: "POST",
         headers: {

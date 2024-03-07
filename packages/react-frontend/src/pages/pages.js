@@ -12,14 +12,14 @@ export default function Pages() {
 
   function fetchNotes(notebook_id) {
     const promise = fetch(
-      `http://noteworthy-2.azurewebsites.net/notes?notebook_id=${notebook_id}`
+      `https://noteworthy-2.azurewebsites.net/notes?notebook_id=${notebook_id}`
     );
     return promise;
   }
 
   function deleteNotebook(notebook_id) {
     const promise = fetch(
-      `Http://noteworthy-2.azurewebsites.net/notebooks/${notebook_id}`,
+      `https://noteworthy-2.azurewebsites.net/notebooks/${notebook_id}`,
       {
         method: "DELETE",
         headers: {

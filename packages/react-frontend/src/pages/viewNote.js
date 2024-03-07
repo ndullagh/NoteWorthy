@@ -10,14 +10,14 @@ export default function ViewNote() {
 
   function fetchNote(note_id) {
     const promise = fetch(
-      `http://noteworthy-2.azurewebsites.net/notes?_id=${note_id}`
+      `https://noteworthy-2.azurewebsites.net/notes?_id=${note_id}`
     );
     return promise;
   }
 
   function deleteNotebook(note_id) {
     const promise = fetch(
-      `Http://noteworthy-2.azurewebsites.net/notes/${note_id}`,
+      `https://noteworthy-2.azurewebsites.net/notes/${note_id}`,
       {
         method: "DELETE",
         headers: {
