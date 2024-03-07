@@ -29,13 +29,21 @@ export default function SignIn() {
 
 
   function handleLogin() {
-    console.log("here");
     loginUser(FormData)
       .then(
-        setTimeout(
-          () => {navigate("/")},
-          1000
-        ))}
+        (res) =>
+        {
+
+          if(res){
+            setTimeout(
+              () => {navigate("/")},
+              1000)
+          }
+          else{
+            alert("Invalid Username or Password")
+          }
+
+        })}
 
   const onChangeHandler = (event) => {
     setFormData(() => ({
