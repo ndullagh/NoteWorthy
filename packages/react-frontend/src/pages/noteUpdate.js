@@ -53,7 +53,7 @@ export default function NoteUpdate() {
   }
 
   const handleCancel = () =>
-    navigate(`/notebook/${params.book_id}`);
+    navigate(`/notebook/${params.book_id}/${params.note_id}`);
 
   function onSubmit() {
     const updatedNote = {
@@ -62,7 +62,7 @@ export default function NoteUpdate() {
       modified: new Date()
     };
     updateNote(updatedNote);
-    navigate(`/notebook/${params.book_id}/${params.note_id}`)
+    //navigate(`/notebook/${params.book_id}/${params.note_id}`)
     handleCancel();
   }
 
