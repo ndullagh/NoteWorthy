@@ -17,37 +17,42 @@ export default function NoteUpdate() {
   const [title, setTitle] = useState("");
   let params = useParams();
 
-  if(params.note_id){
+  if (params.note_id) {
     useEffect(() => {
-        async function fetchNote() {
-          try {
-            const response = await fetch(`Http://localhost:8000/notes/?_id=${params.note_id}`);
-            const data = await response.json();
-            return data;
-          } catch (error) {
-            console.error('Error fetching note:', error);
-          }
+      async function fetchNote() {
+        try {
+          const response = await fetch(
+            `Http://localhost:8000/notes/?_id=${params.note_id}`
+          );
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.error("Error fetching note:", error);
         }
-    
-        fetchNote().then((data) => {
-            setTitle(data.title);
-            setValue(data.contents);
-        }).catch((error) => {
-            console.error(error);
+      }
+
+      fetchNote()
+        .then((data) => {
+          setTitle(data.title);
+          setValue(data.contents);
+        })
+        .catch((error) => {
+          console.error(error);
         });
     }, [params.note_id]); // Fetch note data when note_id changes
-    
   }
 
-  
   function updateNote(note) {
-    const promise = fetch(`Http://localhost:8000/notes/${params.note_id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(note)
-    });
+    const promise = fetch(
+      `Http://localhost:8000/notes/${params.note_id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(note)
+      }
+    );
 
     return promise;
   }
@@ -117,7 +122,7 @@ export default function NoteUpdate() {
           variant="outline"
           w={"55%"}
           value={title}
-          onChange={(event) => 
+          onChange={(event) =>
             setTitle(event.currentTarget.value)
           }
         ></Input>

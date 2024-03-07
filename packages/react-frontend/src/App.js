@@ -15,7 +15,7 @@ import NoteEdit from "./pages/noteEdit";
 import SearchResults from "./pages/searchresults";
 import NoPage from "./pages/errorpage";
 import Layout from "./pages/layout";
-import NoteUpdate from "./pages/noteUpdate.js"
+import NoteUpdate from "./pages/noteUpdate.js";
 
 function App() {
   return (
