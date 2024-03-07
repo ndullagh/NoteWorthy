@@ -101,7 +101,6 @@ export default function ViewNote() {
         <Button
           colorScheme="blue"
           onClick={handleEdit}
-          mb={"100px"}
         >
           Edit Note
         </Button>

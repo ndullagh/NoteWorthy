@@ -127,7 +127,7 @@ export default function NoteEdit() {
         </Box>
       </InputGroup>
       <InputGroup>
-        <Button ml={5} colorScheme="blue" onClick={onSubmit} mb={"100px"}>
+        <Button ml={5} colorScheme="blue" onClick={onSubmit}>
           Submit
         </Button>
         <Button ml={5} variant={"ghost"} onClick={handleCancel}>
