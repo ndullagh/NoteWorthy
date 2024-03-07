@@ -4,12 +4,20 @@
   margin-bottom: 5rem;
 }
 .homeBody {
-  display: block;
-  padding: 11.5%;
+  padding-left: 11.5%;
+  padding-right: 11.5%;
+  padding-bottom: 25%;
+  padding-top: 5%;
   text-align: center;
   background: whitesmoke;
   color: lightgray;
   font-size: 35px;
+}
+
+.greeting{
+  font-size: 50px;
+  color: #323949;
+  margin-bottom: 1rem;
 }
 
 .button{
