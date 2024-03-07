@@ -11,7 +11,6 @@ test('add and delete user --success', async () => {
             "password": "pw123"
         };
         const addedUser = await UserServices.addUser(newUser);
-        console.log("User added:", addedUser);
 
         // Step 2: Add a new notebook
         const sampleNotebook = {
@@ -23,7 +22,6 @@ test('add and delete user --success', async () => {
             "modified": new Date()
         };
         const addedNotebook = await NotebookServices.addNotebook(sampleNotebook);
-        console.log("Notebook added:", addedNotebook);
 
        //Step 3: Add a new note
         const sampleNote = {
@@ -36,20 +34,16 @@ test('add and delete user --success', async () => {
         }
 
         const addedNote = await NoteServices.addNote(sampleNote);
-        console.log("Note added:", addedNote);
         expect(addedNote).toBeDefined();
 
         // Step 5: Delete the added user
         const deletedUser = await UserServices.userDelete(addedUser._id);
-        console.log("Deleted user:", deletedUser);
         expect(deletedUser).toBeDefined();
 
         const foundNotebook = await NotebookServices.findNotebookById(addedNotebook._id);
-        console.log("Found notebook:", foundNotebook);
         expect(foundNotebook).toBeNull();
         
         const foundNote = await NoteServices.findNoteById(addedNote._id);
-        console.log("Found note:", foundNote);
         expect(foundNote).toBeNull();
 
     } catch (error) {
@@ -87,16 +81,12 @@ test('find user by _id  --success', async () => {
             "password": "apw"
         };
         const addedUser = await UserServices.addUser(newUser);
-        console.log("User added:", addedUser);
-
         // Step 3: Find the added notebook by ID
         const foundUser = await UserServices.findUserById(addedUser._id);
-        console.log("Found user:", foundUser);
         expect(foundUser).toBeDefined();
 
         // Step 5: Delete the added user
         const deletedUser = await UserServices.userDelete(addedUser._id);
-        console.log("Deleted user:", deletedUser);
         expect(deletedUser).toBeDefined();
     } catch (error) {
         console.error("Error:", error);
@@ -122,16 +112,13 @@ test('find user by username  --success', async () => {
             "password": "apw"
         };
         const addedUser = await UserServices.addUser(newUser);
-        console.log("User added:", addedUser);
 
         // Step 3: Find the added notebook by ID
         const foundUser = await UserServices.findUserByUserName(addedUser.username);
-        console.log("Found user:", foundUser);
         expect(foundUser).toBeDefined();
 
         // Step 5: Delete the added user
         const deletedUser = await UserServices.userDelete(addedUser._id);
-        console.log("Deleted user:", deletedUser);
         expect(deletedUser).toBeDefined();
     } catch (error) {
         console.error("Error:", error);
@@ -146,14 +133,11 @@ test('user findall --success', async () => {
         "password": "apw"
     };
     const addedUser = await UserServices.addUser(newUser);
-    console.log("User added:", addedUser);
 
     // Step 3: Find the added notebook by ID
     const foundUser = await UserServices.findAll();
-    console.log("Found user:", foundUser);
     expect(foundUser).toBeDefined();
 
     const deletedUser = await UserServices.userDelete(addedUser._id);
-        console.log("Deleted user:", deletedUser);
         expect(deletedUser).toBeDefined();
 })

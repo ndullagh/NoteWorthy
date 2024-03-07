@@ -75,7 +75,6 @@ test('find notebook by _id #3 --success', async () => {
             "password": "pw123"
         };
         const addedUser = await UserServices.addUser(newUser);
-        console.log("User added:", addedUser);
 
         // Step 2: Add a new notebook
         const sampleNotebook = {
@@ -87,21 +86,17 @@ test('find notebook by _id #3 --success', async () => {
             "modified": new Date()
         };
         const addedNotebook = await NotebookServices.addNotebook(sampleNotebook);
-        console.log("Notebook added:", addedNotebook);
 
         // Step 3: Find the added notebook by ID
         const foundNotebook = await NotebookServices.findNotebookById(addedNotebook._id);
-        console.log("Found notebook:", foundNotebook);
         expect(foundNotebook).toBeDefined();
 
         // Step 4: Delete the added notebook
         const deletedNotebook = await NotebookServices.notebookDelete(addedNotebook._id);
-        console.log("Deleted notebook:", deletedNotebook);
         expect(deletedNotebook).toBeDefined();
 
         // Step 5: Delete the added user
         const deletedUser = await UserServices.userDelete(addedUser._id);
-        console.log("Deleted user:", deletedUser);
         expect(deletedUser).toBeDefined();
     } catch (error) {
         console.error("Error:", error);
@@ -138,7 +133,6 @@ test('find notebook by user #2 --success', async () => {
             "password": "pw123"
         };
         const addedUser = await UserServices.addUser(newUser);
-        console.log("User added:", addedUser);
 
         // Step 2: Add a new notebook
         const sampleNotebook = {
@@ -150,21 +144,17 @@ test('find notebook by user #2 --success', async () => {
             "modified": new Date()
         };
         const addedNotebook = await NotebookServices.addNotebook(sampleNotebook);
-        console.log("Notebook added:", addedNotebook);
 
         // Step 3: Find the added notebook by user
         const foundNotebook = await NotebookServices.findNotebookByUserId(addedNotebook.user);
-        console.log("Found notebook:", foundNotebook);
         expect(foundNotebook).toBeDefined();
 
         // Step 4: Delete the added notebook
         const deletedNotebook = await NotebookServices.notebookDelete(addedNotebook._id);
-        console.log("Deleted notebook:", deletedNotebook);
         expect(deletedNotebook).toBeDefined();
 
         // Step 5: Delete the added user
         const deletedUser = await UserServices.userDelete(addedUser._id);
-        console.log("Deleted user:", deletedUser);
         expect(deletedUser).toBeDefined();
     } catch (error) {
         console.error("Error:", error);
@@ -190,7 +180,6 @@ test('find notebook by user and key --success', async () => {
             "password": "pw123"
         };
         const addedUser = await UserServices.addUser(newUser);
-        console.log("User added:", addedUser);
 
         // Step 2: Add a new notebook
         const sampleNotebook = {
@@ -202,21 +191,17 @@ test('find notebook by user and key --success', async () => {
             "modified": new Date()
         };
         const addedNotebook = await NotebookServices.addNotebook(sampleNotebook);
-        console.log("Notebook added:", addedNotebook);
 
         // Step 3: Find the added notebook by user
         const foundNotebook = await NotebookServices.findNotebookByUserIdAndKey(addedNotebook.user, 'Sample');
-        console.log("Found notebook:", foundNotebook);
         expect(foundNotebook).toBeDefined();
 
         // Step 4: Delete the added notebook
         const deletedNotebook = await NotebookServices.notebookDelete(addedNotebook._id);
-        console.log("Deleted notebook:", deletedNotebook);
         expect(deletedNotebook).toBeDefined();
 
         // Step 5: Delete the added user
         const deletedUser = await UserServices.userDelete(addedUser._id);
-        console.log("Deleted user:", deletedUser);
         expect(deletedUser).toBeDefined();
     } catch (error) {
         console.error("Error:", error);
