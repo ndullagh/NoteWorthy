@@ -62,7 +62,7 @@ function userDelete(id) {
               return userModel
                 .findByIdAndDelete(id)
                 .then((user) => {
-                    return user;
+                  return user;
                 });
             }
           );
@@ -70,8 +70,6 @@ function userDelete(id) {
     }
   });
 }
-
-
 
 export default {
   findUserById,

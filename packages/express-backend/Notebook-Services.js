@@ -88,11 +88,10 @@ function notebookDelete(id) {
   });
 }
 
-
 export default {
   findNotebookById,
   findNotebookByUserIdAndKey,
   findNotebookByUserId,
   addNotebook,
-  notebookDelete,
+  notebookDelete
 };
