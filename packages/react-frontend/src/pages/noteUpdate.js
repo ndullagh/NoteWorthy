@@ -15,42 +15,41 @@ import "../styles/quill.css";
 export default function NoteUpdate() {
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
-  const [loading, setLoading] = useState(true); // New state to indicate loading state
   let params = useParams();
 
-  useEffect(() => {
-    async function fetchNote() {
-      try {
-        const response = await fetch(`Http://localhost:8000/notes/${params.note_id}`);
-        const data = await response.json();
-        setTitle(data.title);
-        setValue(data.contents);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching note:', error);
-      }
-    }
+  if(params.note_id){
+    useEffect(() => {
+        async function fetchNote() {
+          try {
+            const response = await fetch(`Http://localhost:8000/notes/?_id=${params.note_id}`);
+            const data = await response.json();
+            return data;
+          } catch (error) {
+            console.error('Error fetching note:', error);
+          }
+        }
+    
+        fetchNote().then((data) => {
+            setTitle(data.title);
+            setValue(data.contents);
+        }).catch((error) => {
+            console.error(error);
+        });
+    }, [params.note_id]); // Fetch note data when note_id changes
+    
+  }
 
-    fetchNote();
-  }, [params.note_id]); // Fetch note data when note_id changes
+  
+  function updateNote(note) {
+    const promise = fetch(`Http://localhost:8000/notes/${params.note_id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(note)
+    });
 
-  async function updateNote(note) {
-    try {
-      const promise = await fetch(`Http://localhost:8000/notes/${params.note_id}`, {
-        method: "PATCH", // Use PUT method to update existing note
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(note)
-      });
-      if (promise.ok) {
-        console.log("Note updated successfully");
-      } else {
-        console.error("Failed to update note");
-      }
-    } catch (error) {
-      console.error('Error updating note:', error);
-    }
+    return promise;
   }
 
   const handleCancel = () =>
@@ -59,9 +58,11 @@ export default function NoteUpdate() {
   function onSubmit() {
     const updatedNote = {
       title: title,
-      contents: value
+      contents: value,
+      modified: new Date()
     };
     updateNote(updatedNote);
+    navigate(`/notebook/${params.book_id}/${params.note_id}`)
     handleCancel();
   }
 
@@ -96,14 +97,10 @@ export default function NoteUpdate() {
     "image"
   ];
 
-  if (loading) {
-    return <div>Loading...</div>; // Render loading state until data is fetched
-  }
-
   return (
     <div>
       <center>
-        <h1>Update Note.</h1>
+        <h1>Edit Note.</h1>
       </center>
       <FormLabel
         pt={10}
@@ -120,7 +117,9 @@ export default function NoteUpdate() {
           variant="outline"
           w={"55%"}
           value={title}
-          onChange={(event) => setTitle(event.currentTarget.value)}
+          onChange={(event) => 
+            setTitle(event.currentTarget.value)
+          }
         ></Input>
       </InputGroup>
       <InputGroup>
@@ -141,6 +140,7 @@ export default function NoteUpdate() {
             theme="snow"
             value={value}
             onChange={setValue}
+            defaultValue={"<h1>dijbisdbvih</h1>"}
             modules={modules}
             formats={formats}
           />
