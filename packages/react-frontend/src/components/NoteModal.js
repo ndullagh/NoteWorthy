@@ -17,6 +17,7 @@ import {
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import Cookies from "js-cookie";
 import { addAuthHeader } from "../auth";
+import { AZURE_DOMAIN } from "../config";
 
 export const NoteModal = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -27,7 +28,7 @@ export const NoteModal = (props) => {
   const [color, setColor] = useState("");
 
   function postBook(notebook) {
-    const promise = fetch(`${process.env.REACT_APP_BACKEND_URL}/notebooks`, {
+    const promise = fetch(`${AZURE_DOMAIN}/notebooks`, {
       method: "POST",
       headers: addAuthHeader(
         {
@@ -44,6 +45,7 @@ export const NoteModal = (props) => {
   function updateNotebooks(notebook) {
     postBook(notebook)
       .then((res) => {
+        console.log("API Response:", res);
         if (res.status !== 201) throw new Error("Not Added!");
         return res.json();
       })

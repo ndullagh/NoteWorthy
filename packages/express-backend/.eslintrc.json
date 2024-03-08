@@ -6,5 +6,6 @@
   },
   "parserOptions": {
     "sourceType": "module"
-  }
+  },
+  "ignorePatterns": ["tests/*.js"]
 }
