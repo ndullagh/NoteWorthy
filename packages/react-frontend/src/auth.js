@@ -1,9 +1,9 @@
 //import { useState } from "react";
 import Cookies from "js-cookie";
-import { AZURE_DOMAIN } from "./config";
+
 
 export function loginUser(creds) {
-  const promise = fetch(`${AZURE_DOMAIN}/login`, {
+  const promise = fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -30,7 +30,7 @@ export function loginUser(creds) {
 }
 
 export function signupUser(creds) {
-  const promise = fetch(`${AZURE_DOMAIN}/signup`, {
+  const promise = fetch(`${process.env.REACT_APP_BACKEND_URL}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

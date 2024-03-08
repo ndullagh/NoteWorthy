@@ -5,7 +5,6 @@ import { Stack, Button } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { addAuthHeader } from "../auth";
-import { AZURE_DOMAIN } from "../config";
 
 export default function Pages() {
   const navigate = useNavigate();
@@ -15,7 +14,7 @@ export default function Pages() {
 
   function fetchNotes(notebook_id) {
     const promise = fetch(
-      `${AZURE_DOMAIN}/notes?notebook_id=${notebook_id}`,
+      `${process.env.REACT_APP_BACKEND_URL}/notes?notebook_id=${notebook_id}`,
       {
         method: "GET",
         headers: addAuthHeader(
@@ -31,7 +30,7 @@ export default function Pages() {
 
   function deleteNotebook(notebook_id) {
     const promise = fetch(
-      `${AZURE_DOMAIN}/notebooks/${notebook_id}`,
+      `${process.env.REACT_APP_BACKEND_URL}/notebooks/${notebook_id}`,
       {
         method: "DELETE",
         headers: addAuthHeader(

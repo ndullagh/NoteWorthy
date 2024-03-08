@@ -4,8 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { addAuthHeader } from "../auth";
 
-import { AZURE_DOMAIN } from "../config";
-
 export default function ViewNote() {
   const navigate = useNavigate();
   let params = useParams();
@@ -14,7 +12,7 @@ export default function ViewNote() {
 
   function fetchNote(note_id) {
     const promise = fetch(
-      `${AZURE_DOMAIN}/notes?_id=${note_id}`,
+      `${process.env.REACT_APP_BACKEND_URL}/notes?_id=${note_id}`,
       {
         method: "GET",
         headers: addAuthHeader(
@@ -30,7 +28,7 @@ export default function ViewNote() {
 
   function deleteNote(note_id) {
     const promise = fetch(
-      `${AZURE_DOMAIN}/notes/${note_id}`,
+      `${process.env.REACT_APP_BACKEND_URL}/notes/${note_id}`,
       {
         method: "DELETE",
         headers: addAuthHeader(
