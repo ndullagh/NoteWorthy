@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Box, Button, InputGroup } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { AZURE_DOMAIN } from "../config";
+
 export default function ViewNote() {
   const navigate = useNavigate();
   let params = useParams();
@@ -10,21 +12,18 @@ export default function ViewNote() {
 
   function fetchNote(note_id) {
     const promise = fetch(
-      `http://localhost:8000/notes?_id=${note_id}`
+      `${AZURE_DOMAIN}/notes?_id=${note_id}`
     );
     return promise;
   }
 
   function deleteNotebook(note_id) {
-    const promise = fetch(
-      `Http://localhost:8000/notes/${note_id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json"
-        }
+    const promise = fetch(`${AZURE_DOMAIN}/notes/${note_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
       }
-    );
+    });
 
     return promise;
   }

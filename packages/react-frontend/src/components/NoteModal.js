@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { AZURE_DOMAIN } from "../config";
 
 export const NoteModal = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,7 +27,7 @@ export const NoteModal = (props) => {
   const [color, setColor] = useState("");
 
   function postBook(notebook) {
-    const promise = fetch("Http://localhost:8000/notebooks", {
+    const promise = fetch(`${AZURE_DOMAIN}/notebooks`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -40,6 +41,7 @@ export const NoteModal = (props) => {
   function updateNotebooks(notebook) {
     postBook(notebook)
       .then((res) => {
+        console.log("API Response:", res);
         if (res.status !== 201) throw new Error("Not Added!");
         return res.json();
       })

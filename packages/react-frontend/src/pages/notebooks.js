@@ -3,14 +3,15 @@ import Notebook from "../components/notebook";
 import { SearchBar } from "../components/searchbar";
 import { Stack } from "@chakra-ui/react";
 import { NoteModal } from "../components/NoteModal";
+import { AZURE_DOMAIN } from "../config";
 
 export default function Notebooks() {
   const [notebooks, setNotebooks] = useState([]);
-  const user = { _id: "65d7ef6ca18285827c150bd0" };
+  const user = { _id: "65e6b0e56c16628969cbb24b" };
 
   function fetchNotebooks(user_id) {
     const promise = fetch(
-      `http://localhost:8000/notebooks?user_id=${user_id}`
+      `${AZURE_DOMAIN}/notebooks?user_id=${user_id}`
     );
     return promise;
   }
