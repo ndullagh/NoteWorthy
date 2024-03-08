@@ -12,22 +12,21 @@ import ReactQuill from "react-quill";
 
 import "../styles/quill.css";
 
+import { AZURE_DOMAIN } from "../config";
+
 export default function NoteEdit() {
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
   let params = useParams();
 
   function postNote(note) {
-    const promise = fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/notes`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(note)
-      }
-    );
+    const promise = fetch(`${AZURE_DOMAIN}/notes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(note)
+    });
 
     return promise;
   }

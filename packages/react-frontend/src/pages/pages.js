@@ -4,6 +4,8 @@ import { SearchBar } from "../components/searchbar";
 import { Stack, Button } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { AZURE_DOMAIN } from "../config";
+
 export default function Pages() {
   const navigate = useNavigate();
   let params = useParams();
@@ -12,14 +14,14 @@ export default function Pages() {
 
   function fetchNotes(notebook_id) {
     const promise = fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/notes?notebook_id=${notebook_id}`
+      `${AZURE_DOMAIN}/notes?notebook_id=${notebook_id}`
     );
     return promise;
   }
 
   function deleteNotebook(notebook_id) {
     const promise = fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/notebooks/${notebook_id}`,
+      `${AZURE_DOMAIN}/notebooks/${notebook_id}`,
       {
         method: "DELETE",
         headers: {
