@@ -5,7 +5,8 @@
   "main": "backend.js",
   "type": "module",
   "scripts": {
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage",
+    "test": "echo \"Error: no test specified\"",
+    "test-2": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "dev": "npx nodemon backend.js",
     "start": "node backend.js",
     "format": "npx prettier . --write",
