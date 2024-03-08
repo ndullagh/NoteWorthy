@@ -73,53 +73,19 @@ function notebookDelete(id) {
         return notebookModel
           .findByIdAndDelete(id)
           .then((notebook) => {
-            if (!notebook) {
+            /*if (!notebook) {
               return Promise.reject({
                 statusCode: 404,
                 message: "Resource Not Found"
               });
             } else {
               return notebook;
-            }
+            }*/
+            return notebook;
           });
       });
     }
   });
-}
-
-function notebookUpdate(id, updates) {
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return Promise.reject({
-      statusCode: 400,
-      message: "Bad Request"
-    });
-  }
-
-  // Validate user field
-  if ("user" in updates) {
-    if (!mongoose.Types.ObjectId.isValid(updates.user)) {
-      return Promise.reject({
-        statusCode: 400,
-        message: "Bad Request"
-      });
-    }
-  }
-
-  return notebookModel
-    .findByIdAndUpdate(id, updates, { new: true })
-    .then((notebook) => {
-      if (!notebook) {
-        return Promise.reject({
-          statusCode: 404,
-          message: "Resource Not Found"
-        });
-      } else {
-        return notebook;
-      }
-    })
-    .catch((error) => {
-      throw error;
-    });
 }
 
 export default {
@@ -127,6 +93,5 @@ export default {
   findNotebookByUserIdAndKey,
   findNotebookByUserId,
   addNotebook,
-  notebookDelete,
-  notebookUpdate
+  notebookDelete
 };

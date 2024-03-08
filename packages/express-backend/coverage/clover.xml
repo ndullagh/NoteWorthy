@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1709782447270" clover="3.2.0">
+  <project timestamp="1709782447270" name="All files">
+    <metrics statements="123" coveredstatements="122" conditionals="52" coveredconditionals="52" methods="43" coveredmethods="42" elements="218" coveredelements="216" complexity="0" loc="123" ncloc="123" packages="1" files="7" classes="7"/>
+    <file name="Note-Services.js" path="C:\Users\Noelle\Desktop\307\Noteworthy\sprint 1\attempt-4\NoteWorthy\packages\express-backend\Note-Services.js">
+      <metrics statements="54" coveredstatements="54" conditionals="30" coveredconditionals="30" methods="21" coveredmethods="21"/>
+      <line num="7" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="8" count="1" type="stmt"/>
+      <line num="13" count="2" type="stmt"/>
+      <line num="17" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="18" count="1" type="stmt"/>
+      <line num="23" count="2" type="stmt"/>
+      <line num="24" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="25" count="1" type="stmt"/>
+      <line num="31" count="1" type="stmt"/>
+      <line num="47" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="48" count="1" type="stmt"/>
+      <line num="55" count="2" type="stmt"/>
+      <line num="56" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="57" count="1" type="stmt"/>
+      <line num="63" count="1" type="stmt"/>
+      <line num="68" count="10" type="stmt"/>
+      <line num="69" count="10" type="stmt"/>
+      <line num="70" count="10" type="stmt"/>
+      <line num="75" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="76" count="1" type="stmt"/>
+      <line num="83" count="2" type="stmt"/>
+      <line num="87" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="88" count="1" type="stmt"/>
+      <line num="94" count="1" type="stmt"/>
+      <line num="98" count="1" type="stmt"/>
+      <line num="99" count="1" type="stmt"/>
+      <line num="102" count="1" type="stmt"/>
+      <line num="106" count="1" type="stmt"/>
+      <line num="113" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="114" count="1" type="stmt"/>
+      <line num="121" count="2" type="stmt"/>
+      <line num="125" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="126" count="1" type="stmt"/>
+      <line num="132" count="1" type="stmt"/>
+      <line num="136" count="1" type="stmt"/>
+      <line num="137" count="1" type="stmt"/>
+      <line num="140" count="1" type="stmt"/>
+      <line num="154" count="1" type="stmt"/>
+      <line num="159" count="10" type="cond" truecount="2" falsecount="0"/>
+      <line num="160" count="1" type="stmt"/>
+      <line num="165" count="9" type="stmt"/>
+      <line num="166" count="9" type="cond" truecount="2" falsecount="0"/>
+      <line num="167" count="1" type="stmt"/>
+      <line num="172" count="8" type="stmt"/>
+      <line num="178" count="4" type="cond" truecount="2" falsecount="0"/>
+      <line num="179" count="1" type="stmt"/>
+      <line num="186" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="187" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="188" count="1" type="stmt"/>
+      <line num="195" count="2" type="stmt"/>
+      <line num="198" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="199" count="1" type="stmt"/>
+      <line num="204" count="1" type="stmt"/>
+      <line num="208" count="1" type="stmt"/>
+    </file>
+    <file name="Note.js" path="C:\Users\Noelle\Desktop\307\Noteworthy\sprint 1\attempt-4\NoteWorthy\packages\express-backend\Note.js">
+      <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <line num="3" count="3" type="stmt"/>
+      <line num="40" count="3" type="stmt"/>
+      <line num="41" count="10" type="stmt"/>
+      <line num="42" count="10" type="stmt"/>
+      <line num="43" count="10" type="stmt"/>
+      <line num="46" count="10" type="cond" truecount="2" falsecount="0"/>
+      <line num="47" count="1" type="stmt"/>
+      <line num="49" count="9" type="stmt"/>
+      <line num="51" count="1" type="stmt"/>
+      <line num="55" count="3" type="stmt"/>
+    </file>
+    <file name="Notebook-Services.js" path="C:\Users\Noelle\Desktop\307\Noteworthy\sprint 1\attempt-4\NoteWorthy\packages\express-backend\Notebook-Services.js">
+      <metrics statements="23" coveredstatements="23" conditionals="12" coveredconditionals="12" methods="9" coveredmethods="9"/>
+      <line num="7" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="8" count="1" type="stmt"/>
+      <line num="13" count="2" type="stmt"/>
+      <line num="17" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="18" count="1" type="stmt"/>
+      <line num="23" count="2" type="stmt"/>
+      <line num="24" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="25" count="1" type="stmt"/>
+      <line num="30" count="1" type="stmt"/>
+      <line num="39" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="40" count="1" type="stmt"/>
+      <line num="45" count="1" type="stmt"/>
+      <line num="49" count="15" type="stmt"/>
+      <line num="50" count="15" type="stmt"/>
+      <line num="51" count="15" type="stmt"/>
+      <line num="55" count="16" type="cond" truecount="2" falsecount="0"/>
+      <line num="56" count="1" type="stmt"/>
+      <line num="63" count="15" type="stmt"/>
+      <line num="64" count="15" type="cond" truecount="2" falsecount="0"/>
+      <line num="65" count="1" type="stmt"/>
+      <line num="71" count="14" type="stmt"/>
+      <line num="73" count="14" type="stmt"/>
+      <line num="84" count="14" type="stmt"/>
+    </file>
+    <file name="Notebook.js" path="C:\Users\Noelle\Desktop\307\Noteworthy\sprint 1\attempt-4\NoteWorthy\packages\express-backend\Notebook.js">
+      <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <line num="3" count="3" type="stmt"/>
+      <line num="46" count="3" type="stmt"/>
+      <line num="47" count="15" type="stmt"/>
+      <line num="48" count="15" type="stmt"/>
+      <line num="49" count="15" type="stmt"/>
+      <line num="52" count="15" type="cond" truecount="2" falsecount="0"/>
+      <line num="53" count="1" type="stmt"/>
+      <line num="55" count="14" type="stmt"/>
+      <line num="57" count="1" type="stmt"/>
+      <line num="61" count="3" type="stmt"/>
+    </file>
+    <file name="User-Services.js" path="C:\Users\Noelle\Desktop\307\Noteworthy\sprint 1\attempt-4\NoteWorthy\packages\express-backend\User-Services.js">
+      <metrics statements="20" coveredstatements="20" conditionals="6" coveredconditionals="6" methods="10" coveredmethods="10"/>
+      <line num="8" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="9" count="1" type="stmt"/>
+      <line num="14" count="1" type="stmt"/>
+      <line num="18" count="1" type="stmt"/>
+      <line num="22" count="1" type="stmt"/>
+      <line num="26" count="17" type="stmt"/>
+      <line num="27" count="17" type="stmt"/>
+      <line num="28" count="17" type="stmt"/>
+      <line num="32" count="19" type="cond" truecount="2" falsecount="0"/>
+      <line num="33" count="1" type="stmt"/>
+      <line num="40" count="18" type="stmt"/>
+      <line num="41" count="18" type="cond" truecount="2" falsecount="0"/>
+      <line num="42" count="1" type="stmt"/>
+      <line num="43" count="1" type="stmt"/>
+      <line num="49" count="17" type="stmt"/>
+      <line num="53" count="17" type="stmt"/>
+      <line num="55" count="1" type="stmt"/>
+      <line num="60" count="17" type="stmt"/>
+      <line num="62" count="17" type="stmt"/>
+      <line num="65" count="17" type="stmt"/>
+    </file>
+    <file name="User.js" path="C:\Users\Noelle\Desktop\307\Noteworthy\sprint 1\attempt-4\NoteWorthy\packages\express-backend\User.js">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <line num="3" count="3" type="stmt"/>
+      <line num="28" count="3" type="stmt"/>
+    </file>
+    <file name="db.js" path="C:\Users\Noelle\Desktop\307\Noteworthy\sprint 1\attempt-4\NoteWorthy\packages\express-backend\db.js">
+      <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <line num="5" count="3" type="stmt"/>
+      <line num="6" count="3" type="stmt"/>
+      <line num="8" count="3" type="stmt"/>
+      <line num="14" count="0" type="stmt"/>
+    </file>
+  </project>
+</coverage>
