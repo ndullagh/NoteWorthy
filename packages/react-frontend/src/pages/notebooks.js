@@ -20,7 +20,7 @@ export default function Notebooks() {
   
   function fetchUser(username) {
     const promise = fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/users?username=${username}`,
+      `${AZURE_DOMAIN}/users?username=${username}`,
       {
         method: "GET",
         headers: addAuthHeader(

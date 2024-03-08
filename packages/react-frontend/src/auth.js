@@ -1,8 +1,9 @@
 //import { useState } from "react";
 import Cookies from "js-cookie";
+import { AZURE_DOMAIN } from "./config";
 
 export function loginUser(creds) {
-  const promise = fetch(`http://localhost:8000/login`, {
+  const promise = fetch(`${AZURE_DOMAIN}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -29,7 +30,7 @@ export function loginUser(creds) {
 }
 
 export function signupUser(creds) {
-  const promise = fetch(`http://localhost:8000/signup`, {
+  const promise = fetch(`${AZURE_DOMAIN}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
