@@ -7,12 +7,11 @@ import {
   Button
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import ReactQuill from "react-quill";
-
 import "../styles/quill.css";
+import Cookies from "js-cookie";
+import { addAuthHeader } from "../auth";
 
-import { AZURE_DOMAIN } from "../config";
 
 export default function NoteEdit() {
   const [value, setValue] = useState("");
@@ -20,11 +19,14 @@ export default function NoteEdit() {
   let params = useParams();
 
   function postNote(note) {
-    const promise = fetch(`${AZURE_DOMAIN}/notes`, {
+    const promise = fetch(`${process.env.REACT_APP_BACKEND_URL}/notes`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: addAuthHeader(
+        {
+          "Content-Type": "application/json"
+        },
+        Cookies.get("token")
+      ),
       body: JSON.stringify(note)
     });
 
@@ -81,7 +83,7 @@ export default function NoteEdit() {
         <h1>Create Note.</h1>
       </center>
       <FormLabel
-        pt={10}
+        pt={3}
         pl={5}
         borderColor={"blue"}
         fontSize={"xl"}
@@ -104,14 +106,14 @@ export default function NoteEdit() {
           w="90%"
           ml={5}
           mb={10}
-          maxH={350}
+          maxH={"25rem"}
           border="1px solid #949494"
           borderRadius={6}
         >
           <ReactQuill
             style={{
-              height: "350px",
-              maxHeight: "450px",
+              height: "25rem",
+              maxHeight: "25rem",
               overflow: "auto"
             }}
             theme="snow"
