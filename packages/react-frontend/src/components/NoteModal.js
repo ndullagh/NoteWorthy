@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import {
   Modal,
   ModalOverlay,
@@ -15,22 +14,28 @@ import {
   FormControl,
   FormLabel
 } from "@chakra-ui/react";
-
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import Cookies from "js-cookie";
+import { addAuthHeader } from "../auth";
+import { AZURE_DOMAIN } from "../config";
 
 export const NoteModal = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
 
   //states of inputs
   const [title, setTitle] = useState("");
   const [color, setColor] = useState("");
 
   function postBook(notebook) {
-    const promise = fetch("Http://localhost:8000/notebooks", {
+    const promise = fetch(`${AZURE_DOMAIN}/notebooks`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: addAuthHeader(
+        {
+          "Content-Type": "application/json"
+        },
+        Cookies.get("token")
+      ),
       body: JSON.stringify(notebook)
     });
 
@@ -40,6 +45,7 @@ export const NoteModal = (props) => {
   function updateNotebooks(notebook) {
     postBook(notebook)
       .then((res) => {
+        console.log("API Response:", res);
         if (res.status !== 201) throw new Error("Not Added!");
         return res.json();
       })
@@ -58,6 +64,7 @@ export const NoteModal = (props) => {
       color: color
     };
     updateNotebooks(newBook);
+    onClose();
   }
   return (
     <>

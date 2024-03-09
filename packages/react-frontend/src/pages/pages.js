@@ -3,6 +3,8 @@ import Notebook from "../components/notebook";
 import { SearchBar } from "../components/searchbar";
 import { Stack, Button } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
+import Cookies from "js-cookie";
+import { addAuthHeader } from "../auth";
 
 export default function Pages() {
   const navigate = useNavigate();
@@ -12,19 +14,31 @@ export default function Pages() {
 
   function fetchNotes(notebook_id) {
     const promise = fetch(
-      `http://localhost:8000/notes?notebook_id=${notebook_id}`
+      `${process.env.REACT_APP_BACKEND_URL}/notes?notebook_id=${notebook_id}`,
+      {
+        method: "GET",
+        headers: addAuthHeader(
+          {
+            "Content-Type": "application/json"
+          },
+          Cookies.get("token")
+        )
+      }
     );
     return promise;
   }
 
   function deleteNotebook(notebook_id) {
     const promise = fetch(
-      `Http://localhost:8000/notebooks/${notebook_id}`,
+      `${process.env.REACT_APP_BACKEND_URL}/notebooks/${notebook_id}`,
       {
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json"
-        }
+        headers: addAuthHeader(
+          {
+            "Content-Type": "application/json"
+          },
+          Cookies.get("token")
+        )
       }
     );
 
