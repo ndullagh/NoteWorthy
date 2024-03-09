@@ -14,12 +14,27 @@ import {
   HStack,
   Text
 } from "@chakra-ui/react";
+import { loginUser } from "../auth.js";
+import { useNavigate } from "react-router-dom";
+
 
 export default function SignIn() {
+  const navigate = useNavigate();
+
   const [FormData, setFormData] = useState({
-    email: "",
+    username: "",
     password: ""
   });
+
+
+
+  function handleLogin() {
+    loginUser(FormData)
+      .then(
+            setTimeout(
+              () => {navigate("/")},
+              1000)
+        )}
 
   const onChangeHandler = (event) => {
     setFormData(() => ({
@@ -50,11 +65,11 @@ export default function SignIn() {
         </VStack>
 
         <FormControl>
-          <FormLabel>E-mail Address</FormLabel>
+          <FormLabel>Username</FormLabel>
           <Input
             rounded="none"
             variant="filled"
-            name="email"
+            name="username"
             onChange={onChangeHandler}
           />
         </FormControl>
@@ -77,10 +92,13 @@ export default function SignIn() {
           </Button>
         </HStack>
 
-        <Button rounded="none" colorScheme="blue" w="full">
-          <Link to="#" onClick={() => console.log(FormData)}>
-            Sign in
-          </Link>
+        <Button
+          rounded="none"
+          colorScheme="blue"
+          w="full"
+          onClick={() => handleLogin()}
+        >
+          <Link>Sign in</Link>
         </Button>
       </VStack>
 
