@@ -6,6 +6,7 @@ import { NoteModal } from "../components/NoteModal";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { addAuthHeader } from "../auth";
+import { AZURE_DOMAIN } from "../config";
 
 
 export default function Notebooks() {
@@ -20,7 +21,7 @@ export default function Notebooks() {
   
   function fetchUser(username) {
     const promise = fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/users?username=${username}`,
+      `${AZURE_DOMAIN}/users?username=${username}`,
       {
         method: "GET",
         headers: addAuthHeader(
@@ -36,7 +37,7 @@ export default function Notebooks() {
 
   function fetchNotebooks(user_id) {
     const promise = fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/notebooks?user_id=${user_id}`,
+      `${AZURE_DOMAIN}/notebooks?user_id=${user_id}`,
       {
         method: "GET",
         headers: addAuthHeader(

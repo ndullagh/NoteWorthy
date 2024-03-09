@@ -11,6 +11,7 @@ import ReactQuill from "react-quill";
 import "../styles/quill.css";
 import Cookies from "js-cookie";
 import { addAuthHeader } from "../auth";
+import { AZURE_DOMAIN } from "../config";
 
 
 export default function NoteEdit() {
@@ -19,7 +20,7 @@ export default function NoteEdit() {
   let params = useParams();
 
   function postNote(note) {
-    const promise = fetch(`${process.env.REACT_APP_BACKEND_URL}/notes`, {
+    const promise = fetch(`${AZURE_DOMAIN}/notes`, {
       method: "POST",
       headers: addAuthHeader(
         {
