@@ -7,6 +7,9 @@ import {
   Button
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
+import { addAuthHeader } from "../auth";
+import { AZURE_DOMAIN } from "../config";
+import Cookies from "js-cookie";
 
 import ReactQuill from "react-quill";
 
@@ -22,7 +25,16 @@ export default function NoteUpdate() {
       async function fetchNote() {
         try {
           const response = await fetch(
-            `Http://localhost:8000/notes/?_id=${params.note_id}`
+            `${AZURE_DOMAIN}/notes/?_id=${params.note_id}`,
+            {
+              method: "GET",
+              headers: addAuthHeader(
+                {
+                  "Content-Type": "application/json"
+                },
+                Cookies.get("token")
+              )
+            }
           );
           const data = await response.json();
           return data;
@@ -44,12 +56,15 @@ export default function NoteUpdate() {
 
   function updateNote(note) {
     const promise = fetch(
-      `Http://localhost:8000/notes/${params.note_id}`,
+      `${AZURE_DOMAIN}/notes/${params.note_id}`,
       {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: addAuthHeader(
+          {
+            "Content-Type": "application/json"
+          },
+          Cookies.get("token")
+        ),
         body: JSON.stringify(note)
       }
     );
