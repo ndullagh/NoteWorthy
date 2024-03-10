@@ -8,17 +8,16 @@ import Cookies from "js-cookie";
 import { addAuthHeader } from "../auth";
 import { AZURE_DOMAIN } from "../config";
 
-
 export default function Notebooks() {
   const [notebooks, setNotebooks] = useState([]);
-  const token = Cookies.get("token")
+  const token = Cookies.get("token");
   const [user, setUser] = useState(null);
   const [userid, setUserId] = useState({});
 
   if (!user) {
     setUser(jwtDecode(token));
   }
-  
+
   function fetchUser(username) {
     const promise = fetch(
       `${AZURE_DOMAIN}/users?username=${username}`,
@@ -51,7 +50,6 @@ export default function Notebooks() {
     return promise;
   }
 
-
   useEffect(() => {
     fetchUser(user.username) //fetch user from username
       .then((res) => res.json())
@@ -59,18 +57,16 @@ export default function Notebooks() {
         setUserId({ _id: json[0]._id }); //set userid state var for reuse
         fetchNotebooks(json[0]._id) //fetch notebooks from user using user_id
           .then((result) => result.json())
-          .then((jso) =>{
-            if(jso)        //jso is  undefined here
-            setNotebooks(jso)
-          })
+          .then((jso) => {
+            if (jso)
+              //jso is  undefined here
+              setNotebooks(jso);
+          });
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
-
-  
-
 
   return (
     <div className="notePageBody">

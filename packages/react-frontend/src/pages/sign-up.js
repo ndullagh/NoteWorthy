@@ -16,74 +16,87 @@ import { signupUser } from "../auth.js";
 import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleShowClick = () => setShowPassword(!showPassword);
 
-    const [FormData, setFormData] = useState({
-        username: '',
-        email: '',
-        password: ''
-    });
+  const [FormData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: ""
+  });
 
-    function handleSignup(formData){
-        signupUser(formData).then(
-          setTimeout(
-            () => {navigate("/")},
-            1000
-          )
-        )
+  function handleSignup(formData) {
+    signupUser(formData).then(
+      setTimeout(() => {
+        navigate("/");
+      }, 1000)
+    );
+  }
 
-    }
+  const onChangeHandler = (event) => {
+    setFormData(() => ({
+      ...FormData,
+      [event.target.name]: event.target.value
+    }));
+  };
 
-    const onChangeHandler = (event) => {
-        setFormData(() => ({
-            ... FormData,
-            [event.target.name]: event.target.value
-        }))
-    }
-
-    
-    return (
-        <Flex
-            flexDirection="column"
-            width="100wh"
-            height="69vh"
-            backgroundColor="white"
-            justifyContent="center"
-            alignItems="center"
-        >
-            <Stack
-                flexDir="column"
-                mb="2"
-                justifyContent="center"
-                alignItems="center"
+  return (
+    <Flex
+      flexDirection="column"
+      width="100wh"
+      height="69vh"
+      backgroundColor="white"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Stack
+        flexDir="column"
+        mb="2"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <form>
+          <Stack
+            spacing={4}
+            w={["full", "md"]}
+            p={[8, 10]}
+            mt={[20, "10vh"]}
+            mx="auto"
+            backgroundColor="whiteAlpha.900"
+            border={["none", "1px"]}
+            borderColor={["", "gray.300"]}
+            borderRadius={10}
+          >
+            <VStack
+              spacing={1}
+              align={["flex-start", "center"]}
+              w="full"
             >
-                <form>
-                <Stack
-                    spacing={4}
-                    w = {['full', 'md']}
-                    p = {[8, 10]}
-                    mt = {[20, '10vh']}
-                    mx = 'auto'
-                    backgroundColor="whiteAlpha.900"
-                    border = {['none', '1px']}
-                    borderColor = {['', 'gray.300']}
-                    borderRadius = {10}
-                >
-                    <VStack spacing={1} align={['flex-start', 'center']} w='full'>
-                        <Heading color ='blue.800'>Sign up for NoteWorthy</Heading>
-                    </VStack>
-                    <FormControl>
-                        <FormLabel>Username</FormLabel>
-                        <Input rounded='none' variant='filled' name="username" onChange={onChangeHandler} />
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel>E-mail Address</FormLabel>
-                        <Input rounded='none' variant='filled' name="email" onChange={onChangeHandler} />
-                    </FormControl>
+              <Heading color="blue.800">
+                Sign up for NoteWorthy
+              </Heading>
+            </VStack>
+            <FormControl>
+              <FormLabel>Username</FormLabel>
+              <Input
+                rounded="none"
+                variant="filled"
+                name="username"
+                onChange={onChangeHandler}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>E-mail Address</FormLabel>
+              <Input
+                rounded="none"
+                variant="filled"
+                name="email"
+                onChange={onChangeHandler}
+              />
+            </FormControl>
 
             <FormControl>
               <FormLabel>Password</FormLabel>
@@ -109,18 +122,17 @@ export default function SignUp() {
           </Stack>
         </form>
 
-                <Button
-                    borderRadius={0}
-                    type="submit"
-                    variant="solid"
-                    colorScheme="blue"
-                >
-                    <Link to="#" onClick={()=> handleSignup(FormData)}>
-                        Sign up
-                    </Link>
-                </Button>
-
-            </Stack>
-        </Flex>
+        <Button
+          borderRadius={0}
+          type="submit"
+          variant="solid"
+          colorScheme="blue"
+        >
+          <Link to="#" onClick={() => handleSignup(FormData)}>
+            Sign up
+          </Link>
+        </Button>
+      </Stack>
+    </Flex>
   );
 }

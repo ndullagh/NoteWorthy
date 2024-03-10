@@ -28,18 +28,15 @@ export default function ViewNote() {
   }
 
   function deleteNote(note_id) {
-    const promise = fetch(
-      `${AZURE_DOMAIN}/notes/${note_id}`,
-      {
-        method: "DELETE",
-        headers: addAuthHeader(
-          {
-            "Content-Type": "application/json"
-          },
-          Cookies.get("token")
-        )
-      }
-    );
+    const promise = fetch(`${AZURE_DOMAIN}/notes/${note_id}`, {
+      method: "DELETE",
+      headers: addAuthHeader(
+        {
+          "Content-Type": "application/json"
+        },
+        Cookies.get("token")
+      )
+    });
 
     return promise;
   }
@@ -99,10 +96,7 @@ export default function ViewNote() {
       </Box>
 
       <InputGroup ml={"5%"} mt={2}>
-        <Button
-          colorScheme="blue"
-          onClick={handleEdit}
-        >
+        <Button colorScheme="blue" onClick={handleEdit}>
           Edit Note
         </Button>
         <Button colorScheme="red" ml={3} onClick={handleDelete}>

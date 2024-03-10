@@ -13,7 +13,6 @@ import Cookies from "js-cookie";
 import { addAuthHeader } from "../auth";
 import { AZURE_DOMAIN } from "../config";
 
-
 export default function NoteEdit() {
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
