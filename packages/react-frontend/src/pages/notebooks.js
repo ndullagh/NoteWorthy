@@ -3,22 +3,66 @@ import Notebook from "../components/notebook";
 import { SearchBar } from "../components/searchbar";
 import { Stack } from "@chakra-ui/react";
 import { NoteModal } from "../components/NoteModal";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
+import { addAuthHeader } from "../auth";
+import { AZURE_DOMAIN } from "../config";
 
 export default function Notebooks() {
   const [notebooks, setNotebooks] = useState([]);
-  const user = { _id: "65d7ef6ca18285827c150bd0" };
+  const token = Cookies.get("token");
+  const [user, setUser] = useState(null);
+  const [userid, setUserId] = useState({});
+
+  if (!user) {
+    setUser(jwtDecode(token));
+  }
+
+  function fetchUser(username) {
+    const promise = fetch(
+      `${AZURE_DOMAIN}/users?username=${username}`,
+      {
+        method: "GET",
+        headers: addAuthHeader(
+          {
+            "Content-Type": "application/json"
+          },
+          token
+        )
+      }
+    );
+    return promise;
+  }
 
   function fetchNotebooks(user_id) {
     const promise = fetch(
-      `http://localhost:8000/notebooks?user_id=${user_id}`
+      `${AZURE_DOMAIN}/notebooks?user_id=${user_id}`,
+      {
+        method: "GET",
+        headers: addAuthHeader(
+          {
+            "Content-Type": "application/json"
+          },
+          token
+        )
+      }
     );
     return promise;
   }
 
   useEffect(() => {
-    fetchNotebooks(user._id)
+    fetchUser(user.username) //fetch user from username
       .then((res) => res.json())
-      .then((json) => setNotebooks(json))
+      .then((json) => {
+        setUserId({ _id: json[0]._id }); //set userid state var for reuse
+        fetchNotebooks(json[0]._id) //fetch notebooks from user using user_id
+          .then((result) => result.json())
+          .then((jso) => {
+            if (jso)
+              //jso is  undefined here
+              setNotebooks(jso);
+          });
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -50,7 +94,7 @@ export default function Notebooks() {
         <NoteModal
           notebooks={notebooks}
           setNotebooks={setNotebooks}
-          user={user}
+          user={userid}
         />
       </Stack>
     </div>

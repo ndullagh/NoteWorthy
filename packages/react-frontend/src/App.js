@@ -15,8 +15,14 @@ import NoteEdit from "./pages/noteEdit";
 import SearchResults from "./pages/searchresults";
 import NoPage from "./pages/errorpage";
 import Layout from "./pages/layout";
+import NoteUpdate from "./pages/noteUpdate.js";
+import PrivateRoutes from "./pages/privateroute";
 
 function App() {
+  /*function authorize(headers){
+    addAuthHeader(headers,token)
+  }*/
+
   return (
     <Router>
       <Routes>
@@ -24,24 +30,30 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route index element={<Home />} />
-          <Route path="/notebook" element={<Notebooks />} />
-          <Route
-            path="/notebook/:book_id"
-            element={<Pages />}
-          />
-          <Route
-            path="/notebook/:book_id/:note_id"
-            element={<ViewNote />}
-          />
-          <Route
-            path="/notebook/:book_id/add/:note_id?"
-            element={<NoteEdit />}
-          />
-          <Route
-            path="/notebook/results/:key/:book_id?"
-            element={<SearchResults />}
-          />
-          <Route path="*" element={<NoPage />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/notebook" element={<Notebooks />} />
+            <Route
+              path="/notebook/:book_id"
+              element={<Pages />}
+            />
+            <Route
+              path="/notebook/:book_id/:note_id"
+              element={<ViewNote />}
+            />
+            <Route
+              path="/notebook/:book_id/add/:note_id?"
+              element={<NoteEdit />}
+            />
+            <Route
+              path="/notebook/:book_id/update/:note_id?"
+              element={<NoteUpdate />}
+            />
+            <Route
+              path="/notebook/results/:key/:book_id?"
+              element={<SearchResults />}
+            />
+            <Route path="*" element={<NoPage />} />
+          </Route>
         </Route>
       </Routes>
     </Router>

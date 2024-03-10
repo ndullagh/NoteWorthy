@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, InputGroup } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
+import Cookies from "js-cookie";
+import { addAuthHeader } from "../auth";
+import { AZURE_DOMAIN } from "../config";
 
 export default function ViewNote() {
   const navigate = useNavigate();
@@ -10,27 +13,36 @@ export default function ViewNote() {
 
   function fetchNote(note_id) {
     const promise = fetch(
-      `http://localhost:8000/notes?_id=${note_id}`
+      `${AZURE_DOMAIN}/notes?_id=${note_id}`,
+      {
+        method: "GET",
+        headers: addAuthHeader(
+          {
+            "Content-Type": "application/json"
+          },
+          Cookies.get("token")
+        )
+      }
     );
     return promise;
   }
 
-  function deleteNotebook(note_id) {
-    const promise = fetch(
-      `Http://localhost:8000/notes/${note_id}`,
-      {
-        method: "DELETE",
-        headers: {
+  function deleteNote(note_id) {
+    const promise = fetch(`${AZURE_DOMAIN}/notes/${note_id}`, {
+      method: "DELETE",
+      headers: addAuthHeader(
+        {
           "Content-Type": "application/json"
-        }
-      }
-    );
+        },
+        Cookies.get("token")
+      )
+    });
 
     return promise;
   }
 
   function handleDelete() {
-    deleteNotebook(params.note_id)
+    deleteNote(params.note_id)
       .then((res) => {
         if (res.status !== 204) throw new Error("Not Removed!");
         navigate(`/notebook/${params.book_id}`);
@@ -42,7 +54,7 @@ export default function ViewNote() {
 
   function handleEdit() {
     navigate(
-      `/notebook/${params.book_id}/add/${params.note_id}`
+      `/notebook/${params.book_id}/update/${params.note_id}`
     );
   }
 
@@ -68,19 +80,21 @@ export default function ViewNote() {
           {new Date(note.modified).toDateString()}
         </h5>
       </Box>
-      <center>
+
+      <Box
+        border={"1px solid #949494"}
+        width={"90%"}
+        height={"350px"}
+        overflow={"scroll"}
+        backgroundColor={"#d3d3d3"}
+        marginLeft={"5%"}
+      >
         <Box
-          border={"1px solid #949494"}
-          width={"90%"}
-          height={"350px"}
-          overflow={"scroll"}
-          backgroundColor={"#d3d3d3"}
-        >
-          <div
-            dangerouslySetInnerHTML={{ __html: note.contents }}
-          />
-        </Box>
-      </center>
+          paddingLeft={"2%"}
+          dangerouslySetInnerHTML={{ __html: note.contents }}
+        />
+      </Box>
+
       <InputGroup ml={"5%"} mt={2}>
         <Button colorScheme="blue" onClick={handleEdit}>
           Edit Note
