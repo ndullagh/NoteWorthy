@@ -22,7 +22,6 @@ import { AZURE_DOMAIN } from "../config";
 export const NoteModal = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-
   //states of inputs
   const [title, setTitle] = useState("");
   const [color, setColor] = useState("");
