@@ -45,9 +45,9 @@ function App() {
               element={<NoteEdit />}
             />
             <Route
-            path="/notebook/:book_id/update/:note_id?"
-            element={<NoteUpdate />}
-            />  
+              path="/notebook/:book_id/update/:note_id?"
+              element={<NoteUpdate />}
+            />
             <Route
               path="/notebook/results/:key/:book_id?"
               element={<SearchResults />}
