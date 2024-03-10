@@ -54,7 +54,7 @@ export default function ViewNote() {
 
   function handleEdit() {
     navigate(
-      `/notebook/${params.book_id}/add/${params.note_id}`
+      `/notebook/${params.book_id}/update/${params.note_id}`
     );
   }
 

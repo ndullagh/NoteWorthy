@@ -1,3 +1,4 @@
-/node_modules
+node_modules
 /packages/express-backend/.env
 /packages/react-frontend/.env
+

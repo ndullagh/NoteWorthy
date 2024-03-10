@@ -15,6 +15,7 @@ import NoteEdit from "./pages/noteEdit";
 import SearchResults from "./pages/searchresults";
 import NoPage from "./pages/errorpage";
 import Layout from "./pages/layout";
+import NoteUpdate from "./pages/noteUpdate.js";
 import PrivateRoutes from "./pages/privateroute";
 
 function App() {
@@ -42,6 +43,10 @@ function App() {
             <Route
               path="/notebook/:book_id/add/:note_id?"
               element={<NoteEdit />}
+            />
+            <Route
+              path="/notebook/:book_id/update/:note_id?"
+              element={<NoteUpdate />}
             />
             <Route
               path="/notebook/results/:key/:book_id?"
