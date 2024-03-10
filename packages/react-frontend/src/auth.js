@@ -1,9 +1,10 @@
-//import { useState } from "react";
 import Cookies from "js-cookie";
+import { AZURE_DOMAIN } from "./config";
+
 
 
 export function loginUser(creds) {
-  const promise = fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, {
+  const promise = fetch(`${AZURE_DOMAIN}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -15,7 +16,7 @@ export function loginUser(creds) {
         response
           .json()
           .then((payload) => {
-            Cookies.set("token",payload.token, { secure: true })
+            Cookies.set("token",payload.token, { expires: 1,secure: true })
           });
       } else {
         `Login Error ${response.status}: ${response.data}`
@@ -30,7 +31,7 @@ export function loginUser(creds) {
 }
 
 export function signupUser(creds) {
-  const promise = fetch(`${process.env.REACT_APP_BACKEND_URL}/signup`, {
+  const promise = fetch(`${AZURE_DOMAIN}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

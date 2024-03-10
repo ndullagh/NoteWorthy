@@ -4,6 +4,7 @@ import "../styles/homepage.css";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { addAuthHeader } from "../auth";
+import { AZURE_DOMAIN } from "../config";
 
 
 const Home = () => {
@@ -15,7 +16,7 @@ const Home = () => {
 
   function fetchUser(username) {
     const promise = fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/users?username=${username}`,
+      `${AZURE_DOMAIN}/users?username=${username}`,
       {
         method: "GET",
         headers: addAuthHeader(
@@ -31,7 +32,7 @@ const Home = () => {
 
   function deleteUser(user_id) {
     const promise = fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/users/${user_id}`,
+      `${AZURE_DOMAIN}/users/${user_id}`,
       {
         method: "DELETE",
         headers: addAuthHeader(
