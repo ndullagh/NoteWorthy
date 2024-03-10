@@ -16,7 +16,7 @@ export function loginUser(creds) {
         response
           .json()
           .then((payload) => {
-            Cookies.set("token",payload.token, { secure: true })
+            Cookies.set("token",payload.token, { expires: 1,secure: true })
           });
       } else {
         `Login Error ${response.status}: ${response.data}`
