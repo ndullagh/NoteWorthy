@@ -17,7 +17,6 @@ import {
 import { loginUser } from "../auth.js";
 import { useNavigate } from "react-router-dom";
 
-
 export default function SignIn() {
   const navigate = useNavigate();
 
@@ -26,15 +25,13 @@ export default function SignIn() {
     password: ""
   });
 
-
-
   function handleLogin() {
-    loginUser(FormData)
-      .then(
-            setTimeout(
-              () => {navigate("/")},
-              1000)
-        )}
+    loginUser(FormData).then(
+      setTimeout(() => {
+        navigate("/");
+      }, 1000)
+    );
+  }
 
   const onChangeHandler = (event) => {
     setFormData(() => ({

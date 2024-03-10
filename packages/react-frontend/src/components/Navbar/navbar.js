@@ -7,7 +7,6 @@ import { NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Navigation() {
-
   return (
     <Navbar bg="dark" data-bs-theme="dark" fixed="top">
       <Container>

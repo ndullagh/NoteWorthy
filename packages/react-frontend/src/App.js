@@ -18,11 +18,7 @@ import Layout from "./pages/layout";
 import NoteUpdate from "./pages/noteUpdate.js";
 import PrivateRoutes from "./pages/privateroute";
 
-
 function App() {
-
-
-
   /*function authorize(headers){
     addAuthHeader(headers,token)
   }*/
@@ -31,21 +27,11 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Layout></Layout>}>
-          <Route
-            path="/signin"
-            element={<SignIn/>}
-          />
-          <Route
-            path="/signup"
-            element={<SignUp />}
-          />
-
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route index element={<Home />} />
-          <Route element={<PrivateRoutes/>}>
-            <Route
-              path="/notebook"
-              element={<Notebooks />}
-            />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/notebook" element={<Notebooks />} />
             <Route
               path="/notebook/:book_id"
               element={<Pages />}
