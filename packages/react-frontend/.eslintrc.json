@@ -19,5 +19,5 @@
       "version": "detect"
     }
   },
-  "ignorePatterns": ["**/*.test.js"]
+  "ignorePatterns": ["**/*.test.js", "**/build/*"]
 }

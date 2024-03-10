@@ -3,6 +3,7 @@ import { Box, Button, InputGroup } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { addAuthHeader } from "../auth";
+import { AZURE_DOMAIN } from "../config";
 
 export default function ViewNote() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function ViewNote() {
 
   function fetchNote(note_id) {
     const promise = fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/notes?_id=${note_id}`,
+      `${AZURE_DOMAIN}/notes?_id=${note_id}`,
       {
         method: "GET",
         headers: addAuthHeader(
@@ -27,18 +28,15 @@ export default function ViewNote() {
   }
 
   function deleteNote(note_id) {
-    const promise = fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/notes/${note_id}`,
-      {
-        method: "DELETE",
-        headers: addAuthHeader(
-          {
-            "Content-Type": "application/json"
-          },
-          Cookies.get("token")
-        )
-      }
-    );
+    const promise = fetch(`${AZURE_DOMAIN}/notes/${note_id}`, {
+      method: "DELETE",
+      headers: addAuthHeader(
+        {
+          "Content-Type": "application/json"
+        },
+        Cookies.get("token")
+      )
+    });
 
     return promise;
   }
@@ -56,7 +54,7 @@ export default function ViewNote() {
 
   function handleEdit() {
     navigate(
-      `/notebook/${params.book_id}/add/${params.note_id}`
+      `/notebook/${params.book_id}/update/${params.note_id}`
     );
   }
 
@@ -98,10 +96,7 @@ export default function ViewNote() {
       </Box>
 
       <InputGroup ml={"5%"} mt={2}>
-        <Button
-          colorScheme="blue"
-          onClick={handleEdit}
-        >
+        <Button colorScheme="blue" onClick={handleEdit}>
           Edit Note
         </Button>
         <Button colorScheme="red" ml={3} onClick={handleDelete}>

@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import {
   Input,
   InputGroup,
@@ -7,42 +7,82 @@ import {
   Button
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
-import ReactQuill from "react-quill";
-import "../styles/quill.css";
-import Cookies from "js-cookie";
 import { addAuthHeader } from "../auth";
 import { AZURE_DOMAIN } from "../config";
+import Cookies from "js-cookie";
 
-export default function NoteEdit() {
+import ReactQuill from "react-quill";
+
+import "../styles/quill.css";
+
+export default function NoteUpdate() {
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
   let params = useParams();
 
-  function postNote(note) {
-    const promise = fetch(`${AZURE_DOMAIN}/notes`, {
-      method: "POST",
-      headers: addAuthHeader(
-        {
-          "Content-Type": "application/json"
-        },
-        Cookies.get("token")
-      ),
-      body: JSON.stringify(note)
-    });
+  if (params.note_id) {
+    useEffect(() => {
+      async function fetchNote() {
+        try {
+          const response = await fetch(
+            `${AZURE_DOMAIN}/notes/?_id=${params.note_id}`,
+            {
+              method: "GET",
+              headers: addAuthHeader(
+                {
+                  "Content-Type": "application/json"
+                },
+                Cookies.get("token")
+              )
+            }
+          );
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.error("Error fetching note:", error);
+        }
+      }
+
+      fetchNote()
+        .then((data) => {
+          setTitle(data.title);
+          setValue(data.contents);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, [params.note_id]); // Fetch note data when note_id changes
+  }
+
+  function updateNote(note) {
+    const promise = fetch(
+      `${AZURE_DOMAIN}/notes/${params.note_id}`,
+      {
+        method: "PATCH",
+        headers: addAuthHeader(
+          {
+            "Content-Type": "application/json"
+          },
+          Cookies.get("token")
+        ),
+        body: JSON.stringify(note)
+      }
+    );
 
     return promise;
   }
 
   const handleCancel = () =>
-    navigate(`/notebook/${params.book_id}`);
+    navigate(`/notebook/${params.book_id}/${params.note_id}`);
 
   function onSubmit() {
-    const newNote = {
-      notebook: params.book_id,
+    const updatedNote = {
       title: title,
-      contents: value
+      contents: value,
+      modified: new Date()
     };
-    postNote(newNote);
+    updateNote(updatedNote);
+    //navigate(`/notebook/${params.book_id}/${params.note_id}`)
     handleCancel();
   }
 
@@ -80,10 +120,10 @@ export default function NoteEdit() {
   return (
     <div>
       <center>
-        <h1>Create Note.</h1>
+        <h1>Edit Note.</h1>
       </center>
       <FormLabel
-        pt={3}
+        pt={10}
         pl={5}
         borderColor={"blue"}
         fontSize={"xl"}
@@ -96,6 +136,7 @@ export default function NoteEdit() {
           borderColor={"#949494"}
           variant="outline"
           w={"55%"}
+          value={title}
           onChange={(event) =>
             setTitle(event.currentTarget.value)
           }
@@ -106,14 +147,14 @@ export default function NoteEdit() {
           w="90%"
           ml={5}
           mb={10}
-          maxH={"25rem"}
+          maxH={350}
           border="1px solid #949494"
           borderRadius={6}
         >
           <ReactQuill
             style={{
-              height: "25rem",
-              maxHeight: "25rem",
+              height: "350px",
+              maxHeight: "450px",
               overflow: "auto"
             }}
             theme="snow"
@@ -128,7 +169,7 @@ export default function NoteEdit() {
       </InputGroup>
       <InputGroup>
         <Button ml={5} colorScheme="blue" onClick={onSubmit}>
-          Submit
+          Update
         </Button>
         <Button ml={5} variant={"ghost"} onClick={handleCancel}>
           Cancel
