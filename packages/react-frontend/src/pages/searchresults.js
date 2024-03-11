@@ -36,7 +36,7 @@ export default function SearchResults() {
   }
 
   function fetchNotes(user_id, notebook_id, key) {
-    if(notebook_id != undefined){
+    if(notebook_id != 'undefined'){
     const promise = fetch(
       `${AZURE_DOMAIN}/notes?notebook_id=${notebook_id}&&user_id=${user_id}&&key=${key}`,
       {

@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 export const SearchBar = (props) => {
   const navigate = useNavigate();
   const [searchVal, setSearchVal] = useState("");
+  
 
   function onSubmit() {
     if (props.book_id) {
@@ -19,7 +20,7 @@ export const SearchBar = (props) => {
         `/notebook/results/${searchVal}/${props.book_id}`
       );
     } else {
-      navigate(`/notebook/results/${searchVal}`);
+      navigate(`/notebook/results/${searchVal}/undefined`);
     }
   }
 
