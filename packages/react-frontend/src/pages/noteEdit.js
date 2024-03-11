@@ -102,7 +102,7 @@ export default function NoteEdit() {
         ></Input>
       </InputGroup>
       <InputGroup>
-      <Box
+        <Box
           w="90%"
           ml={5}
           mb={10}
