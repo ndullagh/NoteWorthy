@@ -52,6 +52,10 @@ function App() {
               path="/notebook/results/:key/:book_id?"
               element={<SearchResults />}
             />
+            <Route
+              path="/notebook/results/:key/:book_id/:note_id?"
+              element={<ViewNote />}
+            />
             <Route path="*" element={<NoPage />} />
           </Route>
         </Route>

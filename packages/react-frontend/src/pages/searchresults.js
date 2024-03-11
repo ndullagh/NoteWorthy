@@ -1,51 +1,87 @@
 import React, { useState, useEffect } from "react";
 import Notebook from "../components/notebook";
-import { SearchBar } from "../components/searchbar";
-import { Stack, Button } from "@chakra-ui/react";
-import { useNavigate, useParams } from "react-router-dom";
+//import { SearchBar } from "../components/searchbar";
+import { Stack } from "@chakra-ui/react";
+//import { NoteModal } from "../components/NoteModal";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
+import { addAuthHeader } from "../auth";
+import { AZURE_DOMAIN } from "../config";
+import { useParams } from "react-router-dom";
 
 export default function SearchResults() {
-  const navigate = useNavigate();
-  let params = useParams();
-  const handleOnClick = () => navigate(`add`);
   const [notes, setNotes] = useState([]);
+  const token = Cookies.get("token");
+  const [user, setUser] = useState(null);
+  let params = useParams();
 
-  function fetchNotes(notebook_id) {
-    const promise = fetch(
-      `http://localhost:8000/notes?notebook_id=${notebook_id}`
-    );
-    return promise;
+  if (!user) {
+    setUser(jwtDecode(token));
   }
 
-  function deleteNotebook(notebook_id) {
+  function fetchUser(username) {
     const promise = fetch(
-      `Http://localhost:8000/notebooks/${notebook_id}`,
+      `${AZURE_DOMAIN}/users?username=${username}`,
       {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json"
-        }
+        method: "GET",
+        headers: addAuthHeader(
+          {
+            "Content-Type": "application/json"
+          },
+          token
+        )
       }
     );
-
     return promise;
   }
 
-  function handleDelete() {
-    deleteNotebook(params.book_id)
-      .then((res) => {
-        if (res.status !== 204) throw new Error("Not Removed!");
-        navigate("/notebook");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  function fetchNotes(user_id, notebook_id, key) {
+    if(notebook_id != undefined){
+    const promise = fetch(
+      `${AZURE_DOMAIN}/notes?notebook_id=${notebook_id}&&user_id=${user_id}&&key=${key}`,
+      {
+        method: "GET",
+        headers: addAuthHeader(
+          {
+            "Content-Type": "application/json"
+          },
+          Cookies.get("token")
+        )
+      }
+    );
+    console.log(notebook_id);
+    return promise;
+    }
+    else{
+      const promise = fetch(
+        `${AZURE_DOMAIN}/notes?user_id=${user_id}&&key=${key}`,
+        {
+          method: "GET",
+          headers: addAuthHeader(
+            {
+              "Content-Type": "application/json"
+            },
+            Cookies.get("token")
+          )
+        }
+      );
+      console.log(notebook_id);
+      return promise;
+    }
   }
 
   useEffect(() => {
-    fetchNotes(params.book_id)
+    fetchUser(user.username) //fetch user from username
       .then((res) => res.json())
-      .then((json) => setNotes(json))
+      .then((json) => {
+        fetchNotes(json[0]._id, params.book_id, params.key) //fetch notebooks from user using user_id
+          .then((result) => result.json())
+          .then((jso) => {
+            if (jso)
+              //jso is  undefined here
+              setNotes(jso);
+          });
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -53,7 +89,7 @@ export default function SearchResults() {
 
   return (
     <div className="notePageBody">
-      <h1>Notebook Pages</h1>
+      <h1>Search Result</h1>
       {notes.map((note) => (
         <div key={note._id}>
           <Notebook
@@ -73,25 +109,7 @@ export default function SearchResults() {
         bottom={16}
         width={"100%"}
       >
-        <SearchBar />
-        <Button
-          variant="solid"
-          color={"white"}
-          colorScheme="blue"
-          onClick={handleOnClick}
-        >
-          Add Page
-        </Button>
-        <Button
-          pl={6}
-          pr={6}
-          variant="solid"
-          color={"white"}
-          colorScheme="red"
-          onClick={handleDelete}
-        >
-          Delete Notebook
-        </Button>
+        
       </Stack>
     </div>
   );
