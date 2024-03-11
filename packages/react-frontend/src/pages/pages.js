@@ -88,9 +88,7 @@ export default function Pages() {
         bottom={16}
         width={"100%"}
       >
-        <SearchBar 
-        book_id = {params.book_id}
-        />
+        <SearchBar book_id={params.book_id} />
         <Button
           variant="solid"
           color={"white"}

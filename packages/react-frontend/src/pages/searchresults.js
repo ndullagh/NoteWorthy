@@ -36,23 +36,22 @@ export default function SearchResults() {
   }
 
   function fetchNotes(user_id, notebook_id, key) {
-    if(notebook_id != 'undefined'){
-    const promise = fetch(
-      `${AZURE_DOMAIN}/notes?notebook_id=${notebook_id}&&user_id=${user_id}&&key=${key}`,
-      {
-        method: "GET",
-        headers: addAuthHeader(
-          {
-            "Content-Type": "application/json"
-          },
-          Cookies.get("token")
-        )
-      }
-    );
-    console.log(notebook_id);
-    return promise;
-    }
-    else{
+    if (notebook_id != "undefined") {
+      const promise = fetch(
+        `${AZURE_DOMAIN}/notes?notebook_id=${notebook_id}&&user_id=${user_id}&&key=${key}`,
+        {
+          method: "GET",
+          headers: addAuthHeader(
+            {
+              "Content-Type": "application/json"
+            },
+            Cookies.get("token")
+          )
+        }
+      );
+      console.log(notebook_id);
+      return promise;
+    } else {
       const promise = fetch(
         `${AZURE_DOMAIN}/notes?user_id=${user_id}&&key=${key}`,
         {
@@ -89,7 +88,7 @@ export default function SearchResults() {
 
   return (
     <div className="notePageBody">
-      <h1>Search Result</h1>
+      <h1>Search Results</h1>
       {notes.map((note) => (
         <div key={note._id}>
           <Notebook
@@ -108,9 +107,7 @@ export default function SearchResults() {
         pos="fixed"
         bottom={16}
         width={"100%"}
-      >
-        
-      </Stack>
+      ></Stack>
     </div>
   );
 }

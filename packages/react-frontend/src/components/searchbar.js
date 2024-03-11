@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 export const SearchBar = (props) => {
   const navigate = useNavigate();
   const [searchVal, setSearchVal] = useState("");
-  
 
   function onSubmit() {
     if (props.book_id) {
