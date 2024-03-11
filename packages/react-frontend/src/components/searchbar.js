@@ -19,7 +19,7 @@ export const SearchBar = (props) => {
         `/notebook/results/${searchVal}/${props.book_id}`
       );
     } else {
-      navigate(`/notebook/results/${searchVal}`);
+      navigate(`/notebook/results/${searchVal}/undefined`);
     }
   }
 

@@ -123,7 +123,7 @@ export default function NoteUpdate() {
         <h1>Edit Note.</h1>
       </center>
       <FormLabel
-        pt={10}
+        pt={3}
         pl={5}
         borderColor={"blue"}
         fontSize={"xl"}
@@ -160,7 +160,6 @@ export default function NoteUpdate() {
             theme="snow"
             value={value}
             onChange={setValue}
-            defaultValue={"<h1>dijbisdbvih</h1>"}
             modules={modules}
             formats={formats}
           />

@@ -102,24 +102,23 @@ export default function NoteEdit() {
         ></Input>
       </InputGroup>
       <InputGroup>
-        <Box
+      <Box
           w="90%"
           ml={5}
           mb={10}
-          maxH={"25rem"}
+          maxH={350}
           border="1px solid #949494"
           borderRadius={6}
         >
           <ReactQuill
             style={{
-              height: "25rem",
-              maxHeight: "25rem",
+              height: "350px",
+              maxHeight: "450px",
               overflow: "auto"
             }}
             theme="snow"
             value={value}
             onChange={setValue}
-            defaultValue={"<h1>dijbisdbvih</h1>"}
             modules={modules}
             formats={formats}
           />
