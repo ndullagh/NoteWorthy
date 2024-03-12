@@ -10,10 +10,13 @@ import {
   FormLabel,
   InputRightElement,
   VStack,
-  Heading
+  Heading,
+  FormErrorMessage
 } from "@chakra-ui/react";
 import { signupUser } from "../auth.js";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -22,26 +25,78 @@ export default function SignUp() {
 
   const handleShowClick = () => setShowPassword(!showPassword);
 
-  const [FormData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: ""
-  });
+  // const [FormData, setFormData] = useState({
+  //   username: "",
+  //   email: "",
+  //   password: ""
+  // });
 
-  function handleSignup(formData) {
-    signupUser(formData).then(
-      setTimeout(() => {
-        navigate("/");
-      }, 1000)
-    );
+  // function handleSignup(formData) {
+  //   signupUser(formData).then(
+  //     setTimeout(() => {
+  //       navigate("/");
+  //     }, 1000)
+  //   );
+  // }
+
+  function handleSignup() {
+    signupUser(formik.values)
+      .then((response) => {
+        // Successful sign-up - handle the response or navigate
+        console.log("Login Success:", response);
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      })
+      .catch((error) => {
+        console.error("Sign-up Error:", error);
+        formik.setStatus("error");
+
+        if (error.response && error.response.status === 409) {
+          formik.setErrors({
+            username: "Username or email already exists",
+            email: "Username or email already exists"
+          });
+        } else {
+          formik.setErrors({
+            username: "Username or email already exists",
+            email: "Username or email already exists"
+          });
+        }
+      });
   }
 
-  const onChangeHandler = (event) => {
-    setFormData(() => ({
-      ...FormData,
-      [event.target.name]: event.target.value
-    }));
-  };
+  // const onChangeHandler = (event) => {
+  //   setFormData(() => ({
+  //     ...FormData,
+  //     [event.target.name]: event.target.value
+  //   }));
+  // };
+
+  const formik = useFormik({
+    validationSchema: Yup.object({
+      username: Yup.string()
+        .required("Username required")
+        .min(
+          6,
+          "Username is too short. Make sure it's at least 6 characters."
+        ),
+      email: Yup.string()
+        .email("Invalid email")
+        .required("Email required"),
+      password: Yup.string()
+        .required("Password required")
+        .min(
+          8,
+          "Password is too short. Make sure it's at least 8 characters."
+        )
+    }),
+    initialValues: {
+      username: "",
+      email: "",
+      password: ""
+    }
+  });
 
   return (
     <Flex
@@ -58,7 +113,7 @@ export default function SignUp() {
         justifyContent="center"
         alignItems="center"
       >
-        <form>
+        <form onSubmit={formik.handleSubmit}>
           <Stack
             spacing={4}
             w={["full", "md"]}
@@ -79,26 +134,50 @@ export default function SignUp() {
                 Sign up for NoteWorthy
               </Heading>
             </VStack>
-            <FormControl>
+            <FormControl
+              isInvalid={
+                formik.errors.username &&
+                formik.touched.username
+              }
+            >
               <FormLabel>Username</FormLabel>
               <Input
                 rounded="none"
                 variant="filled"
                 name="username"
-                onChange={onChangeHandler}
+                onChange={formik.handleChange}
+                placeholder="username"
+                onBlur={formik.handleBlur}
               />
+              <FormErrorMessage>
+                {formik.errors.username}
+              </FormErrorMessage>
             </FormControl>
-            <FormControl>
+            <FormControl
+              isInvalid={
+                formik.errors.email && formik.touched.email
+              }
+            >
               <FormLabel>E-mail Address</FormLabel>
               <Input
                 rounded="none"
                 variant="filled"
                 name="email"
-                onChange={onChangeHandler}
+                onChange={formik.handleChange}
+                placeholder="johndoe@gmail.com"
+                onBlur={formik.handleBlur}
               />
+              <FormErrorMessage>
+                {formik.errors.email}
+              </FormErrorMessage>
             </FormControl>
 
-            <FormControl>
+            <FormControl
+              isInvalid={
+                formik.errors.password &&
+                formik.touched.password
+              }
+            >
               <FormLabel>Password</FormLabel>
               <InputGroup>
                 <Input
@@ -106,7 +185,9 @@ export default function SignUp() {
                   variant="filled"
                   type={showPassword ? "text" : "password"}
                   name="password"
-                  onChange={onChangeHandler}
+                  onChange={formik.handleChange}
+                  placeholder="password"
+                  onBlur={formik.handleBlur}
                 />
                 <InputRightElement width="4.5rem">
                   <Button
@@ -118,6 +199,9 @@ export default function SignUp() {
                   </Button>
                 </InputRightElement>
               </InputGroup>
+              <FormErrorMessage>
+                {formik.errors.password}
+              </FormErrorMessage>
             </FormControl>
           </Stack>
         </form>
@@ -128,7 +212,7 @@ export default function SignUp() {
           variant="solid"
           colorScheme="blue"
         >
-          <Link to="#" onClick={() => handleSignup(FormData)}>
+          <Link to="#" onClick={() => handleSignup()}>
             Sign up
           </Link>
         </Button>
