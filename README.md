@@ -12,3 +12,6 @@ Dev Environment Setup:
 - for local testing, include all environment variables in .env files in front and backend
 
 [UML Diagram](docs/UML.md)
+
+[Coverage Report](docs/Coverage.md)
+-db line 14 should be uncovered, it's an error that shouldn't ever run.
