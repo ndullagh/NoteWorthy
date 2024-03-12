@@ -1,5 +1,5 @@
 /* MAKE SURE THIS IS NOT COMMENTED OUT BEFORE SUBMITTING A PR  */
-// export const AZURE_DOMAIN =
+export const AZURE_DOMAIN =
   "https://noteworthy-2.azurewebsites.net";
 
 /* UNCOMMENT THIS WHEN TESTING LOCALLY*/
