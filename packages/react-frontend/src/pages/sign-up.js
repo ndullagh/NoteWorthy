@@ -25,20 +25,6 @@ export default function SignUp() {
 
   const handleShowClick = () => setShowPassword(!showPassword);
 
-  // const [FormData, setFormData] = useState({
-  //   username: "",
-  //   email: "",
-  //   password: ""
-  // });
-
-  // function handleSignup(formData) {
-  //   signupUser(formData).then(
-  //     setTimeout(() => {
-  //       navigate("/");
-  //     }, 1000)
-  //   );
-  // }
-
   function handleSignup() {
     signupUser(formik.values)
       .then((response) => {
@@ -65,13 +51,6 @@ export default function SignUp() {
         }
       });
   }
-
-  // const onChangeHandler = (event) => {
-  //   setFormData(() => ({
-  //     ...FormData,
-  //     [event.target.name]: event.target.value
-  //   }));
-  // };
 
   const formik = useFormik({
     validationSchema: Yup.object({
