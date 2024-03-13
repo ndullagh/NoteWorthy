@@ -1,6 +1,6 @@
 // pages/about.js
 
-import React, { useState } from "react";
+import React from "react";
 import { Box } from "@chakra-ui/layout";
 import { Link } from "react-router-dom";
 import {
@@ -12,33 +12,77 @@ import {
   VStack,
   Heading,
   HStack,
-  Text
+  Text,
+  FormErrorMessage
 } from "@chakra-ui/react";
 import { loginUser } from "../auth.js";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 export default function SignIn() {
   const navigate = useNavigate();
 
-  const [FormData, setFormData] = useState({
-    username: "",
-    password: ""
-  });
+  // const [FormData, setFormData] = useState({
+  //   username: "",
+  //   password: ""
+  // });
+
+  // function handleLogin() {
+  //   loginUser(FormData).then(
+  //     setTimeout(() => {
+  //       navigate("/");
+  //     }, 1000)
+  //   );
+  // }
 
   function handleLogin() {
-    loginUser(FormData).then(
-      setTimeout(() => {
-        navigate("/");
-      }, 1000)
-    );
+    const { username, password } = formik.values;
+
+    loginUser({ username, password })
+      .then((response) => {
+        // Successful login - handle the response or navigate
+        console.log("Login Success:", response);
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      })
+      .catch((error) => {
+        // Login failed - handle the error
+        console.error("Login Error:", error);
+        formik.setStatus("error");
+
+        if (error.message.includes("Login Error")) {
+          formik.setErrors({
+            username: "Invalid username or password",
+            password: "Invalid username or password"
+          });
+        } else {
+          formik.setErrors({
+            username: "Invalid username or password",
+            password: "Invalid username or password"
+          });
+        }
+      });
   }
 
-  const onChangeHandler = (event) => {
-    setFormData(() => ({
-      ...FormData,
-      [event.target.name]: event.target.value
-    }));
-  };
+  // const onChangeHandler = (event) => {
+  //   setFormData(() => ({
+  //     ...FormData,
+  //     [event.target.name]: event.target.value
+  //   }));
+  // };
+
+  const formik = useFormik({
+    validationSchema: Yup.object({
+      username: Yup.string().required("Username required"),
+      password: Yup.string().required("Password required")
+    }),
+    initialValues: {
+      username: "",
+      password: ""
+    }
+  });
 
   return (
     <Box
@@ -61,25 +105,53 @@ export default function SignIn() {
           </Heading>
         </VStack>
 
-        <FormControl>
+        <FormControl
+          isInvalid={
+            formik.errors.username && formik.touched.username
+          }
+        >
           <FormLabel>Username</FormLabel>
           <Input
             rounded="none"
             variant="filled"
             name="username"
-            onChange={onChangeHandler}
+            onChange={formik.handleChange}
+            placeholder="username"
+            onBlur={formik.handleBlur}
           />
+          <FormErrorMessage>
+            {formik.errors.username ||
+            formik.status === "error" ? (
+              <Text color="red.500">
+                {formik.errors.username || "Login failed"}
+              </Text>
+            ) : null}
+          </FormErrorMessage>
         </FormControl>
 
-        <FormControl>
+        <FormControl
+          isInvalid={
+            formik.errors.password && formik.touched.password
+          }
+        >
           <FormLabel>Password</FormLabel>
           <Input
             rounded="none"
             variant="filled"
             name="password"
             type="password"
-            onChange={onChangeHandler}
+            onChange={formik.handleChange}
+            placeholder="password"
+            onBlur={formik.handleBlur}
           />
+          <FormErrorMessage>
+            {formik.errors.password ||
+            formik.status === "error" ? (
+              <Text color="red.500">
+                {formik.errors.password || "Login failed"}
+              </Text>
+            ) : null}
+          </FormErrorMessage>
         </FormControl>
 
         <HStack w="full" justify="space-between">
