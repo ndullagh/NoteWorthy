@@ -23,19 +23,6 @@ import * as Yup from "yup";
 export default function SignIn() {
   const navigate = useNavigate();
 
-  // const [FormData, setFormData] = useState({
-  //   username: "",
-  //   password: ""
-  // });
-
-  // function handleLogin() {
-  //   loginUser(FormData).then(
-  //     setTimeout(() => {
-  //       navigate("/");
-  //     }, 1000)
-  //   );
-  // }
-
   function handleLogin() {
     const { username, password } = formik.values;
 
@@ -65,13 +52,6 @@ export default function SignIn() {
         }
       });
   }
-
-  // const onChangeHandler = (event) => {
-  //   setFormData(() => ({
-  //     ...FormData,
-  //     [event.target.name]: event.target.value
-  //   }));
-  // };
 
   const formik = useFormik({
     validationSchema: Yup.object({
