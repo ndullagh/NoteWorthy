@@ -5,6 +5,7 @@ Website Link: https://white-tree-0076a491e.5.azurestaticapps.net
 UI Prototype [2/13/24 - date last updated]: https://www.figma.com/file/5GYM1qprgyysiHXg2SnaT6/NoteWorthy-Prototype?type=design&node-id=0-1&mode=design
 
 Dev Environment Setup:
+
 - Install Node.js, NPM, and Mongosh. Create a Mongo Atlas account.
 - Clone repo
 - run npm install on both front and backend

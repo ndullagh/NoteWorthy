@@ -1,7 +1,6 @@
 import Cookies from "js-cookie";
 import { AZURE_DOMAIN } from "./config";
 
-
 export function loginUser(creds) {
   return fetch(`${AZURE_DOMAIN}/login`, {
     method: "POST",
